@@ -1,0 +1,9 @@
+void test_set1();
+void test_set2();
+void test_iota();
+void test_for_each();
+void test_binary_search();
+void test_map();
+void test_find();
+void test_search();
+void test_return();

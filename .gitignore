@@ -1,0 +1,8 @@
+.ccls-cache/
+.prettierignore
+.replit
+*.nix
+main
+main-debug
+*.o
+
