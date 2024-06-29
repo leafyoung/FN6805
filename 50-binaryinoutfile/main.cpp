@@ -1,3 +1,5 @@
+// https://replit.com/@YeKunlun/50-binaryinoutfile?v=1
+
 #include <algorithm>
 #include <fstream>
 #include <iostream>
