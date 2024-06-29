@@ -1,3 +1,5 @@
+// https://replit.com/@YeKunlun/70-3nand1?v=1
+
 #include <iostream>
 #include <vector>
 using std::vector;
