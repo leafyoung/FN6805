@@ -50,7 +50,7 @@ void test_read_mix() {
 void test_mix_txt() {
   cout << "test_mix_txt()"
        << "\n";
-  ofstream out("out_test.txt");
+  ofstream out("50-binaryinoutfile/out_test.txt");
   out << "Hello World!"
       << "\n";
   for (int i = 0; i < 10; i++) {
@@ -58,7 +58,7 @@ void test_mix_txt() {
   }
   out.close();
 
-  ifstream in_file("out_test.txt");
+  ifstream in_file("50-binaryinoutfile/out_test.txt");
   string file_string;
   getline(in_file, file_string);
   vector<int> file_int(10);
@@ -84,7 +84,7 @@ void test_binary() {
        << "\n";
   cout << boolalpha;
   {
-    ofstream wf("out_test.dat", ios::out | ios::binary);
+    ofstream wf("50-binaryinoutfile/out_test.dat", ios::out | ios::binary);
 
     auto str = "Hello World!"s;
     size_t size = str.size();
@@ -115,7 +115,7 @@ void test_binary() {
   }
 
   {
-    ifstream rf("out_test.dat", ios::binary);
+    ifstream rf("50-binaryinoutfile/out_test.dat", ios::binary);
     size_t size;
 
     rf.read(reinterpret_cast<char *>(&size), sizeof(size_t));
