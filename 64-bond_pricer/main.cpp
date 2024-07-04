@@ -79,8 +79,7 @@ void test_bond_price_ytm() {
     cout << "Test PV" << "\n";
     auto [pv, mac_duration, mod_duration, convexity] =
         test_print_bond_price_ytm({100, 0.06, 30, "A", 0.06});
-    isclose(pv, 100) ? (cout << "Test PV: PASS" << "\n"
-                             << "----" << "\n")
+    isclose(pv, 100) ? ([]() { cout << "Test PV: PASS\n----\n"; }())
                      : throw logic_error("Sample bond test error");
   }
 
@@ -91,8 +90,7 @@ void test_bond_price_ytm() {
         test_print_bond_price_ytm({1000, 0.08, 6, "S", 0.10});
     (isclose(pv, 911.3674836) && isclose(mac_duration, 4.817782802) &&
      isclose(mod_duration, 4.588364574) && isclose(convexity, 26.26239568))
-        ? (cout << "Test convexity: PASS" << "\n"
-                << "----" << "\n")
+        ? ([]() { cout << "Test convexity: PASS\n----\n"; }())
         : throw logic_error("Sample bond test failure");
   }
 
@@ -102,8 +100,7 @@ void test_bond_price_ytm() {
     auto [pv, mac_duration, mod_duration, convexity] =
         test_print_bond_price_ytm({1000, 0.05, 5, "A", 0.065});
     isclose(mac_duration, 4.528943201)
-        ? (cout << "Test mac_duration: PASS" << "\n"
-                << "----" << "\n")
+        ? ([]() { cout << "Test mac_duration: PASS\n----\n"; }())
         : throw logic_error("Sample bond test failure");
   }
 
@@ -132,8 +129,9 @@ void test_bond_price_ytm() {
          << "%" << "\n";
     // less than 1%.
     isclose(approx_pv / pv, (pv1 / pv - 1), -1)
-        ? (cout << "Test for modified duration and convexity: PASS" << "\n"
-                << "----" << "\n")
+        ? ([]() {
+            cout << "Test for modified duration and convexity: PASS\n----\n";
+          }())
         : throw logic_error("Sample bond duration/convexity failure");
     cout << defaultfloat;
   }
@@ -173,7 +171,7 @@ void test_bond_price_ytm() {
     cout << "diff_pv_up_frb: " << (pv_up_frb - pv) << "\n";
 
     (pv_up_mbs < pv_up_frb) && (pv_down_mbs < pv_down_frb)
-        ? (cout << "MBS has a negative convexity." << "\n")
+        ? ([]() { cout << "MBS has a negative convexity." << "\n"; }())
         : throw logic_error("Failed test for MBS convexity.");
   }
 
