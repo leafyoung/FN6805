@@ -1,3 +1,5 @@
+// https://replit.com/@YeKunlun/40-fibrecursion?v=1
+
 #include <chrono>
 #include <functional>
 #include <iostream>
@@ -52,8 +54,7 @@ void test_fib(function<int(int)> fib_fun, int n) {
   auto i1 = fib_fun(n);
   auto end = high_resolution_clock::now();
   auto d1 = duration_cast<nanoseconds>(end - start).count();
-  cout << i1 << ":(" << d1 << ") ns"
-       << "\n";
+  cout << i1 << ":(" << d1 << ") ns" << "\n";
 }
 
 int main() {

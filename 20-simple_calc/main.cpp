@@ -1,3 +1,5 @@
+// https://replit.com/@YeKunlun/20-simplecalc?v=1
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -14,8 +16,7 @@ int main() {
   cin >> x;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x"
-         << "\n";
+    cout << "Unknown input for x" << "\n";
     return 0;
   }
 
@@ -23,8 +24,7 @@ int main() {
   cin >> y;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x"
-         << "\n";
+    cout << "Unknown input for x" << "\n";
     return 0;
   }
 

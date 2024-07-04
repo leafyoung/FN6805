@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/10-hello-world#10-hello-world/main.cpp
+// https://replit.com/@YeKunlun/10-hello-world?v=1
 
 #include <iostream> // <1>
 #include <string>

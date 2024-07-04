@@ -1,3 +1,5 @@
+// https://replit.com/@YeKunlun/62-randdist?v=1
+
 #include <algorithm>
 #include <fstream>
 #include <functional>
