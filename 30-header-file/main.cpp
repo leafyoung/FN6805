@@ -5,4 +5,4 @@ using namespace std;
 #include "b_func.h"
 #include "c_func.cpp"
 
-int main() { cout << a_func() + b_func() << endl; }
+int main() { cout << a_func() + b_func() << "\n"; }
