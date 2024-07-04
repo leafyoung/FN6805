@@ -18,18 +18,21 @@ int main() {
   normal_distribution<> stdNorm(0.0, 1.0);                // Default is double
   exponential_distribution<> expDist(1.0);
 
-  cout << uniInt.max() << endl;
-  cout << uniInt.min() << endl;
+  cout << uniInt.max() << "\n";
+  cout << uniInt.min() << "\n";
 
-  cout << "Single Examples:\n" << endl;
-  cout << "From Uniform int Distribution:     " << uniInt(gen) << endl;
-  cout << "From Uniform Distribution:     " << uniDist(gen) << endl;
-  cout << "From Normal Distribution:      " << stdNorm(gen) << endl;
-  cout << "From Exponential Distribution: " << expDist(gen) << endl;
+  cout << "Single Examples:\n"
+       << "\n";
+  cout << "From Uniform int Distribution:     " << uniInt(gen) << "\n";
+  cout << "From Uniform Distribution:     " << uniDist(gen) << "\n";
+  cout << "From Normal Distribution:      " << stdNorm(gen) << "\n";
+  cout << "From Exponential Distribution: " << expDist(gen) << "\n";
 
-  cout << "\n" << endl;
+  cout << "\n"
+       << "\n";
 
-  cout << "Calculating Basic Statistics\n" << endl;
+  cout << "Calculating Basic Statistics\n"
+       << "\n";
   vector<double> Uni(1000, 0.0), Norm(1000, 0.0), Expo(1000, 0.0);
   double uni = 0, norm = 0, expo = 0;
   for (int i = 0; i < 1000; i++) {
@@ -47,9 +50,9 @@ int main() {
   norm /= 1000.0;
   expo /= 1000.0;
 
-  cout << "Sample Mean Uniform     : " << uni << endl;
-  cout << "Sample Mean Normal      : " << norm << endl;
-  cout << "Sample Mean Exponential : " << expo << endl;
+  cout << "Sample Mean Uniform     : " << uni << "\n";
+  cout << "Sample Mean Normal      : " << norm << "\n";
+  cout << "Sample Mean Exponential : " << expo << "\n";
 
   double Vu = 0, Vn = 0, Ve = 0;
 
@@ -63,9 +66,9 @@ int main() {
   Vn /= 1000.0;
   Ve /= 1000.0;
 
-  cout << "Sample Variance Uniform     : " << Vu << endl;
-  cout << "Sample Variance Normal      : " << Vn << endl;
-  cout << "Sample Variance Exponential : " << Ve << endl;
+  cout << "Sample Variance Uniform     : " << Vu << "\n";
+  cout << "Sample Variance Normal      : " << Vn << "\n";
+  cout << "Sample Variance Exponential : " << Ve << "\n";
 
   return 0;
 }
