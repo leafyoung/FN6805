@@ -9,14 +9,14 @@ using namespace std::chrono;
 void test_value_copy(vector<int> &x) { x.size(); }
 
 int main() {
-  cout << "start" << endl;
+  cout << "start" << "\n";
   vector<int> xx(1'000'000ull, 1);
   auto start = high_resolution_clock::now();
   for (int i = 0; i < 1'000ull; ++i) {
     test_value_copy(xx);
   }
   auto end = high_resolution_clock::now();
-  cout << "end" << endl;
+  cout << "end" << "\n";
   double time_taken = duration_cast<nanoseconds>(end - start).count() /
                       static_cast<double>(1e9);
 
