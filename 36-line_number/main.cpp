@@ -58,12 +58,12 @@ void print_vector(vector<int> vs) {
   for (int i = 0; i < vs.size(); ++i) {
     cout << vs[i] << ", ";
   }
-  cout << endl;
+  cout << "\n";
 }
 
 void test_line_number(string msg,
                       function<void(int, vector<int> &)> line_number_gen) {
-  cout << msg << endl;
+  cout << msg << "\n";
   auto x3 = vector<int>(30, 0);
   auto test_cases = vector<int>{1, 10, 20, 30, 34};
   for (int i = 0; i < test_cases.size(); ++i) {
