@@ -72,11 +72,11 @@ auto test_print_bond_price_ytm(FixedRateBond frb) {
 }
 
 void test_bond_price_ytm() {
-  cout << "test_bond_price_ytm: " << "\n";
+  cout << "test_bond_price_ytm: \n";
   cout << setprecision(10);
 
   {
-    cout << "Test PV" << "\n";
+    cout << "Test PV\n";
     auto [pv, mac_duration, mod_duration, convexity] =
         test_print_bond_price_ytm({100, 0.06, 30, "A", 0.06});
     isclose(pv, 100) ? ([]() { cout << "Test PV: PASS\n----\n"; }())
@@ -85,7 +85,7 @@ void test_bond_price_ytm() {
 
   {
     // https://www.wallstreetmojo.com/convexity-of-a-bond-formula-duration/
-    cout << "Test convexity" << "\n";
+    cout << "Test convexity\n";
     auto [pv, mac_duration, mod_duration, convexity] =
         test_print_bond_price_ytm({1000, 0.08, 6, "S", 0.10});
     (isclose(pv, 911.3674836) && isclose(mac_duration, 4.817782802) &&
@@ -96,7 +96,7 @@ void test_bond_price_ytm() {
 
   {
     //  https://en.wikipedia.org/wiki/Bond_duration#Example_2
-    cout << "Test mac_duration" << "\n";
+    cout << "Test mac_duration\n";
     auto [pv, mac_duration, mod_duration, convexity] =
         test_print_bond_price_ytm({1000, 0.05, 5, "A", 0.065});
     isclose(mac_duration, 4.528943201)
@@ -105,7 +105,7 @@ void test_bond_price_ytm() {
   }
 
   {
-    cout << "Test for modified duration and convexity" << "\n";
+    cout << "Test for modified duration and convexity\n";
     FixedRateBond frb{100, 0.02, 5, "A", 0.02};
     auto [pv, mac_duration, mod_duration, convexity] =
         test_print_bond_price_ytm(frb);
@@ -126,7 +126,7 @@ void test_bond_price_ytm() {
     cout << "approx_mod: " << approx_mod
          << ", approx_mod_convexity:" << approx_mod_convexity
          << ", approx_pv: " << approx_pv << ", diff: " << diff_percent * 100
-         << "%" << "\n";
+         << "%\n";
     // less than 1%.
     isclose(approx_pv / pv, (pv1 / pv - 1), -1)
         ? ([]() {
@@ -136,7 +136,7 @@ void test_bond_price_ytm() {
     cout << defaultfloat;
   }
   {
-    cout << "test for MBS simulated" << "\n";
+    cout << "test for MBS simulated\n";
     FixedRateBond frb{100, 0.02, 5, "A", 0.02};
     auto pv = get<0>(test_print_bond_price_ytm(frb));
 
@@ -171,11 +171,11 @@ void test_bond_price_ytm() {
     cout << "diff_pv_up_frb: " << (pv_up_frb - pv) << "\n";
 
     (pv_up_mbs < pv_up_frb) && (pv_down_mbs < pv_down_frb)
-        ? ([]() { cout << "MBS has a negative convexity." << "\n"; }())
+        ? ([]() { cout << "MBS has a negative convexity.\n"; }())
         : throw logic_error("Failed test for MBS convexity.");
   }
 
-  cout << "====" << "\n";
+  cout << "====\n";
 }
 
 int main() { test_bond_price_ytm(); }
