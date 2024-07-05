@@ -1,0 +1,25 @@
+I created a demo to show if we do not split the implementation of the class/function into a cpp file.
+
+https://replit.com/@YeKunlun/multipleinclusion?v=1
+
+## Files
+
+- add.h contains the declaration and definition of add() function
+- use_add.h/use_add.cpp contains a use of add() in add_n() function, so it includes add.h.
+- main.cpp uses both add() function and add_n() function, so it includes both add.h and use_add.h.
+
+
+## Explaination
+
+With the implementation of add() in add.h file, we have a linking error of multiple defintions (definition = implementation here) of add() function. That's because
+
+- during compilation of main.cpp, it includes add.h and the definition of add() function.
+- during compilation of use_add.cpp, it includes add.h and the definition of add() function.
+- during linking, there are two definitions of add() for the same declaration. Linker is confused.
+
+
+## Practice
+
+The multiple-definition linking error would occur when we need to use the class/function in multiple files.
+
+The practice is to move the implementation out of add.h to a new file. To make the code in the demo project work, you could delete the implementation of add() function in add.h and rename add.txt to add.cpp. The code shall pass the compiler and work pleasantly.
