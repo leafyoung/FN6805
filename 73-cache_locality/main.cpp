@@ -12,8 +12,10 @@ std::seed_seq seq{12123, 921312};
 std::mt19937 gen(seq);
 std::uniform_real_distribution<> dist(0.0, 10000.0);
 
+using ELEM_TYPE = double;
+
 template <size_t N> auto gen_arr() {
-  array<array<double, N>, N> A;
+  array<array<ELEM_TYPE, N>, N> A;
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       A[i][j] = dist(gen);
@@ -23,8 +25,8 @@ template <size_t N> auto gen_arr() {
 }
 
 template <size_t N>
-void mult_a_b(array<array<double, N>, N> A, array<array<double, N>, N> B,
-              array<array<double, N>, N> C) {
+void mult_a_b(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
+              array<array<ELEM_TYPE, N>, N> C) {
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
       int sum = 0;
@@ -36,8 +38,8 @@ void mult_a_b(array<array<double, N>, N> A, array<array<double, N>, N> B,
 }
 
 template <size_t N>
-void mult_a_bt(array<array<double, N>, N> A, array<array<double, N>, N> B,
-               array<array<double, N>, N> C) {
+void mult_a_bt(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
+               array<array<ELEM_TYPE, N>, N> C) {
 
   for (int i = 0; i < N; i++) {
     for (int j = 0; j < N; j++) {
@@ -50,7 +52,37 @@ void mult_a_bt(array<array<double, N>, N> A, array<array<double, N>, N> B,
 }
 
 const size_t MATRIX_SIZE = 4096 * 2;
-const auto ITERATION = 10'000'000'000llu;
+const auto ITERATION = 100'000llu;
+
+using ELEM_TYPE2 = int;
+
+void sum_cached() {
+  array<ELEM_TYPE2, MATRIX_SIZE * MATRIX_SIZE> arr{0};
+  ELEM_TYPE2 x = 0;
+  for (auto &v : arr) {
+    v = x++;
+  }
+  ELEM_TYPE2 sum = 0;
+  for (int i = 0; i < MATRIX_SIZE; i++) {
+    for (int j = 0; j < MATRIX_SIZE; j++) {
+      sum += arr[i * MATRIX_SIZE + j];
+    }
+  }
+}
+
+void sum_uncached() {
+  array<ELEM_TYPE2, MATRIX_SIZE * MATRIX_SIZE> arr{0};
+  ELEM_TYPE2 x = 0;
+  for (auto &v : arr) {
+    v = x++;
+  }
+  ELEM_TYPE2 sum = 0;
+  for (int i = 0; i < MATRIX_SIZE; i++) {
+    for (int j = 0; j < MATRIX_SIZE; j++) {
+      sum += arr[i + MATRIX_SIZE * j];
+    }
+  }
+}
 
 int main() { // Test with 1024, 512
   auto A{gen_arr<MATRIX_SIZE>()};
@@ -66,7 +98,7 @@ int main() { // Test with 1024, 512
       for (unsigned long long i = 0; i < ITERATION; ++i)
         mult_a_b<MATRIX_SIZE>(A, B, C);
       auto stop = high_resolution_clock::now();
-      auto duration = duration_cast<microseconds>(stop - start);
+      auto duration = duration_cast<nanoseconds>(stop - start);
       cout << average(duration) << "\n";
     }
     {
@@ -74,8 +106,22 @@ int main() { // Test with 1024, 512
       for (unsigned long long i = 0; i < ITERATION; ++i)
         mult_a_bt<MATRIX_SIZE>(A, B, C);
       auto stop = high_resolution_clock::now();
-      auto duration = duration_cast<microseconds>(stop - start);
-      cout << average(duration) << " << (faster) \n";
+      auto duration = duration_cast<nanoseconds>(stop - start);
+      cout << average(duration) << " << (faster)\n";
     }
+  }
+  {
+    auto start = high_resolution_clock::now();
+    sum_cached();
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(stop - start);
+    cout << average(duration) << " (faster)\n";
+  }
+  {
+    auto start = high_resolution_clock::now();
+    sum_uncached();
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<nanoseconds>(stop - start);
+    cout << average(duration) << "\n";
   }
 }
