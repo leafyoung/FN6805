@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/10-hello-world?v=1
+// https://replit.com/@YeKunlun/10-hello-world
 
 #include <iostream> // <1>
 #include <string>
