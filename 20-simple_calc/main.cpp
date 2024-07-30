@@ -6,8 +6,7 @@
 using namespace std;
 
 int main() {
-  double x{};
-  double y{};
+  double x{}, y{x};
   char op{};
 
   string dummy;
@@ -16,7 +15,8 @@ int main() {
   cin >> x;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x" << "\n";
+    cout << "Unknown input for x"
+         << "\n";
     return 0;
   }
 
@@ -24,7 +24,8 @@ int main() {
   cin >> y;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x" << "\n";
+    cout << "Unknown input for x"
+         << "\n";
     return 0;
   }
 
