@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-  double x{}, y{x};
+  double x{}, y{};
   char op{};
 
   string dummy;
