@@ -61,11 +61,15 @@ int main() {
   cout << &pc << "\n";
 
   {
+    // move is copy for int
     int x = 3;
     int y = move(x);
     cout << x << ", " << y << "\n";
-    x += 1;
-    y -= 1;
-    cout << x << ", " << y << "\n";
+  }
+  {
+    // move is moving for vector
+    vector<int> x1{3, 3};
+    auto x2 = move(x1);
+    cout << x2.size() << ", " << x1.size() << "\n";
   }
 }
