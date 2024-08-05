@@ -9,80 +9,13 @@
 #include <vector>
 using namespace std;
 
-void test_read_txt() {
-  cout << "test_read_txt(): input.txt"
-       << "\n";
-  ifstream in("50-binaryinoutfile/input.txt");
-  vector<double> arr;
-  double tmp;
-  while (!in.eof()) {
-    in >> tmp;
-    arr.push_back(tmp);
-  }
-  in.close();
-  for (auto v : arr) {
-    cout << v << "\n";
-  }
-} // namespace std::filesystemlpathvoidtest_read_txt()
-
-void test_read_mix() {
-  cout << "test_read_mix(): input.txt"
-       << "\n";
-  ifstream in("50-binaryinoutfile/input_mix.txt");
-  vector<double> arr;
-  double tmp;
-  double sum{0};
-  while (!in.eof()) {
-    in >> tmp;
-    if (in.fail()) {
-      break;
-    }
-    arr.push_back(tmp);
-    sum += tmp;
-  }
-  in.close();
-  for (auto v : arr) {
-    cout << v << "\n";
-  }
-  cout << "sum: " << sum << "\n";
-}
-
-void test_mix_txt() {
-  cout << "test_mix_txt()"
-       << "\n";
-  ofstream out("50-binaryinoutfile/out_test.txt");
-  out << "Hello World!"
-      << "\n";
-  for (int i = 0; i < 10; i++) {
-    out << i << " ";
-  }
-  out.close();
-
-  ifstream in_file("50-binaryinoutfile/out_test.txt");
-  string file_string;
-  getline(in_file, file_string);
-  vector<int> file_int(10);
-  for (int i = 0; i < 10; i++) {
-    in_file >> file_int[i];
-  }
-  in_file.close();
-
-  cout << file_string << "\n";
-  for (auto v : file_int) {
-    cout << v << ", ";
-  }
-  cout << "\n";
-}
-
 struct file_data {
   string str;
   vector<int> vec;
 };
 
 void test_binary() {
-  cout << "test_binary()"
-       << "\n";
-  cout << boolalpha;
+  cout << "test_binary()\n";
   {
     ofstream wf("50-binaryinoutfile/out_test.dat", ios::out | ios::binary);
 
@@ -97,14 +30,14 @@ void test_binary() {
       wf.write(reinterpret_cast<char *>(&i), sizeof i);
     }
 
-    // if we have a vector to write, we can do the similar operation
-    // first, initialize the vector
+    // When we have a vector to write.
+    // 1. Initialize the vector
     vector<int> vec(size);
     for (int i = 0; i < size; i++) {
       vec[i] = (i + 1) * (i + 1);
     }
 
-    // second, write the vector
+    // 2. Write the vector
     size = vec.size();
     wf.write(reinterpret_cast<char *>(&size), sizeof(size_t));
     for (auto v : vec) {
@@ -148,11 +81,7 @@ void test_binary() {
 }
 
 int main() {
-  test_read_txt();
-
-  test_read_mix();
-
-  test_mix_txt();
+  cout << boolalpha;
 
   test_binary();
 }
