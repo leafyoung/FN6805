@@ -1,5 +1,6 @@
 #include "tests.h"
 #include <algorithm>
+#include <array>
 #include <iostream>
 #include <numeric>
 #include <vector>
@@ -9,10 +10,9 @@ using namespace std;
 void test_iota() {
   cout << "\n\n====" << __FUNCTION__ << "====\n";
 
-  // array<int, 20> seq;
-  vector<int> seq(21);
+  array<int, 7> seq;
+  // vector<int> seq(7);
   iota(seq.rbegin(), seq.rend(), 0);
-
   for (auto v : seq) {
     cout << v << ", ";
   }

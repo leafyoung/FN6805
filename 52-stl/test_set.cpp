@@ -5,11 +5,15 @@
 
 using namespace std;
 
+struct Student {
+  string name;
+  int score;
+};
+
 void test_set1() {
   cout << "\n\n====" << __FUNCTION__ << "====\n";
 
-  cout << "test_set1"
-       << "\n";
+  cout << "test_set1\n";
   set<string> visitors;
 
   cout << boolalpha;
@@ -32,9 +36,8 @@ void test_set1() {
 void test_set2() {
   cout << "\n\n====" << __FUNCTION__ << "====\n";
 
-  cout << "test_set2"
-       << "\n";
-  set<int> numbers;
+  cout << "test_set2\n";
+  set<int> numbers{1, 2};
   for (int i = 1; i <= 10; ++i) {
     numbers.insert(i);
   }
@@ -48,10 +51,22 @@ void test_set2() {
 
   auto it = numbers.find(5);
   if (it != numbers.end()) {
-    cout << "Found"
-         << "\n";
+    cout << "Found\n";
   } else {
-    cout << "Not found"
-         << "\n";
+    cout << "Not found\n";
+  }
+}
+
+void test_set3() {
+  cout << "\n\n====" << __FUNCTION__ << "====\n";
+  auto cmp = [](const Student &a, const Student &b) {
+    return a.score > b.score;
+  };
+
+  set<Student, decltype(cmp)> students(cmp);
+  students.insert({"Bob"s, 90});
+  students.insert({"Alice"s, 96});
+  for (const auto &it : students) {
+    cout << it.name << "\n";
   }
 }

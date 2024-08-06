@@ -15,7 +15,6 @@ void test_search() {
     cout << *it << "\n";
     cout << (it - v.begin()) << "\n";
   } else {
-    cout << "not found"
-         << "\n";
+    cout << "not found\n";
   }
 }

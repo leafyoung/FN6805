@@ -9,6 +9,8 @@ using namespace std;
 int main() {
   cout << boolalpha;
 
+  test_vector();
+
   test_iota();
   test_for_each();
 
@@ -17,6 +19,7 @@ int main() {
 
   test_set1();
   test_set2();
+  test_set3();
   test_map();
 
   test_find();

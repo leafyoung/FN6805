@@ -1,5 +1,7 @@
+void test_vector();
 void test_set1();
 void test_set2();
+void test_set3();
 void test_iota();
 void test_for_each();
 void test_binary_search();

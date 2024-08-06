@@ -17,6 +17,11 @@ void test_for_each() {
   }
   cout << "\n";
 
+  int count_even = 0;
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [&count_even](const int &x) { count_even += x % 2 == 0; });
+  cout << "count_even: " << count_even << "\n";
+
   for_each(v_rand_d.begin(), v_rand_d.end(), [](auto x) { cout << x << ", "; });
   cout << "\n";
 
@@ -66,8 +71,7 @@ void test_for_each() {
   }
   cout << "\n";
 
-  cout << "test_for_each"
-       << "\n";
+  cout << "test_for_each\n";
   vector<int> v{2, 3, 1};
   sort(v.begin(), v.end());
   for_each(v.begin(), v.end(), [](int x) { cout << x << " "; });

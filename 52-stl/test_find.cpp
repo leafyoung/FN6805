@@ -8,7 +8,7 @@ using namespace std;
 using namespace std::placeholders;
 
 void test_find() {
-  cout << "\n\n====" << __FUNCTION__ << "====" << "\n";
+  cout << "\n\n====" << __FUNCTION__ << "====\n";
 
   vector<int> v{1, 2, 3, 4, 5, 3, 2, 1};
   auto it = v.begin();

@@ -1,4 +1,5 @@
 #include "tests.h"
+#include <functional>
 #include <iostream>
 #include <map>
 #include <string>
@@ -45,10 +46,10 @@ void test_map() {
   // With customized comparison for the order of key
   // Method 1. use lambda
   {
-    auto comp = [](const string &a, const string &b) {
+    auto cmp = [](const string &a, const string &b) {
       return a.length() < b.length();
     };
-    map<string, string, decltype(comp)> my_map(comp);
+    map<string, string, decltype(cmp)> my_map(cmp);
 
     my_map["1"] = "a";
     my_map["three"] = "b";
@@ -59,6 +60,25 @@ void test_map() {
       cout << kv.first << "\n";
   }
 
+  {
+    auto cmp = [](const Student &a, const Student &b) {
+      return a.score > b.score;
+    };
+    // Error
+    // map<Student, string> students2;
+    // students2.insert({{"Bob", 90}, "B"});
+
+    // Long explicit declaration
+    // map<Student, string, function<bool(const Student, const Student)>>
+    // students(cmp);
+    map<Student, string, decltype(cmp)> students(cmp);
+    students.insert({{"Bob", 90}, "B"});
+    students.insert({{"Alice", 96}, "A+"});
+    for (auto &[key, value] : students) {
+      cout << key.name << ": " << value << "\n";
+    }
+  }
+
   // Method 2: use struct with operator()
   {
     struct cmp {
@@ -67,7 +87,7 @@ void test_map() {
       }
     };
 
-    map<Student, string, cmp> students{{{"Bob", 90}, "A"},
+    map<Student, string, cmp> students{{{"Bob", 90}, "B"},
                                        {{"Alice", 96}, "A+"}};
     for (auto &[key, value] : students) {
       cout << key.name << ": " << value << "\n";

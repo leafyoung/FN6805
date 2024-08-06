@@ -13,15 +13,13 @@ void test_binary_search() {
   vector<int> v{1, 3, 2, 5, 4};
 
   // Cannot find
-  cout << "unsorted"
-       << "\n";
+  cout << "unsorted\n";
   for (auto val : array<int, 5>{1, 2, 3, 4, 5}) {
     cout << val << ": " << binary_search(v.begin(), v.end(), val) << "\n";
   }
 
   // Can find
-  cout << "sorted"
-       << "\n";
+  cout << "sorted\n";
   sort(v.begin(), v.end());
   for (auto val : array<int, 5>{1, 2, 3, 4, 5}) {
     cout << val << ": " << binary_search(v.begin(), v.end(), val) << "\n";
