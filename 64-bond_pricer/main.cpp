@@ -48,7 +48,7 @@ auto bond_price_ytm(FixedRateBond frb) {
   cf.back() += frb.face_value;
   double pv = 0.0, dcf = 0.0, mac_duration = 0.0, convexity = 0.0,
          unit_rate = (1.0 + frb.ytm / payment_count);
-  for (int i = 0; i < n; i++) {
+  for (int i = 0; i < n; ++i) {
     df[i] = 1.0 / pow(unit_rate, i + 1);
     dcf = df[i] * cf[i];
     pv += dcf;

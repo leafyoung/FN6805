@@ -18,7 +18,7 @@ constexpr long long factorial(int n) {
 
 unsigned long long fib_linear(int n) {
   vector<unsigned long long> fibonacci(n + 1, 1);
-  for (int i = 2; i <= n; i++) {
+  for (int i = 2; i <= n; ++i) {
     fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
   }
   return fibonacci.back();

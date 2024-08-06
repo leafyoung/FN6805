@@ -37,7 +37,7 @@ int main() {
        << "\n";
   vector<double> Uni(1000, 0.0), Norm(1000, 0.0), Expo(1000, 0.0);
   double uni = 0, norm = 0, expo = 0;
-  for (int i = 0; i < 1000; i++) {
+  for (int i = 0; i < 1000; ++i) {
     Uni[i] = uniDist(gen);
     uni += Uni[i];
 
@@ -58,7 +58,7 @@ int main() {
 
   double Vu = 0, Vn = 0, Ve = 0;
 
-  for (int i = 0; i < 1000; i++) {
+  for (int i = 0; i < 1000; ++i) {
     Vu += pow((uni - Uni[i]), 2);
     Vn += pow((norm - Norm[i]), 2);
     Ve += pow((expo - Expo[i]), 2);

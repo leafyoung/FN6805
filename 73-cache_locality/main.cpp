@@ -16,7 +16,7 @@ using ELEM_TYPE = double;
 
 template <size_t N> auto gen_arr() {
   array<array<ELEM_TYPE, N>, N> A;
-  for (int i = 0; i < N; i++) {
+  for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; j++) {
       A[i][j] = dist(gen);
     }
@@ -27,7 +27,7 @@ template <size_t N> auto gen_arr() {
 template <size_t N>
 void mult_a_b(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
               array<array<ELEM_TYPE, N>, N> C) {
-  for (int i = 0; i < N; i++) {
+  for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; j++) {
       int sum = 0;
       for (int k = 0; k < N; k++)
@@ -41,7 +41,7 @@ template <size_t N>
 void mult_a_bt(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
                array<array<ELEM_TYPE, N>, N> C) {
 
-  for (int i = 0; i < N; i++) {
+  for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; j++) {
       int sum = 0;
       for (int k = 0; k < N; k++)
@@ -63,7 +63,7 @@ void sum_cached() {
     v = x++;
   }
   ELEM_TYPE2 sum = 0;
-  for (int i = 0; i < MATRIX_SIZE; i++) {
+  for (int i = 0; i < MATRIX_SIZE; ++i) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
       sum += arr[i * MATRIX_SIZE + j];
     }
@@ -77,7 +77,7 @@ void sum_uncached() {
     v = x++;
   }
   ELEM_TYPE2 sum = 0;
-  for (int i = 0; i < MATRIX_SIZE; i++) {
+  for (int i = 0; i < MATRIX_SIZE; ++i) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
       sum += arr[i + MATRIX_SIZE * j];
     }

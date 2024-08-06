@@ -26,14 +26,14 @@ void test_binary() {
 
     size = 10;
     wf.write(reinterpret_cast<char *>(&size), sizeof(size_t));
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; ++i) {
       wf.write(reinterpret_cast<char *>(&i), sizeof i);
     }
 
     // When we have a vector to write.
     // 1. Initialize the vector
     vector<int> vec(size);
-    for (int i = 0; i < size; i++) {
+    for (int i = 0; i < size; ++i) {
       vec[i] = (i + 1) * (i + 1);
     }
 
