@@ -30,11 +30,9 @@ int main() {
   cout << "From Normal Distribution:      " << stdNorm(gen) << "\n";
   cout << "From Exponential Distribution: " << expDist(gen) << "\n";
 
-  cout << "\n"
-       << "\n";
+  cout << "\n\n";
 
-  cout << "Calculating Basic Statistics\n"
-       << "\n";
+  cout << "Calculating Basic Statistics\n\n";
   vector<double> Uni(1000, 0.0), Norm(1000, 0.0), Expo(1000, 0.0);
   double uni = 0, norm = 0, expo = 0;
   for (int i = 0; i < 1000; ++i) {
