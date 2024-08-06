@@ -161,7 +161,7 @@ void test_bond_price_ytm() {
     // interest goes up, no prepayment, so we extend the bond maturity and also
     // yield
     auto pv_up_mbs = get<0>(test_print_bond_price_ytm([](auto frb) {
-      frb.ytm += 0.01;
+      frb.ytm += 0.02;
       frb.maturity += 5;
       return frb;
     }(frb)));
@@ -169,7 +169,7 @@ void test_bond_price_ytm() {
 
     // For FRB, it only gets higher yield, same maturity
     auto pv_up_frb = get<0>(test_print_bond_price_ytm([](auto frb) {
-      frb.ytm += 0.01;
+      frb.ytm += 0.02;
       return frb;
     }(frb)));
     cout << "diff_pv_up_frb: " << (pv_up_frb - pv) << "\n";
