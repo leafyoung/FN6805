@@ -1,9 +1,11 @@
 // https://replit.com/@YeKunlun/73-cachelocality
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <iostream>
 #include <random>
+
 using namespace std::chrono;
 using std::array;
 using std::cout;
@@ -59,9 +61,7 @@ using ELEM_TYPE2 = int;
 void sum_cached() {
   array<ELEM_TYPE2, MATRIX_SIZE * MATRIX_SIZE> arr{0};
   ELEM_TYPE2 x = 0;
-  for (auto &v : arr) {
-    v = x++;
-  }
+  fill(arr.begin(), arr.end(), x++);
   ELEM_TYPE2 sum = 0;
   for (int i = 0; i < MATRIX_SIZE; ++i) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
@@ -73,9 +73,7 @@ void sum_cached() {
 void sum_uncached() {
   array<ELEM_TYPE2, MATRIX_SIZE * MATRIX_SIZE> arr{0};
   ELEM_TYPE2 x = 0;
-  for (auto &v : arr) {
-    v = x++;
-  }
+  fill(arr.begin(), arr.end(), x++);
   ELEM_TYPE2 sum = 0;
   for (int i = 0; i < MATRIX_SIZE; ++i) {
     for (int j = 0; j < MATRIX_SIZE; j++) {
