@@ -66,8 +66,10 @@ auto test_print_bond_price_ytm(FixedRateBond frb) {
   cout << "bond: " << frb.face_value << ", coupon: " << frb.coupon_rate
        << ", maturity: " << frb.maturity << ", ps: " << frb.ps
        << ", ytm: " << frb.ytm << "\n";
-  cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
-       << "mod: " << mod_duration << ", " << "convexity: " << convexity << "\n";
+  cout << "pv: " << pv << ", "
+       << "mac: " << mac_duration << ", "
+       << "mod: " << mod_duration << ", "
+       << "convexity: " << convexity << "\n";
   return make_tuple(pv, mac_duration, mod_duration, convexity);
 }
 
@@ -137,7 +139,7 @@ void test_bond_price_ytm() {
   }
   {
     cout << "test for MBS simulated\n";
-    FixedRateBond frb{100, 0.02, 5, "A", 0.02};
+    FixedRateBond frb{100, 0.02, 5, "M", 0.02};
     auto pv = get<0>(test_print_bond_price_ytm(frb));
 
     // interest goes down, increase possibility prepayment, so we shorten the
@@ -149,6 +151,7 @@ void test_bond_price_ytm() {
     }(frb)));
     cout << "diff_pv_down_mbs: " << (pv_down_mbs - pv) << "\n";
 
+    // For a FRB, it only gets smaller yield, same maturity.
     auto pv_down_frb = get<0>(test_print_bond_price_ytm([](auto frb) {
       frb.ytm += -0.01;
       return frb;
@@ -164,6 +167,7 @@ void test_bond_price_ytm() {
     }(frb)));
     cout << "diff_pv_up_mbs: " << (pv_up_mbs - pv) << "\n";
 
+    // For FRB, it only gets higher yield, same maturity
     auto pv_up_frb = get<0>(test_print_bond_price_ytm([](auto frb) {
       frb.ytm += 0.01;
       return frb;
