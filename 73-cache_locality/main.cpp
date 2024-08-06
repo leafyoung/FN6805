@@ -9,6 +9,7 @@
 using namespace std::chrono;
 using std::array;
 using std::cout;
+using std::fill;
 
 std::seed_seq seq{12123, 921312};
 std::mt19937 gen(seq);
