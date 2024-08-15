@@ -3,12 +3,12 @@
 #include <iostream>
 using namespace std;
 
-// #include "a_func.h"
-// #include "b_func.h"
+#include "a_func.h"
+#include "b_func.h"
 
 void test_overload();
 
 int main() {
   test_overload();
-  // cout << "a_func() + b_func(): " << a_func() + b_func() << "\n";
+  cout << "a_func() + b_func(): " << a_func() + b_func() << "\n";
 }
