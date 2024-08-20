@@ -1,5 +1,6 @@
 ## github - replit
 
+```
 mkdir 54-fstream_demo
 git init
 git remote add origin https://github.com/leafyoung/FN6805.git
@@ -13,3 +14,4 @@ git commit -m "54-fstream_demo"
 
 git rebase origin/main
 git push -u origin main
+```
