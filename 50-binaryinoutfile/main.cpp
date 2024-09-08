@@ -19,29 +19,30 @@ void test_binary() {
   {
     ofstream wf("50-binaryinoutfile/out_test.dat", ios::out | ios::binary);
 
-    auto str = "Hello World!"s;
-    size_t size = str.size();
-    wf.write(reinterpret_cast<char *>(&size), sizeof(size_t));
-    wf.write(reinterpret_cast<char *>(&str[0]), size);
+    auto str = "Hello World!"s;                                // 12 character
+    size_t size = str.size();                                  // 12
+    wf.write(reinterpret_cast<char *>(&size), sizeof(size_t)); // 12
+    wf.write(reinterpret_cast<char *>(&str[0]), size); // write 12 characters
 
     size = 10;
-    wf.write(reinterpret_cast<char *>(&size), sizeof(size_t));
+    wf.write(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
     for (int i = 0; i < 10; ++i) {
-      wf.write(reinterpret_cast<char *>(&i), sizeof i);
+      wf.write(reinterpret_cast<char *>(&i), sizeof i); //
     }
-
     // When we have a vector to write.
     // 1. Initialize the vector
-    vector<int> vec(size);
-    for (int i = 0; i < size; ++i) {
-      vec[i] = (i + 1) * (i + 1);
-    }
+    vector<double> vec(size);
+    int i = 0;
+    for_each(vec.begin(), vec.end(), [&i](auto &x) {
+      x = (i + 1) * (i + 1);
+      ++i;
+    });
 
     // 2. Write the vector
     size = vec.size();
-    wf.write(reinterpret_cast<char *>(&size), sizeof(size_t));
+    wf.write(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
     for (auto v : vec) {
-      wf.write(reinterpret_cast<char *>(&v), sizeof v);
+      wf.write(reinterpret_cast<char *>(&v), sizeof v); // value in its size
     }
     wf.close();
     cout << wf.good() << "\n";
@@ -51,31 +52,29 @@ void test_binary() {
     ifstream rf("50-binaryinoutfile/out_test.dat", ios::binary);
     size_t size;
 
-    rf.read(reinterpret_cast<char *>(&size), sizeof(size_t));
-    string str(size, 'a');
-    rf.read(reinterpret_cast<char *>(&str[0]), size);
+    rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 12
+    string str(size, 'a'); // 12 character long string
+    rf.read(reinterpret_cast<char *>(&str[0]), size); // read into it
+    cout << str << "\n";
 
-    rf.read(reinterpret_cast<char *>(&size), sizeof(size_t));
-    vector<int> vec(size);
-    for (auto &v : vec) {
-      rf.read(reinterpret_cast<char *>(&v), sizeof(int));
+    rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
+    vector<size_t> vec(size); // 10 element long vector
+    for (auto &v : vec) {     // auto with reference type
+      rf.read(reinterpret_cast<char *>(&v),
+              sizeof(int)); // read each element into it
     }
-    for (auto v : vec) {
-      cout << v << ", ";
-    }
+    copy(vec.begin(), vec.end(), ostream_iterator<int>(cout, ", "));
     cout << "\n";
 
-    rf.read(reinterpret_cast<char *>(&size), sizeof(size_t));
-    vector<int> vec2(size);
+    rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
+    vector<double> vec2(size); // 10 element long vector
     for (auto &v : vec2) {
-      rf.read(reinterpret_cast<char *>(&v), sizeof(int));
+      rf.read(reinterpret_cast<char *>(&v),
+              sizeof v); // read each element into it
     }
-    for (auto v : vec2) {
-      cout << v << ", ";
-    }
+    copy(vec2.begin(), vec2.end(), ostream_iterator<double>(cout, ", "));
     cout << "\n";
 
-    // copy(vec.begin(), vec.end(), ostream_iterator<int>(cout, ", "));
     rf.close();
   }
 }
