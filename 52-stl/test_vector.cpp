@@ -13,8 +13,34 @@ void concat_vector(size_t length) {
   cout << "x after copy: " << x.back() << endl;
 }
 
-void test_vector() {
+void copy_to_itself() {
   cout << "\n\n====" << __FUNCTION__ << "====\n";
 
+  {
+    cout << "Good (Resize and then copy) \n";
+    vector<int> v{1, 2, 3, 4, 5};
+    // resize the container first
+    v.resize(v.size() + 3);
+    copy(v.begin(), next(v.begin(), 3), next(v.begin(), 5));
+    for (auto x : v) {
+      cout << x << ",";
+    }
+    cout << "\n";
+  }
+  {
+    cout << "Wrong (copy while resizing) \n";
+    vector<int> v{1, 2, 3, 4, 5};
+    copy(v.begin(), next(v.begin(), 3), back_inserter(v));
+    for (auto x : v) {
+      cout << x << ",";
+    }
+    cout << "\n";
+  }
+}
+
+void test_vector() {
+  cout << "\n\n====" << __FUNCTION__ << "====\n";
   concat_vector(100);
+
+  copy_to_itself();
 }
