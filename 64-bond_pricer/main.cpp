@@ -41,13 +41,13 @@ auto bond_price_ytm(FixedRateBond frb) {
   // modified duration: % change in pv to yield change in 1%, based on
   // mac_duration yield.
 
-  int payment_count = get_payment_count(frb.ps);
-  int n = frb.maturity * payment_count;
-  vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value),
-      df(n, 0);
+  const int payment_count = get_payment_count(frb.ps);
+  const int n = frb.maturity * payment_count;
+  vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value);
+  vector<double> df(n, 0);
   cf.back() += frb.face_value;
-  double pv = 0.0, dcf = 0.0, mac_duration = 0.0, convexity = 0.0,
-         unit_rate = (1.0 + frb.ytm / payment_count);
+  double pv = 0.0, dcf = 0.0, mac_duration = 0.0, convexity = 0.0;
+  const double unit_rate = (1.0 + frb.ytm / payment_count);
   for (int i = 0; i < n; ++i) {
     df[i] = 1.0 / pow(unit_rate, i + 1);
     dcf = df[i] * cf[i];
