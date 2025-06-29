@@ -98,7 +98,7 @@ int main() { // Test with 1024, 512
         mult_a_b<MATRIX_SIZE>(A, B, C);
       auto stop = high_resolution_clock::now();
       auto duration = duration_cast<nanoseconds>(stop - start);
-      cout << average(duration) << "\n";
+      cout << average(duration) << '\n';
     }
     {
       auto start = high_resolution_clock::now();
@@ -121,6 +121,6 @@ int main() { // Test with 1024, 512
     sum_uncached();
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<nanoseconds>(stop - start);
-    cout << average(duration) << "\n";
+    cout << average(duration) << '\n';
   }
 }

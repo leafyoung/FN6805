@@ -12,8 +12,8 @@ void test_search() {
   vector<int> u{3, 4, 5};
   auto it = search(v.begin(), v.end(), u.begin(), u.end());
   if (it != v.end()) {
-    cout << *it << "\n";
-    cout << (it - v.begin()) << "\n";
+    cout << *it << '\n';
+    cout << (it - v.begin()) << '\n';
   } else {
     cout << "not found\n";
   }

@@ -24,5 +24,5 @@ void test_return() {
   for (auto v : v2) {
     cout << v << ", ";
   }
-  cout << "\n";
+  cout << '\n';
 }

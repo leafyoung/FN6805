@@ -7,7 +7,7 @@ void test_write() {
   cout << "test_write()\n";
   ofstream out("54-fstream_demo/test.txt");
   for (int i = 1; i < 11; ++i) {
-    out << "Hello World!" << i << "\n";
+    out << "Hello World!" << i << '\n';
   }
   out.close();
 }
@@ -19,7 +19,7 @@ void test_read() {
   while (!in.eof()) {
   // while (in >> sin) {
     in >> sin;
-    cout << sin << "\n";
+    cout << sin << '\n';
   }
   in.close();
 }
@@ -35,7 +35,7 @@ void test_read_double() {
   }
   in.close();
   for (auto v : arr) {
-    cout << v << "\n";
+    cout << v << '\n';
   }
 }
 
@@ -56,7 +56,7 @@ void read_txt_overcome_error() {
   }
   in.close();
   for (auto v : arr) {
-    cout << v << "\n";
+    cout << v << '\n';
   }
 }
 
@@ -65,7 +65,7 @@ void fout_with_convention() {
   ofstream out("54-fstream_demo/test2.txt");
   for (int i = 1; i < 11; ++i) {
     out << "Hello World!\n";
-    out << i << "\n";
+    out << i << '\n';
   }
   out.close();
 }
@@ -79,7 +79,7 @@ void fin_with_convension() {
     getline(in, sin); // read one string one line
     in >> iin; // read one int one line
     getline(in, dummy); // consumes the rest of the line
-    cout << sin << "\n" << iin << "\n";
+    cout << sin << '\n' << iin << '\n';
   }
   in.close();
 }

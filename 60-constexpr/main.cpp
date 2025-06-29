@@ -14,11 +14,11 @@ constexpr int factorial(const int n) {
 int main() {
   constexpr auto z2 = 4;
   constexpr float x = 42.0 + z2;
-  std::cout << x << "\n";
+  std::cout << x << '\n';
 
   constexpr auto value = sum(3, 4, 5);
-  std::cout << value << "\n";
+  std::cout << value << '\n';
 
   constexpr auto factorial_10 = factorial(10);
-  std::cout << factorial_10 << "\n";
+  std::cout << factorial_10 << '\n';
 }

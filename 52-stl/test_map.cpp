@@ -20,7 +20,7 @@ void test_map() {
   my_map['c'] = 40;
 
   std::map<char, int> second_map{{'a', 3}, {'b', 4}};
-  cout << second_map.size() << "\n";
+  cout << second_map.size() << '\n';
 
   // Since C++17
   for (const auto [key, val] : my_map) {
@@ -33,7 +33,7 @@ void test_map() {
   }
   // use iterator
   for (auto it = my_map.begin(); it != my_map.end(); ++it) {
-    cout << it->first << ", " << it->second << "\n";
+    cout << it->first << ", " << it->second << '\n';
   }
 
   // find the key
@@ -41,7 +41,7 @@ void test_map() {
   // if .find(key) == .end(), meaning not found.
   if (it != my_map.end())
     // print the value of the key
-    cout << it->second << "\n";
+    cout << it->second << '\n';
 
   // With customized comparison for the order of key
   // Method 1. use lambda
@@ -57,7 +57,7 @@ void test_map() {
     my_map["fouuur"] = "d";
 
     for (auto const &kv : my_map)
-      cout << kv.first << "\n";
+      cout << kv.first << '\n';
   }
 
   {
@@ -75,7 +75,7 @@ void test_map() {
     students.insert({{"Bob", 90}, "B"});
     students.insert({{"Alice", 96}, "A+"});
     for (auto &[key, value] : students) {
-      cout << key.name << ": " << value << "\n";
+      cout << key.name << ": " << value << '\n';
     }
   }
 
@@ -90,7 +90,7 @@ void test_map() {
     map<Student, string, cmp> students{{{"Bob", 90}, "B"},
                                        {{"Alice", 96}, "A+"}};
     for (auto &[key, value] : students) {
-      cout << key.name << ": " << value << "\n";
+      cout << key.name << ": " << value << '\n';
     }
   }
 }

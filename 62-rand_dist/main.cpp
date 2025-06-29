@@ -20,15 +20,15 @@ int main() {
   normal_distribution<> stdNorm(0.0, 1.0);                // Default is double
   exponential_distribution<> expDist(1.0);
 
-  cout << uniInt.max() << "\n";
-  cout << uniInt.min() << "\n";
+  cout << uniInt.max() << '\n';
+  cout << uniInt.min() << '\n';
 
   cout << "Single Examples:\n"
-       << "\n";
-  cout << "From Uniform int Distribution:     " << uniInt(gen) << "\n";
-  cout << "From Uniform Distribution:     " << uniDist(gen) << "\n";
-  cout << "From Normal Distribution:      " << stdNorm(gen) << "\n";
-  cout << "From Exponential Distribution: " << expDist(gen) << "\n";
+       << '\n';
+  cout << "From Uniform int Distribution:     " << uniInt(gen) << '\n';
+  cout << "From Uniform Distribution:     " << uniDist(gen) << '\n';
+  cout << "From Normal Distribution:      " << stdNorm(gen) << '\n';
+  cout << "From Exponential Distribution: " << expDist(gen) << '\n';
 
   cout << "\n\n";
 
@@ -50,9 +50,9 @@ int main() {
   norm /= 1000.0;
   expo /= 1000.0;
 
-  cout << "Sample Mean Uniform     : " << uni << "\n";
-  cout << "Sample Mean Normal      : " << norm << "\n";
-  cout << "Sample Mean Exponential : " << expo << "\n";
+  cout << "Sample Mean Uniform     : " << uni << '\n';
+  cout << "Sample Mean Normal      : " << norm << '\n';
+  cout << "Sample Mean Exponential : " << expo << '\n';
 
   double Vu = 0, Vn = 0, Ve = 0;
 
@@ -66,9 +66,9 @@ int main() {
   Vn /= 1000.0;
   Ve /= 1000.0;
 
-  cout << "Sample Variance Uniform     : " << Vu << "\n";
-  cout << "Sample Variance Normal      : " << Vn << "\n";
-  cout << "Sample Variance Exponential : " << Ve << "\n";
+  cout << "Sample Variance Uniform     : " << Vu << '\n';
+  cout << "Sample Variance Normal      : " << Vn << '\n';
+  cout << "Sample Variance Exponential : " << Ve << '\n';
 
   return 0;
 }

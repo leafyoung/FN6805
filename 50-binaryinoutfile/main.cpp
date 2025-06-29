@@ -45,7 +45,7 @@ void test_binary() {
       wf.write(reinterpret_cast<char *>(&v), sizeof v); // value in its size
     }
     wf.close();
-    cout << wf.good() << "\n";
+    cout << wf.good() << '\n';
   }
 
   {
@@ -55,7 +55,7 @@ void test_binary() {
     rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 12
     string str(size, 'a'); // 12 character long string
     rf.read(reinterpret_cast<char *>(&str[0]), size); // read into it
-    cout << str << "\n";
+    cout << str << '\n';
 
     rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
     vector<size_t> vec(size); // 10 element long vector
@@ -64,7 +64,7 @@ void test_binary() {
               sizeof(int)); // read each element into it
     }
     copy(vec.begin(), vec.end(), ostream_iterator<int>(cout, ", "));
-    cout << "\n";
+    cout << '\n';
 
     rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
     vector<double> vec2(size); // 10 element long vector
@@ -73,7 +73,7 @@ void test_binary() {
               sizeof v); // read each element into it
     }
     copy(vec2.begin(), vec2.end(), ostream_iterator<double>(cout, ", "));
-    cout << "\n";
+    cout << '\n';
 
     rf.close();
   }

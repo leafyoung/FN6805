@@ -54,7 +54,7 @@ void test_fib(function<int(int)> fib_fun, int n) {
   auto i1 = fib_fun(n);
   auto end = high_resolution_clock::now();
   auto d1 = duration_cast<nanoseconds>(end - start).count();
-  cout << i1 << ":(" << d1 << ") ns" << "\n";
+  cout << i1 << ":(" << d1 << ") ns\n";
 }
 
 int main() {
@@ -102,7 +102,7 @@ void test_3072() {
   int x{3072};
   while (x % 2 == 0) {
     x /= 2;
-    cout << x << "\n";
+    cout << x << '\n';
   }
-  cout << x << "\n";
+  cout << x << '\n';
 }

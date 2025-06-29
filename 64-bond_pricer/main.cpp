@@ -65,11 +65,11 @@ auto test_print_bond_price_ytm(FixedRateBond frb) {
   auto [pv, mac_duration, mod_duration, convexity] = bond_price_ytm(frb);
   cout << "bond: " << frb.face_value << ", coupon: " << frb.coupon_rate
        << ", maturity: " << frb.maturity << ", ps: " << frb.ps
-       << ", ytm: " << frb.ytm << "\n";
+       << ", ytm: " << frb.ytm << '\n';
   cout << "pv: " << pv << ", "
        << "mac: " << mac_duration << ", "
        << "mod: " << mod_duration << ", "
-       << "convexity: " << convexity << "\n";
+       << "convexity: " << convexity << '\n';
   return make_tuple(pv, mac_duration, mod_duration, convexity);
 }
 
@@ -117,7 +117,7 @@ void test_bond_price_ytm() {
       frb.ytm += chg;
       return frb;
     }(frb));
-    cout << "pv_diff: " << pv1 << "-" << pv << "=" << (pv1 - pv) << "\n";
+    cout << "pv_diff: " << pv1 << "-" << pv << "=" << (pv1 - pv) << '\n';
 
     auto approx_mod = -mod_duration * chg;
     auto approx_mod_convexity =
@@ -149,14 +149,14 @@ void test_bond_price_ytm() {
       frb.maturity -= 4;
       return frb;
     }(frb)));
-    cout << "diff_pv_down_mbs: " << (pv_down_mbs - pv) << "\n";
+    cout << "diff_pv_down_mbs: " << (pv_down_mbs - pv) << '\n';
 
     // For a FRB, it only gets smaller yield, same maturity.
     auto pv_down_frb = get<0>(test_print_bond_price_ytm([](auto frb) {
       frb.ytm += -0.01;
       return frb;
     }(frb)));
-    cout << "diff_pv_down_frb: " << (pv_down_frb - pv) << "\n";
+    cout << "diff_pv_down_frb: " << (pv_down_frb - pv) << '\n';
 
     // interest goes up, no prepayment, so we extend the bond maturity and also
     // yield
@@ -165,14 +165,14 @@ void test_bond_price_ytm() {
       frb.maturity += 5;
       return frb;
     }(frb)));
-    cout << "diff_pv_up_mbs: " << (pv_up_mbs - pv) << "\n";
+    cout << "diff_pv_up_mbs: " << (pv_up_mbs - pv) << '\n';
 
     // For FRB, it only gets higher yield, same maturity
     auto pv_up_frb = get<0>(test_print_bond_price_ytm([](auto frb) {
       frb.ytm += 0.02;
       return frb;
     }(frb)));
-    cout << "diff_pv_up_frb: " << (pv_up_frb - pv) << "\n";
+    cout << "diff_pv_up_frb: " << (pv_up_frb - pv) << '\n';
 
     (pv_up_mbs < pv_up_frb) && (pv_down_mbs < pv_down_frb)
         ? ([]() { cout << "MBS has a negative convexity.\n"; }())

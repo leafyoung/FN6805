@@ -15,8 +15,7 @@ int main() {
   cin >> x;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x"
-         << "\n";
+    cout << "Unknown input for x\n";
     return 0;
   }
 
@@ -24,8 +23,7 @@ int main() {
   cin >> y;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x"
-         << "\n";
+    cout << "Unknown input for x\n";
     return 0;
   }
 
@@ -57,7 +55,6 @@ int main() {
   }
 
   if (done) {
-    cout << "result> " << result << "\n"
-         << "Done\n";
+    cout << "result> " << result << '\n' << "Done\n";
   }
 }

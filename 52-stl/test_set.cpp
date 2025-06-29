@@ -22,14 +22,14 @@ void test_set1() {
   visitors.insert("Bob");
   visitors.insert("Charlie");
   visitors.erase("Alice");
-  std::cout << visitors.count("Alice") << "\n";
-  std::cout << visitors.count("Charlie") << "\n";
+  std::cout << visitors.count("Alice") << '\n';
+  std::cout << visitors.count("Charlie") << '\n';
 
   // if set.find(value) == set.end(), meaning not found
-  cout << (visitors.find("Bob") == visitors.end()) << "\n";
+  cout << (visitors.find("Bob") == visitors.end()) << '\n';
 
   // if .count == 1, meaning found
-  std::cout << visitors.count("Bob") << "\n";
+  std::cout << visitors.count("Bob") << '\n';
   assert(visitors.count("Bob") == 1);
 }
 
@@ -47,7 +47,7 @@ void test_set2() {
   for (auto it : numbers) {
     cout << it << ", ";
   }
-  cout << "\n";
+  cout << '\n';
 
   auto it = numbers.find(5);
   if (it != numbers.end()) {
@@ -67,6 +67,6 @@ void test_set3() {
   students.insert({"Bob"s, 90});
   students.insert({"Alice"s, 96});
   for (const auto &it : students) {
-    cout << it.name << "\n";
+    cout << it.name << '\n';
   }
 }

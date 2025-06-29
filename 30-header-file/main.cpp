@@ -10,5 +10,5 @@ void test_overload();
 
 int main() {
   test_overload();
-  cout << "a_func() + b_func(): " << a_func() + b_func() << "\n";
+  cout << "a_func() + b_func(): " << a_func() + b_func() << '\n';
 }

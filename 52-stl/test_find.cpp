@@ -19,7 +19,7 @@ void test_find() {
     it = find_if(it, v.end(), bind(greater_equal<int>(), _1, 3));
     // this becomes 3>=
     // it = find_if(it, v.end(), bind(greater_equal<int>(), 3, _1));
-    cout << *it << "\n";
+    cout << *it << '\n';
     if (it != v.end()) {
       idx.push_back(it - v.begin());
       it++;
@@ -29,11 +29,11 @@ void test_find() {
   for (auto v : idx) {
     cout << v << ", ";
   }
-  cout << "\n";
+  cout << '\n';
 
-  cout << count(v.begin(), v.end(), 3) << "\n";
-  cout << bind(plus<int>(), _1, 3)(3) << "\n";
-  cout << bind(equal_to<int>(), _1, 3)(3) << "\n";
-  cout << bind(greater_equal<int>(), _1, 4)(3) << "\n";
-  cout << bind(greater_equal<int>(), 4, _1)(3) << "\n";
+  cout << count(v.begin(), v.end(), 3) << '\n';
+  cout << bind(plus<int>(), _1, 3)(3) << '\n';
+  cout << bind(equal_to<int>(), _1, 3)(3) << '\n';
+  cout << bind(greater_equal<int>(), _1, 4)(3) << '\n';
+  cout << bind(greater_equal<int>(), 4, _1)(3) << '\n';
 }

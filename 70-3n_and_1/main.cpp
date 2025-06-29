@@ -47,23 +47,23 @@ int three_n_plus_1_problem(unsigned int n, vector<int> &seq) {
 // The sequence result is complex, so we need to write a function to do so
 void test_seq(int n) {
   vector<int> seq;
-  std::cout << three_n_plus_1_problem(n, seq) << "\n";
+  std::cout << three_n_plus_1_problem(n, seq) << '\n';
   std::cout << seq.size() << ": ";
   for (auto v : seq) {
     std::cout << v << ", ";
   }
-  std::cout << "\n";
+  std::cout << '\n';
   seq.clear();
 }
 
 int main() {
-  std::cout << three_n_plus_1_problem(10) << "\n";
-  std::cout << three_n_plus_1_problem(100) << "\n";
-  std::cout << three_n_plus_1_problem(1000) << "\n";
+  std::cout << three_n_plus_1_problem(10) << '\n';
+  std::cout << three_n_plus_1_problem(100) << '\n';
+  std::cout << three_n_plus_1_problem(1000) << '\n';
 
-  std::cout << three_n_plus_1_problem(10, 0) << "\n";
-  std::cout << three_n_plus_1_problem(100, 0) << "\n";
-  std::cout << three_n_plus_1_problem(1000, 0) << "\n";
+  std::cout << three_n_plus_1_problem(10, 0) << '\n';
+  std::cout << three_n_plus_1_problem(100, 0) << '\n';
+  std::cout << three_n_plus_1_problem(1000, 0) << '\n';
 
   test_seq(10);
   test_seq(100);

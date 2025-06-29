@@ -32,14 +32,14 @@ int gcd2(int n1, int n2) {
 
 int main() {
   cout << "gcd\n";
-  cout << gcd(10, 3) << "\n";
-  cout << gcd(10, 2) << "\n";
-  cout << gcd(9, 3) << "\n";
-  cout << gcd(10, 5) << "\n";
+  cout << gcd(10, 3) << '\n';
+  cout << gcd(10, 2) << '\n';
+  cout << gcd(9, 3) << '\n';
+  cout << gcd(10, 5) << '\n';
 
   cout << "gcd2\n";
-  cout << gcd2(10, 3) << "\n";
-  cout << gcd2(10, 2) << "\n";
-  cout << gcd2(9, 3) << "\n";
-  cout << gcd2(10, 5) << "\n";
+  cout << gcd2(10, 3) << '\n';
+  cout << gcd2(10, 2) << '\n';
+  cout << gcd2(9, 3) << '\n';
+  cout << gcd2(10, 5) << '\n';
 }

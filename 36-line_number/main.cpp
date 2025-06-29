@@ -51,20 +51,20 @@ void print_vector(vector<int> vs) {
   for (int i = 0; i < vs.size(); ++i) {
     cout << vs[i] << ", ";
   }
-  cout << "\n";
+  cout << '\n';
 }
 
 void test_line_number(string msg,
                       function<void(int, vector<int> &)> line_number_gen) {
-  cout << msg << "\n";
+  cout << msg << '\n';
   auto lines_numbers = vector<int>(17, 0);
   auto current_test_cases = vector<int>{1, 2, 7, 12, 17};
   for (int i = 0; i < current_test_cases.size(); ++i) {
-    cout << "Test: " << current_test_cases[i] << "\n";
+    cout << "Test: " << current_test_cases[i] << '\n';
     line_number_gen(current_test_cases[i], lines_numbers);
     print_vector(lines_numbers);
   }
-  cout << "\n";
+  cout << '\n';
 }
 
 int main() {

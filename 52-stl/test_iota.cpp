@@ -16,13 +16,13 @@ void test_iota() {
   for (auto v : seq) {
     cout << v << ", ";
   }
-  cout << "\n";
+  cout << '\n';
 
   auto it = max_element(seq.begin(), seq.end());
-  cout << *it << "\n";
+  cout << *it << '\n';
 
   it = min_element(seq.begin(), seq.end());
-  cout << *it << "\n";
+  cout << *it << '\n';
 
   int cc = 0;
   generate(seq.begin(), next(seq.begin(), 10), [&cc]() {
@@ -33,6 +33,6 @@ void test_iota() {
   for (auto v : seq) {
     cout << v << ", ";
   }
-  cout << "\n";
+  cout << '\n';
   // throw logic_error("stopped here");
 }

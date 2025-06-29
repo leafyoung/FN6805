@@ -25,7 +25,7 @@ void copy_to_itself() {
     for (auto x : v) {
       cout << x << ",";
     }
-    cout << "\n";
+    cout << '\n';
   }
   {
     cout << "Wrong (copy while resizing) \n";
@@ -34,7 +34,7 @@ void copy_to_itself() {
     for (auto x : v) {
       cout << x << ",";
     }
-    cout << "\n";
+    cout << '\n';
   }
 }
 
