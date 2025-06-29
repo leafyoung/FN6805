@@ -11,7 +11,7 @@ int main() {
 
   string dummy;
 
-  cout << "value x> "s;
+  cout << "value x> ";
   cin >> x;
   getline(cin, dummy);
   if (cin.fail()) {
@@ -19,7 +19,7 @@ int main() {
     return 0;
   }
 
-  cout << "value y> "s;
+  cout << "value y> ";
   cin >> y;
   getline(cin, dummy);
   if (cin.fail()) {

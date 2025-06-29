@@ -4,6 +4,7 @@
         "*.html": "html",
         "*.css": "css",
         "*.tf": "terraform",
-        "string": "cpp"
+        "string": "cpp",
+        "vector": "cpp"
     }
 }

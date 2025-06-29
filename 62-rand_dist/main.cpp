@@ -23,9 +23,8 @@ int main() {
   cout << uniInt.max() << '\n';
   cout << uniInt.min() << '\n';
 
-  cout << "Single Examples:\n"
-       << '\n';
-  cout << "From Uniform int Distribution:     " << uniInt(gen) << '\n';
+  cout << "Single Examples:\n\n";
+  cout << "From Uniform int Distribution: " << uniInt(gen) << '\n';
   cout << "From Uniform Distribution:     " << uniDist(gen) << '\n';
   cout << "From Normal Distribution:      " << stdNorm(gen) << '\n';
   cout << "From Exponential Distribution: " << expDist(gen) << '\n';

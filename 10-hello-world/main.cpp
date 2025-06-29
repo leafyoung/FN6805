@@ -13,7 +13,7 @@ int main() {     // <5>
   return 0;      // <7>
 }
 void hello_world() {                         // <5>
-  auto name{"Alice!"s};                      // <8>
+  const auto name{"Alice!"s};                // <8>
   auto greeting{GREETING};                   // <8>
   greeting += " from"s + " C++"s;            // <9>
   cout << greeting << ", " << name << "!\n"; // <9>

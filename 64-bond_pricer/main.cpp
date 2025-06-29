@@ -18,11 +18,14 @@ bool isclose(double a, double b, int power = -7) {
 int get_payment_count(string ps) {
   if (ps == "A") {
     return 1;
-  } else if (ps == "S") {
+  }
+  if (ps == "S") {
     return 2;
-  } else if (ps == "Q") {
+  }
+  if (ps == "Q") {
     return 4;
-  } else if (ps == "M") {
+  }
+  if (ps == "M") {
     return 12;
   }
   return nan("1");

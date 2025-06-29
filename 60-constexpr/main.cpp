@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 
-
 constexpr auto sum(int x, int y, int z) { return x + y + z; }
 
 constexpr int factorial(const int n) {

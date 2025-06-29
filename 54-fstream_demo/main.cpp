@@ -17,7 +17,7 @@ void test_read() {
   ifstream in("54-fstream_demo/test.txt");
   string sin;
   while (!in.eof()) {
-  // while (in >> sin) {
+    // while (in >> sin) {
     in >> sin;
     cout << sin << '\n';
   }
@@ -48,9 +48,9 @@ void read_txt_overcome_error() {
   while (!in.eof()) {
     in >> tmp;
     if (in.fail()) { // if fail
-      in.clear(); // clear
-      in >> dummy; // read as string
-      continue; // read the next
+      in.clear();    // clear
+      in >> dummy;   // read as string
+      continue;      // read the next
     }
     arr.push_back(tmp);
   }
@@ -76,8 +76,8 @@ void fin_with_convension() {
   string sin, dummy;
   int iin;
   for (int i = 0; i < 10; ++i) {
-    getline(in, sin); // read one string one line
-    in >> iin; // read one int one line
+    getline(in, sin);   // read one string one line
+    in >> iin;          // read one int one line
     getline(in, dummy); // consumes the rest of the line
     cout << sin << '\n' << iin << '\n';
   }
