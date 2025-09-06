@@ -13,7 +13,12 @@ using namespace std;
 
 using bool_func = function<bool(int)>;
 
+int q3();
+
 int main() {
+
+  q3();
+
   seed_seq seed{12789};
   mt19937 mtgen{seed};
 
