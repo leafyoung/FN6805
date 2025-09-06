@@ -5,7 +5,9 @@
 #include <functional>
 #include <iomanip>
 #include <iostream>
+#include <iterator>
 #include <random>
+#include <sstream>
 
 using namespace std;
 
@@ -13,21 +15,44 @@ using bool_func = function<bool(int)>;
 
 int main() {
   seed_seq seed{12789};
-  mt19937 gen{seed};
+  mt19937 mtgen{seed};
+
+  {
+    uniform_real_distribution<> uid(0, 10);
+    cout << "seed: ";
+    seed.param(std::ostream_iterator<int>(std::cout, " "));
+    cout << '\n';
+
+    // save status of the generator to oss / restore from iss
+    // alternatively, we can save to a file with ofstream/ifstream
+    ostringstream oss;
+    oss << mtgen;
+
+    cout << uid(mtgen) << '\n';
+    cout << uid(mtgen) << '\n';
+
+    // restore the status of the generator
+    istringstream iss{oss.str()};
+    iss >> mtgen;
+
+    cout << "same sequence after restore the sequence\n";
+    cout << uid(mtgen) << '\n';
+    cout << uid(mtgen) << '\n' << '\n';
+  }
 
   uniform_int_distribution<unsigned int> uniInt(0, 1000); // [a, b]
   uniform_real_distribution<double> uniDist(0.0, 1.0);    // [a, b)
   normal_distribution<> stdNorm(0.0, 1.0);                // Default is double
   exponential_distribution<> expDist(1.0);
 
-  cout << uniInt.max() << '\n';
-  cout << uniInt.min() << '\n';
+  cout << uniInt.min() << ", " << uniInt.max() << "\n";
 
-  cout << "Single Examples:\n\n";
-  cout << "From Uniform int Distribution: " << uniInt(gen) << '\n';
-  cout << "From Uniform Distribution:     " << uniDist(gen) << '\n';
-  cout << "From Normal Distribution:      " << stdNorm(gen) << '\n';
-  cout << "From Exponential Distribution: " << expDist(gen) << '\n';
+  cout << "Single Examples:\n"
+       << "\n";
+  cout << "From Uniform int Distribution:     " << uniInt(mtgen) << "\n";
+  cout << "From Uniform Distribution:     " << uniDist(mtgen) << "\n";
+  cout << "From Normal Distribution:      " << stdNorm(mtgen) << "\n";
+  cout << "From Exponential Distribution: " << expDist(mtgen) << "\n";
 
   cout << "\n\n";
 
@@ -35,13 +60,13 @@ int main() {
   vector<double> Uni(1000, 0.0), Norm(1000, 0.0), Expo(1000, 0.0);
   double uni = 0, norm = 0, expo = 0;
   for (int i = 0; i < 1000; ++i) {
-    Uni[i] = uniDist(gen);
+    Uni[i] = uniDist(mtgen);
     uni += Uni[i];
 
-    Norm[i] = stdNorm(gen);
+    Norm[i] = stdNorm(mtgen);
     norm += Norm[i];
 
-    Expo[i] = expDist(gen);
+    Expo[i] = expDist(mtgen);
     expo += Expo[i];
   }
 
