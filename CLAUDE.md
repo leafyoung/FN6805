@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a C++ exercise repository for FN6805: OOP I - C++ Programming. Each numbered directory contains a standalone exercise demonstrating specific C++ concepts.
+This is a C++ example repository for FN6805: OOP I - C++ Programming. Each numbered directory contains a standalone example demonstrating specific C++ concepts.
 
 ## Build Commands
 
@@ -21,7 +21,7 @@ Warnings are treated as errors. The Makefile compiles **all** `.cpp` files found
 
 ## Repository Structure
 
-Each exercise is a self-contained numbered directory:
+Each example is a self-contained numbered directory:
 
 - `10-hello-world/` — Basic I/O
 - `20-simple_calc/` — User input, switch statements
@@ -40,9 +40,9 @@ Each exercise is a self-contained numbered directory:
 - `72-multiple_inclusion/` — Preventing multiple inclusion with `#pragma once`
 - `73-cache_locality/` — Memory access patterns and cache efficiency
 
-## Working on an Exercise
+## Working on an Example
 
-Since all `.cpp` files are compiled together, to work on a specific exercise:
+Since all `.cpp` files are compiled together, to work on a specific example:
 
 1. Ensure only one `main()` function exists across the entire repo (comment out or rename others if needed).
 2. Build and run with `make && ./main`.
