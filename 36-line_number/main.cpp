@@ -68,7 +68,7 @@ void test_line_number(string msg,
                       function<void(int, vector<int> &)> line_number_gen) {
   cout << msg << '\n';
   auto lines_numbers = vector<int>(17, 0);
-  auto current_test_cases = vector<int>{1, 2, 7, 12, 17};
+  auto current_test_cases = vector<int>{0, 1, 2, 7, 12, 17};
   for (size_t i = 0; i < current_test_cases.size(); ++i) {
     cout << "Test: " << current_test_cases[i] << '\n';
     line_number_gen(current_test_cases[i], lines_numbers);
@@ -84,38 +84,4 @@ int main() {
 
   test_line_number("line_number_dynamic_opt1: "s, line_number_dynamic_opt1);
   test_line_number("line_number_dynamic_opt2: "s, line_number_dynamic_opt2);
-
-  cout << "Test with current=0:\n";
-  auto lines_numbers = vector<int>(17, 0);
-  try {
-    line_number_dynamic(0, lines_numbers);
-    cout << "line_number_dynamic: ";
-    print_vector(lines_numbers);
-  } catch (const exception &e) {
-    cout << "line_number_dynamic exception: " << e.what() << '\n';
-  }
-
-  try {
-    line_number_dynamic_opt(0, lines_numbers);
-    cout << "line_number_dynamic_opt: ";
-    print_vector(lines_numbers);
-  } catch (const exception &e) {
-    cout << "line_number_dynamic_opt exception: " << e.what() << '\n';
-  }
-
-  try {
-    line_number_dynamic_opt1(0, lines_numbers);
-    cout << "line_number_dynamic_opt1: ";
-    print_vector(lines_numbers);
-  } catch (const exception &e) {
-    cout << "line_number_dynamic_opt1 exception: " << e.what() << '\n';
-  }
-
-  try {
-    line_number_dynamic_opt2(0, lines_numbers);
-    cout << "line_number_dynamic_opt2: ";
-    print_vector(lines_numbers);
-  } catch (const exception &e) {
-    cout << "line_number_dynamic_opt2 exception: " << e.what() << '\n';
-  }
 }
