@@ -6,6 +6,9 @@ using namespace std;
 
 void line_number_dynamic_opt1(int current, vector<int> &line_numbers) {
   // optimized
+  if (current < 1) {
+    throw logic_error("current cannot be < 1");
+  }
   const auto current_1 = current - 1;
   if (current > static_cast<int>(line_numbers.size())) {
     line_numbers.resize(current);
