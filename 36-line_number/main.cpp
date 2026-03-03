@@ -6,6 +6,9 @@
 #include <vector>
 using namespace std;
 
+void line_number_dynamic_opt1(int current, vector<int> &line_numbers);
+void line_number_dynamic_opt2(int current, vector<int> &line_numbers);
+
 void line_number_static(int /*current*/, vector<int> &line_numbers) {
   for (size_t i = 0, j = 1; i < line_numbers.size(); ++i, ++j) {
     line_numbers[i] = static_cast<int>(j);
@@ -48,7 +51,7 @@ void line_number_dynamic_opt(int current, vector<int> &line_numbers) {
   }
 }
 
-void print_vector(const vector<int>& vs) {
+void print_vector(const vector<int> &vs) {
   for (size_t i = 0; i < vs.size(); ++i) {
     cout << vs[i] << ", ";
   }
@@ -72,4 +75,7 @@ int main() {
   test_line_number("line_number_static: "s, line_number_static);
   test_line_number("line_number_dynamic: "s, line_number_dynamic);
   test_line_number("line_number_dynamic_opt: "s, line_number_dynamic_opt);
+
+  test_line_number("line_number_dynamic_opt1: "s, line_number_dynamic_opt1);
+  test_line_number("line_number_dynamic_opt2: "s, line_number_dynamic_opt2);
 }
