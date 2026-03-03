@@ -2,12 +2,13 @@
 
 #include <iostream>
 #include <tuple>
+#include <utility>
 #include <vector>
 using namespace std;
 
 vector<int> return_vector(int n) {
   vector<int> vec(n, 5);
-  cout << "in return_vector()\n";
+  cout << "in return_vector()" << '\n';
   cout << &vec[3] << ", " << vec[3] << '\n';
   return vec;
 }
@@ -63,13 +64,13 @@ int main() {
   {
     // move is copy for int
     int x = 3;
-    int y = move(x);
+    int y = std::move(x);
     cout << x << ", " << y << '\n';
   }
   {
     // move is moving for vector
     vector<int> x1{3, 3};
-    auto x2 = move(x1);
+    auto x2 = std::move(x1);
     cout << x2.size() << ", " << x1.size() << '\n';
   }
 }

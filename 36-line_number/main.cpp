@@ -6,16 +6,16 @@
 #include <vector>
 using namespace std;
 
-void line_number_static(int _current, vector<int> &line_numbers) {
+void line_number_static(int /*current*/, vector<int> &line_numbers) {
   for (size_t i = 0, j = 1; i < line_numbers.size(); ++i, ++j) {
-    line_numbers[i] = j;
+    line_numbers[i] = static_cast<int>(j);
   }
   return;
 
   // Why below could be wrong here?
   {
     line_numbers[0] = 0;
-    for (int i = 1, j = 0; i < line_numbers.size(); ++i, ++j) {
+    for (size_t i = 1, j = 0; i < line_numbers.size(); ++i, ++j) {
       line_numbers[i] = ++line_numbers[j];
     }
     return;
@@ -24,13 +24,14 @@ void line_number_static(int _current, vector<int> &line_numbers) {
 
 void line_number_dynamic(int current, vector<int> &line_numbers) {
   const auto current_1 = current - 1;
-  for (int i = 0; i < line_numbers.size(); ++i) {
-    if (i < current_1) {
-      line_numbers[i] = current_1 - i;
-    } else if (i == current_1) {
+  for (size_t i = 0; i < line_numbers.size(); ++i) {
+    const auto si = static_cast<int>(i);
+    if (si < current_1) {
+      line_numbers[i] = current_1 - si;
+    } else if (si == current_1) {
       line_numbers[i] = current;
     } else {
-      line_numbers[i] = i - current_1;
+      line_numbers[i] = si - current_1;
     }
   }
 }
@@ -38,17 +39,17 @@ void line_number_dynamic(int current, vector<int> &line_numbers) {
 void line_number_dynamic_opt(int current, vector<int> &line_numbers) {
   const auto current_1 = current - 1;
   const auto ln_size = line_numbers.size();
-  for (int i = 0; i < current_1; ++i) {
-    line_numbers[i] = current_1 - i;
+  for (size_t i = 0; i < static_cast<size_t>(current_1); ++i) {
+    line_numbers[i] = current_1 - static_cast<int>(i);
   }
-  line_numbers[current_1] = current;
-  for (int i = current; i < ln_size; ++i) {
-    line_numbers[i] = i - current_1;
+  line_numbers[static_cast<size_t>(current_1)] = current;
+  for (size_t i = static_cast<size_t>(current); i < ln_size; ++i) {
+    line_numbers[i] = static_cast<int>(i) - current_1;
   }
 }
 
-void print_vector(vector<int> vs) {
-  for (int i = 0; i < vs.size(); ++i) {
+void print_vector(const vector<int>& vs) {
+  for (size_t i = 0; i < vs.size(); ++i) {
     cout << vs[i] << ", ";
   }
   cout << '\n';
@@ -59,7 +60,7 @@ void test_line_number(string msg,
   cout << msg << '\n';
   auto lines_numbers = vector<int>(17, 0);
   auto current_test_cases = vector<int>{1, 2, 7, 12, 17};
-  for (int i = 0; i < current_test_cases.size(); ++i) {
+  for (size_t i = 0; i < current_test_cases.size(); ++i) {
     cout << "Test: " << current_test_cases[i] << '\n';
     line_number_gen(current_test_cases[i], lines_numbers);
     print_vector(lines_numbers);

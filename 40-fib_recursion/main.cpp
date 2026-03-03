@@ -18,29 +18,30 @@ constexpr long long factorial(int n) {
 
 unsigned long long fib_linear(int n) {
   vector<unsigned long long> fibonacci(n + 1, 1);
-  for (int i = 2; i <= n; ++i) {
+  for (size_t i = 2; i <= static_cast<size_t>(n); ++i) {
     fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
   }
   return fibonacci.back();
 }
 
-long long fib_recursive(int n) {
+unsigned long long fib_recursive(int n) {
   if (n <= 1)
     return 1;
   return fib_recursive(n - 1) + fib_recursive(n - 2);
-  // return (n <= 1) ? n : fib(n - 1) + fib(n - 2);
+  // return (n <= 1) ? 1 : fib_recursive(n - 1) + fib_recursive(n - 2);
 }
 
 unsigned long long fib_recur_mem(int n) {
-  const int NOT_INCLUDE = -1;
-  vector<unsigned long long> temp(n + 1, NOT_INCLUDE);
+  // Sentinel 0 is safe: all valid Fibonacci values for n >= 0 are >= 1.
+  const unsigned long long NOT_COMPUTED = 0;
+  vector<unsigned long long> temp(n + 1, NOT_COMPUTED);
 
   // need a type, cannot use auto
   function<unsigned long long(int)> fib_internal = [&temp,
                                                     &fib_internal](int n) {
     if (n <= 1)
       return 1ull;
-    if (temp[n] != NOT_INCLUDE)
+    if (temp[n] != 0)
       return temp[n];
     temp[n] = fib_internal(n - 1) + fib_internal(n - 2);
     return temp[n];
@@ -49,7 +50,7 @@ unsigned long long fib_recur_mem(int n) {
   return fib_internal(n);
 }
 
-void test_fib(function<int(int)> fib_fun, int n) {
+void test_fib(function<unsigned long long(int)> fib_fun, int n) {
   auto start = high_resolution_clock::now();
   auto i1 = fib_fun(n);
   auto end = high_resolution_clock::now();

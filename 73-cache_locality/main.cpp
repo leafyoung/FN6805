@@ -19,8 +19,8 @@ using ELEM_TYPE = double;
 
 template <size_t N> auto gen_arr() {
   array<array<ELEM_TYPE, N>, N> A;
-  for (int i = 0; i < N; ++i) {
-    for (int j = 0; j < N; j++) {
+  for (size_t i = 0; i < N; ++i) {
+    for (size_t j = 0; j < N; ++j) {
       A[i][j] = dist(gen);
     }
   }
@@ -30,10 +30,10 @@ template <size_t N> auto gen_arr() {
 template <size_t N>
 void mult_a_b(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
               array<array<ELEM_TYPE, N>, N> C) {
-  for (int i = 0; i < N; ++i) {
-    for (int j = 0; j < N; j++) {
-      int sum = 0;
-      for (int k = 0; k < N; k++)
+  for (size_t i = 0; i < N; ++i) {
+    for (size_t j = 0; j < N; ++j) {
+      ELEM_TYPE sum = 0;
+      for (size_t k = 0; k < N; ++k)
         sum += A[i][k] * B[k][j]; // row × column
       C[i][j] = sum;
     }
@@ -43,18 +43,17 @@ void mult_a_b(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
 template <size_t N>
 void mult_a_bt(array<array<ELEM_TYPE, N>, N> A, array<array<ELEM_TYPE, N>, N> B,
                array<array<ELEM_TYPE, N>, N> C) {
-
-  for (int i = 0; i < N; ++i) {
-    for (int j = 0; j < N; j++) {
-      int sum = 0;
-      for (int k = 0; k < N; k++)
+  for (size_t i = 0; i < N; ++i) {
+    for (size_t j = 0; j < N; ++j) {
+      ELEM_TYPE sum = 0;
+      for (size_t k = 0; k < N; ++k)
         sum += A[i][k] * B[j][k]; // row × row
       C[i][j] = sum;
     }
   }
 }
 
-const size_t MATRIX_SIZE = 4096 * 2;
+const size_t MATRIX_SIZE = 512;
 const auto ITERATION = 100'000llu;
 
 using ELEM_TYPE2 = int;
@@ -64,11 +63,12 @@ void sum_cached() {
   ELEM_TYPE2 x = 0;
   fill(arr.begin(), arr.end(), x++);
   ELEM_TYPE2 sum = 0;
-  for (int i = 0; i < MATRIX_SIZE; ++i) {
-    for (int j = 0; j < MATRIX_SIZE; j++) {
+  for (size_t i = 0; i < MATRIX_SIZE; ++i) {
+    for (size_t j = 0; j < MATRIX_SIZE; ++j) {
       sum += arr[i * MATRIX_SIZE + j];
     }
   }
+  (void)sum; // prevent optimisation from eliding the loop
 }
 
 void sum_uncached() {
@@ -76,11 +76,12 @@ void sum_uncached() {
   ELEM_TYPE2 x = 0;
   fill(arr.begin(), arr.end(), x++);
   ELEM_TYPE2 sum = 0;
-  for (int i = 0; i < MATRIX_SIZE; ++i) {
-    for (int j = 0; j < MATRIX_SIZE; j++) {
+  for (size_t i = 0; i < MATRIX_SIZE; ++i) {
+    for (size_t j = 0; j < MATRIX_SIZE; ++j) {
       sum += arr[i + MATRIX_SIZE * j];
     }
   }
+  (void)sum; // prevent optimisation from eliding the loop
 }
 
 int main() { // Test with 1024, 512

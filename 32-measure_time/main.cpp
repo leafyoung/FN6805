@@ -8,7 +8,7 @@ using namespace std;
 using namespace std::chrono;
 
 // Change below without the use of reference
-void test_value_copy(vector<int> &x) { x.size(); }
+void test_value_copy(vector<int> x) { cout << x.size() << '\n'; }
 
 int main() {
   cout << "start\n";

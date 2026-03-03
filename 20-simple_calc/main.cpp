@@ -23,7 +23,7 @@ int main() {
   cin >> y;
   getline(cin, dummy);
   if (cin.fail()) {
-    cout << "Unknown input for x\n";
+    cout << "Unknown input for y\n";
     return 0;
   }
 

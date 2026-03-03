@@ -12,7 +12,7 @@ constexpr int factorial(const int n) {
 
 int main() {
   constexpr auto z2 = 4;
-  constexpr float x = 42.0 + z2;
+  constexpr float x = 42.0f + z2;
   std::cout << x << '\n';
 
   constexpr auto value = sum(3, 4, 5);

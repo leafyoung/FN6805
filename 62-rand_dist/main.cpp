@@ -62,9 +62,10 @@ int main() {
   cout << "\n\n";
 
   cout << "Calculating Basic Statistics\n\n";
-  vector<double> Uni(1000, 0.0), Norm(1000, 0.0), Expo(1000, 0.0);
+  const size_t N = 1000;
+  vector<double> Uni(N, 0.0), Norm(N, 0.0), Expo(N, 0.0);
   double uni = 0, norm = 0, expo = 0;
-  for (int i = 0; i < 1000; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     Uni[i] = uniDist(mtgen);
     uni += Uni[i];
 
@@ -75,9 +76,9 @@ int main() {
     expo += Expo[i];
   }
 
-  uni /= 1000.0;
-  norm /= 1000.0;
-  expo /= 1000.0;
+  uni /= static_cast<double>(N);
+  norm /= static_cast<double>(N);
+  expo /= static_cast<double>(N);
 
   cout << "Sample Mean Uniform     : " << uni << '\n';
   cout << "Sample Mean Normal      : " << norm << '\n';
@@ -85,15 +86,15 @@ int main() {
 
   double Vu = 0, Vn = 0, Ve = 0;
 
-  for (int i = 0; i < 1000; ++i) {
+  for (size_t i = 0; i < N; ++i) {
     Vu += pow((uni - Uni[i]), 2);
     Vn += pow((norm - Norm[i]), 2);
     Ve += pow((expo - Expo[i]), 2);
   }
 
-  Vu /= 1000.0;
-  Vn /= 1000.0;
-  Ve /= 1000.0;
+  Vu /= static_cast<double>(N);
+  Vn /= static_cast<double>(N);
+  Ve /= static_cast<double>(N);
 
   cout << "Sample Variance Uniform     : " << Vu << '\n';
   cout << "Sample Variance Normal      : " << Vn << '\n';
