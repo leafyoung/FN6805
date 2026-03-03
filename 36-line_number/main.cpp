@@ -30,7 +30,7 @@ void line_number_dynamic(int current, vector<int> &line_numbers) {
   for (size_t i = 0; i < line_numbers.size(); ++i) {
     const auto si = static_cast<int>(i);
     if (si < current_1) {
-      line_numbers[i] = current_1 - si;
+      line_numbers[i] = current + 1 - si;
     } else if (si == current_1) {
       line_numbers[i] = (current == 1) ? 2 : current;
     } else {
@@ -43,7 +43,7 @@ void line_number_dynamic_opt(int current, vector<int> &line_numbers) {
   const auto current_1 = current - 1;
   const auto ln_size = line_numbers.size();
   for (size_t i = 0; i < static_cast<size_t>(current_1); ++i) {
-    line_numbers[i] = current_1 - static_cast<int>(i);
+    line_numbers[i] = current + 1 - static_cast<int>(i);
   }
   line_numbers[static_cast<size_t>(current_1)] = (current == 1) ? 2 : current;
   for (size_t i = static_cast<size_t>(current); i < ln_size; ++i) {
