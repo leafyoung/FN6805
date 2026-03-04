@@ -6,10 +6,10 @@
 #include <vector>
 using namespace std;
 
-void line_number_dynamic_opt1(int current, vector<int> &line_numbers);
-void line_number_dynamic_opt2(int current, vector<int> &line_numbers);
+void line_number_dynamic_opt1(size_t current, vector<size_t> &line_numbers);
+void line_number_dynamic_opt2(size_t current, vector<size_t> &line_numbers);
 
-void line_number_static(int /*current*/, vector<int> &line_numbers) {
+void line_number_static(int /*current*/, vector<size_t> &line_numbers) {
   for (size_t i = 0, j = 1; i < line_numbers.size(); ++i, ++j) {
     line_numbers[i] = static_cast<int>(j);
   }
@@ -25,7 +25,7 @@ void line_number_static(int /*current*/, vector<int> &line_numbers) {
   }
 }
 
-void line_number_dynamic(int current, vector<int> &line_numbers) {
+void line_number_dynamic(size_t current, vector<size_t> &line_numbers) {
   const auto current_1 = current - 1;
   for (size_t i = 0; i < line_numbers.size(); ++i) {
     const auto si = static_cast<int>(i);
@@ -39,7 +39,7 @@ void line_number_dynamic(int current, vector<int> &line_numbers) {
   }
 }
 
-void line_number_dynamic_opt(int current, vector<int> &line_numbers) {
+void line_number_dynamic_opt(size_t current, vector<size_t> &line_numbers) {
   const auto current_1 = current - 1;
   const auto ln_size = line_numbers.size();
   for (size_t i = 0; i < static_cast<size_t>(current_1); ++i) {
@@ -51,7 +51,7 @@ void line_number_dynamic_opt(int current, vector<int> &line_numbers) {
   }
 }
 
-void print_vector(const vector<int> &vs, size_t high_location) {
+void print_vector(const vector<size_t> &vs, size_t high_location) {
   for (size_t i = 0; i < vs.size(); ++i) {
     if (i == high_location - 1) {
       cout << "[" << vs[i] << "], ";
@@ -63,10 +63,10 @@ void print_vector(const vector<int> &vs, size_t high_location) {
 }
 
 void test_line_number(string msg,
-                      function<void(int, vector<int> &)> line_number_gen) {
+                      function<void(int, vector<size_t> &)> line_number_gen) {
   cout << msg << '\n';
-  auto lines_numbers = vector<int>(17, 0);
-  auto current_test_cases = vector<int>{1, 2, 7, 12, 17};
+  auto lines_numbers = vector<size_t>(17, 0);
+  auto current_test_cases = vector<size_t>{1, 2, 7, 12, 17};
   for (size_t i = 0; i < current_test_cases.size(); ++i) {
     cout << "Test: " << current_test_cases[i] << '\n';
     line_number_gen(current_test_cases[i], lines_numbers);
@@ -76,11 +76,11 @@ void test_line_number(string msg,
 }
 
 void test_static() {
-  auto lines_numbers1 = vector<int>(17, 0);
-  auto current_test_cases = vector<int>{1, 2, 7, 12, 17};
+  auto lines_numbers1 = vector<size_t>(17, 0);
+  auto current_test_cases = vector<size_t>{1, 2, 7, 12, 17};
   line_number_static(current_test_cases[0], lines_numbers1);
   for (size_t i = 1; i < current_test_cases.size(); ++i) {
-    auto lines_numbers2 = vector<int>(17, 0);
+    auto lines_numbers2 = vector<size_t>(17, 0);
     line_number_static(current_test_cases[i], lines_numbers2);
     if (lines_numbers1 != lines_numbers2) {
       throw logic_error("line_number_static is not static");
@@ -90,18 +90,18 @@ void test_static() {
 }
 
 void test_dynamic() {
-  auto current_test_cases = vector<int>{1, 2, 7, 12, 17};
+  auto current_test_cases = vector<size_t>{1, 2, 7, 12, 17};
   for (size_t i = 0; i < current_test_cases.size(); ++i) {
-    auto lines_numbers1 = vector<int>(17, 0);
+    auto lines_numbers1 = vector<size_t>(17, 0);
     line_number_dynamic(current_test_cases[i], lines_numbers1);
 
-    auto lines_numbers2 = vector<int>(17, 0);
+    auto lines_numbers2 = vector<size_t>(17, 0);
     line_number_dynamic_opt(current_test_cases[i], lines_numbers2);
 
-    auto lines_numbers3 = vector<int>(17, 0);
+    auto lines_numbers3 = vector<size_t>(17, 0);
     line_number_dynamic_opt1(current_test_cases[i], lines_numbers3);
 
-    auto lines_numbers4 = vector<int>(17, 0);
+    auto lines_numbers4 = vector<size_t>(17, 0);
     line_number_dynamic_opt2(current_test_cases[i], lines_numbers4);
 
     if (lines_numbers1 != lines_numbers2) {

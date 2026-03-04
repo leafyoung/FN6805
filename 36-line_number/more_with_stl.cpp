@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-void line_number_dynamic_opt1(int current, vector<int> &line_numbers) {
+void line_number_dynamic_opt1(size_t current, vector<size_t> &line_numbers) {
   // optimized
   const auto current_1 = current - 1;
   if (current > static_cast<int>(line_numbers.size())) {
@@ -41,7 +41,7 @@ void line_number_dynamic_opt1(int current, vector<int> &line_numbers) {
   }
 }
 
-void line_number_dynamic_opt2(int current, vector<int> &line_numbers) {
+void line_number_dynamic_opt2(size_t current, vector<size_t> &line_numbers) {
   if (current > static_cast<int>(line_numbers.size())) {
     line_numbers.resize(current);
   }
