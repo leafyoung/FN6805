@@ -15,7 +15,7 @@ bool isclose(double a, double b, int power = -7) {
   return fabs(a / b - 1) < pow(10, power);
 }
 
-int get_payment_count(string ps) {
+size_t get_payment_count(string ps) {
   if (ps == "A") {
     return 1;
   }
@@ -44,14 +44,14 @@ auto bond_price_ytm(FixedRateBond frb) {
   // modified duration: % change in pv to yield change in 1%, based on
   // mac_duration yield.
 
-  const int payment_count = get_payment_count(frb.ps);
-  const int n = frb.maturity * payment_count;
+  const size_t payment_count = get_payment_count(frb.ps);
+  const size_t n = frb.maturity * payment_count;
   vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value);
   vector<double> df(n, 0);
   cf.back() += frb.face_value;
   double pv = 0.0, dcf = 0.0, mac_duration = 0.0, convexity = 0.0;
   const double unit_rate = (1.0 + frb.ytm / payment_count);
-  for (int i = 0; i < n; ++i) {
+  for (size_t i = 0; i < n; ++i) {
     df[i] = 1.0 / pow(unit_rate, i + 1);
     dcf = df[i] * cf[i];
     pv += dcf;
