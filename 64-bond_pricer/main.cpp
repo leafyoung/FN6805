@@ -12,6 +12,7 @@ using namespace std;
 bool isclose(double a, double b, int power = -7) {
   // return fabs(a - b) <= ((fabs(a) < fabs(b) ? fabs(b) : fabs(a)) *
   // numeric_limits<double>::epsilon());
+  if (b == 0.0) return fabs(a) < pow(10, power);
   return fabs(a / b - 1) < pow(10, power);
 }
 
