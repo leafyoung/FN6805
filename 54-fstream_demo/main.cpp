@@ -58,8 +58,8 @@ void read_txt_overcome_error() {
   }
 }
 
-void fout_with_convention() {
-  cout << "fout_with_convention()\n";
+void write_with_convention() {
+  cout << "write_with_convention()\n";
   ofstream out("54-fstream_demo/test2.txt");
   for (int i = 1; i < 11; ++i) {
     out << "Hello World!\n";
@@ -68,8 +68,8 @@ void fout_with_convention() {
   out.close();
 }
 
-void fin_with_convension() {
-  cout << "fin_with_convension()\n";
+void read_with_convension() {
+  cout << "read_with_convension()\n";
   ifstream in("54-fstream_demo/test2.txt");
   string sin, dummy;
   int iin;
@@ -89,12 +89,10 @@ int main() {
     test_read_double();
   }
 
-  {
-    read_txt_overcome_error();
-  }
+  { read_txt_overcome_error(); }
 
   {
-    fout_with_convention();
-    fin_with_convension();
+    write_with_convention();
+    read_with_convension();
   }
 }
