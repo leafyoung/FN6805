@@ -16,9 +16,7 @@ void test_read() {
   cout << "test_read()\n";
   ifstream in("54-fstream_demo/test.txt");
   string sin;
-  while (!in.eof()) {
-    // while (in >> sin) {
-    in >> sin;
+  while (in >> sin) {
     cout << sin << '\n';
   }
   in.close();
@@ -29,8 +27,7 @@ void test_read_double() {
   ifstream in("54-fstream_demo/input_double.txt");
   vector<double> arr;
   double tmp{0};
-  while (!in.eof()) {
-    in >> tmp;
+  while (in >> tmp) {
     arr.push_back(tmp);
   }
   in.close();
@@ -45,14 +42,15 @@ void read_txt_overcome_error() {
   vector<double> arr;
   double tmp{0};
   string dummy;
-  while (!in.eof()) {
-    in >> tmp;
-    if (in.fail()) { // if fail
-      in.clear();    // clear
-      in >> dummy;   // read as string
-      continue;      // read the next
+  while (true) {
+    if (in >> tmp) {
+      arr.push_back(tmp);
+    } else if (in.eof()) {
+      break;
+    } else {
+      in.clear();
+      in >> dummy;
     }
-    arr.push_back(tmp);
   }
   in.close();
   for (auto v : arr) {
