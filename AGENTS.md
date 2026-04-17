@@ -49,6 +49,13 @@ Since all `.cpp` files are compiled together, to work on a specific example:
 
 Header files use `#pragma once` for include guards (see `30-header-file/` and `72-multiple_inclusion/` for examples).
 
+## Intentionally Uncompilable Examples
+
+The following projects are **intentionally broken** as teaching examples. They demonstrate what goes wrong when you put function definitions in header files. **Do not fix them** - the link errors are the lesson.
+
+- `30-header-file/` - Function definitions in `a_func.h` and `b_func.h` cause "multiple definition" linker errors when the headers are included from multiple translation units (`main.cpp` and `c_func.cpp`). The comment in `main.cpp` explains the issue.
+- `72-multiple_inclusion/` - Function definition in `add.h` causes "multiple definition" linker error when included from both `main.cpp` and `use_add.cpp`. The `add.cpp.txt` file is provided as the fix students can apply (rename to `.cpp` and remove the definition from `add.h`). The comment in `main.cpp` explains the issue and the fix.
+
 ## C++ Standards Used
 
 C++17 features actively used throughout:

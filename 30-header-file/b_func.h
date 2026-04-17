@@ -1,3 +1,5 @@
 #pragma once
 
-int b_func();
+#include "a_func.h"
+
+int b_func() { return a_func() + 3; }
