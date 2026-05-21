@@ -1,4 +1,6 @@
+#include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 using namespace std;
 
@@ -38,9 +40,50 @@ void copy_to_itself() {
   }
 }
 
+// back_inserter: output iterator adaptor that calls push_back on every write.
+// Useful when the output size is not known in advance.
+void test_back_inserter() {
+  cout << "\n\n====" << __FUNCTION__ << "====\n";
+
+  vector<int> src{-3, 1, -1, 4, 2};
+  vector<int> pos;
+  copy_if(src.begin(), src.end(),
+          back_inserter(pos), // grows pos as needed
+          [](int x) { return x > 0; });
+  for (auto x : pos)
+    cout << x << " "; // 1 4 2
+  cout << '\n';
+}
+
+// Iterator invalidation demo.
+// Rule: do not modify a container while holding its iterators
+// unless you use the return value of erase/insert.
+void test_erase_while_iterating() {
+  cout << "\n\n====" << __FUNCTION__ << "====\n";
+
+  // WRONG: erasing with a stale iterator (undefined behaviour)
+  // vector<int> v{1, 2, 3, 4, 5};
+  // for (auto it = v.begin(); it != v.end(); ++it)
+  //   if (*it % 2 == 0) v.erase(it);  // 'it' is now invalid!
+
+  // CORRECT: erase returns the next valid iterator
+  vector<int> v{1, 2, 3, 4, 5};
+  for (auto it = v.begin(); it != v.end();) {
+    if (*it % 2 == 0)
+      it = v.erase(it); // erase returns next valid iterator
+    else
+      ++it;
+  }
+  for (auto x : v)
+    cout << x << " "; // 1 3 5
+  cout << '\n';
+}
+
 void test_vector() {
   cout << "\n\n====" << __FUNCTION__ << "====\n";
   concat_vector(100);
 
   copy_to_itself();
+  test_back_inserter();
+  test_erase_while_iterating();
 }
