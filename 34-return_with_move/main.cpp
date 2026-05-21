@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/34-returnwithmove?v=1
+// https://replit.com/@YeKunlun/34-returnwithmove
 
 #include <iostream>
 #include <tuple>
