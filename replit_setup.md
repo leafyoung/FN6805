@@ -1,6 +1,6 @@
-## github - replit
+# github - replit setup
 
-```
+```bash
 mkdir 54-fstream_demo
 git init
 git remote add origin https://github.com/leafyoung/FN6805.git
