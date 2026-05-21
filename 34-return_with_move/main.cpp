@@ -55,7 +55,7 @@ int main() {
   // NRVO: compiler constructs directly in caller's space — no copy, no move
   auto x = return_vector(10);
   cout << "in main(): NRVO applied\n";
-  cout << &x[3] << ", " << x[3] << '\n'; // same address as in functio
+  cout << &x[3] << ", " << x[3] << '\n'; // same address as in function
 
   auto t = return_tuple();
   cout << "in main(): NRVO applied (same address)\n";
