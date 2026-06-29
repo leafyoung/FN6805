@@ -17,8 +17,8 @@ using std::cout;
 
 // --- Matrix multiply helpers -----------------------------------------------
 
-std::seed_seq seq{12123, 921312};
-std::mt19937 gen(seq);
+std::seed_seq seq{90128, 43021, 89427};
+std::mt19937_64 gen(seq);
 std::uniform_real_distribution<> dist(0.0, 10000.0);
 
 using ELEM_TYPE = double;
