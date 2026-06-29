@@ -1,9 +1,6 @@
 // https://replit.com/@YeKunlun/62-randdist?v=1
 
-#include <algorithm>
-#include <fstream>
 #include <functional>
-#include <iomanip>
 #include <iostream>
 #include <iterator>
 #include <random>
@@ -19,8 +16,8 @@ int main() {
 
   q3();
 
-  seed_seq seed{12789};
-  mt19937 mtgen{seed};
+  seed_seq seed{90128, 43021, 89427};
+  mt19937_64 mtgen{seed};
 
   {
     uniform_real_distribution<> uid(0, 10);
