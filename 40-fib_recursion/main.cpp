@@ -39,10 +39,10 @@ ull fib_recur_mem(int n) {
   vector<ull> temp(n + 1, NOT_COMPUTED);
 
   // need a type, cannot use auto
-  function<ull(int)> fib_internal = [&temp, &fib_internal](int n) {
+  function<ull(int)> fib_internal = [&temp, &fib_internal, NOT_COMPUTED](int n) {
     if (n <= 1)
       return 1ull;
-    if (temp[n] != 0)
+    if (temp[n] != NOT_COMPUTED)
       return temp[n];
     temp[n] = fib_internal(n - 1) + fib_internal(n - 2);
     return temp[n];
@@ -56,7 +56,7 @@ void test_fib(function<ull(int)> fib_fun, int n) {
   auto i1 = fib_fun(n);
   auto end = high_resolution_clock::now();
   auto d1 = duration_cast<nanoseconds>(end - start).count();
-  cout << i1 << ":(" << d1 << ") ns\n";
+  cout << i1 << ": " << d1 << " ns\n";
 }
 
 int main() {
