@@ -29,4 +29,6 @@ int main() {
 
   test_reverse();
   test_count();
+
+  test_for_each_parallel();
 }

@@ -12,3 +12,5 @@ void test_return();
 // test_reverse_and_count.h
 void test_reverse();
 void test_count();
+// test_for_each_parallel.h
+void test_for_each_parallel();
