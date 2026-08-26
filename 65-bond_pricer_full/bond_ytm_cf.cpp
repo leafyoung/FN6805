@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <iomanip>
 #include <iostream>
 #include <numeric>
 #include <string>
@@ -111,10 +110,8 @@ auto test_bond_price_ytm_cf(FixedRateBond frb) {
   cout << "bond: " << frb.face_value << ", coupon: " << frb.coupon_rate
        << ", maturity: " << frb.maturity << ", ps: " << frb.ps
        << ", ytm: " << frb.ytm << endl;
-  cout << "pv: " << pv << ", "
-       << "mac: " << mac_duration << ", "
-       << "mod: " << mod_duration << ", "
-       << "dv01: " << dv01 << ", "
+  cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
+       << "mod: " << mod_duration << ", " << "dv01: " << dv01 << ", "
        << "convexity: " << convexity << endl;
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
@@ -127,10 +124,8 @@ auto test_bond_price_ytm_cf(FloatingRateBond frb) {
   cout << "bond: " << frb.face_value << ", maturity: " << frb.maturity
        << ", ps: " << frb.ps << ", ytm: " << frb.ytm
        << ", is_loan: " << frb.is_loan << ", spread: " << frb.spread << endl;
-  cout << "pv: " << pv << ", "
-       << "mac: " << mac_duration << ", "
-       << "mod: " << mod_duration << ", "
-       << "dv01: " << dv01 << ", "
+  cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
+       << "mod: " << mod_duration << ", " << "dv01: " << dv01 << ", "
        << "convexity: " << convexity << endl;
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
@@ -146,10 +141,8 @@ auto test_bond_price_ytm_cf(AmortizationBond ab) {
   cout << "bond: " << ab.principal << ", installment: " << installment
        << ", maturity: " << ab.maturity << ", ps: " << ab.ps
        << ", yield: " << ab.yield << endl;
-  cout << "pv: " << pv << ", "
-       << "mac: " << mac_duration << ", "
-       << "mod: " << mod_duration << ", "
-       << "dv01: " << dv01 << ", "
+  cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
+       << "mod: " << mod_duration << ", " << "dv01: " << dv01 << ", "
        << "convexity: " << convexity << endl;
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
