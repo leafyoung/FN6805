@@ -10,14 +10,38 @@ using namespace std;
 
 using bool_func = function<bool(int)>;
 
-int q3();
+void test_produce();
 
 int main() {
 
-  q3();
+  test_produce();
 
   seed_seq seed{90128, 43021, 89427};
   mt19937_64 mtgen{seed};
+
+  {
+    auto urd = std::uniform_real_distribution<>{5.0, 2.0};
+    std::vector<double> v_rand_d(20, 0);
+
+    for_each(v_rand_d.begin(), v_rand_d.end(),
+             [&urd, &mtgen](auto &x) { x = urd(mtgen); });
+    for_each(v_rand_d.begin(), v_rand_d.end(),
+             [](const auto &x) { cout << x << ", "; });
+    cout << endl;
+
+    // normal_distribution
+    auto nd = std::normal_distribution<>{5.0, 2.0};
+    for_each(v_rand_d.begin(), v_rand_d.end(),
+             [&nd, &mtgen](auto &x) { x = nd(mtgen); });
+    for_each(v_rand_d.begin(), v_rand_d.end(),
+             [](const auto &x) { cout << x << ", "; });
+    cout << endl;
+
+    std::shuffle(v_rand_d.begin(), v_rand_d.end(), mtgen);
+    for_each(v_rand_d.begin(), v_rand_d.end(),
+             [](const auto &x) { cout << x << ", "; });
+    cout << endl;
+  }
 
   {
     uniform_real_distribution<> uid(0, 10);
