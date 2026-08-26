@@ -14,3 +14,5 @@ void test_reverse();
 void test_count();
 // test_for_each_parallel.h
 void test_for_each_parallel();
+// test_copy_if.h
+void test_copy_if();

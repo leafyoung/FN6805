@@ -31,4 +31,6 @@ int main() {
   test_count();
 
   test_for_each_parallel();
+
+  test_copy_if();
 }
