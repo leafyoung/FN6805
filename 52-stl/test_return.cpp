@@ -17,7 +17,7 @@ void test_return() {
   for (auto v : v2) {
     cout << v << ", ";
   }
-  cout << "\\n";
+  cout << "\n";
   transform(next(v1.begin(), 1), v1.end(), v1.begin(), v2.begin(),
             bind(minus<>(), bind(divides<>(), _1, _2), 1));
 

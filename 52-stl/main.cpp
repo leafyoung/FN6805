@@ -26,4 +26,7 @@ int main() {
 
   test_search();
   test_return();
+
+  test_reverse();
+  test_count();
 }

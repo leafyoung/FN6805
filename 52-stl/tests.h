@@ -9,3 +9,6 @@ void test_map();
 void test_find();
 void test_search();
 void test_return();
+// test_reverse_and_count.h
+void test_reverse();
+void test_count();
