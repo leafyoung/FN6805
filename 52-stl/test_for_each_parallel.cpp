@@ -23,4 +23,5 @@ void test_for_each_parallel() {
   cout << '\n';
   std::for_each(std::execution::par, v.begin(), v.end(),
                 [](const auto &x) { cout << x << ", "; });
+  cout << '\n';
 }
