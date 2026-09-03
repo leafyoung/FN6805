@@ -1,5 +1,6 @@
 // https://replit.com/@YeKunlun/62-randdist?v=1
 
+#include <algorithm>
 #include <functional>
 #include <iostream>
 #include <iterator>
@@ -12,60 +13,59 @@ using bool_func = function<bool(int)>;
 
 void test_produce();
 
-int main() {
+void test_distribution(mt19937_64 &mtgen) {
+  auto urd = std::uniform_real_distribution<>{2.0, 5.0};
+  std::vector<double> v_rand_d(20, 0);
 
-  test_produce();
+  cout << "=== Uniform Real Distribution ===\n";
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [&urd, &mtgen](auto &x) { x = urd(mtgen); });
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [](const auto &x) { cout << x << ", "; });
+  cout << endl;
 
-  seed_seq seed{90128, 43021, 89427};
-  mt19937_64 mtgen{seed};
+  cout << "=== Normal Distribution ===\n";
+  auto nd = std::normal_distribution<>{5.0, 2.0};
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [&nd, &mtgen](auto &x) { x = nd(mtgen); });
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [](const auto &x) { cout << x << ", "; });
+  cout << endl;
 
-  {
-    auto urd = std::uniform_real_distribution<>{5.0, 2.0};
-    std::vector<double> v_rand_d(20, 0);
+  cout << "=== Shuffle ===\n";
+  std::shuffle(v_rand_d.begin(), v_rand_d.end(), mtgen);
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [](const auto &x) { cout << x << ", "; });
+  cout << endl;
+  cout << '\n';
+}
 
-    for_each(v_rand_d.begin(), v_rand_d.end(),
-             [&urd, &mtgen](auto &x) { x = urd(mtgen); });
-    for_each(v_rand_d.begin(), v_rand_d.end(),
-             [](const auto &x) { cout << x << ", "; });
-    cout << endl;
+void test_save_and_load(mt19937_64 &mtgen, seed_seq &seed) {
+  uniform_real_distribution<> uid(0, 10);
 
-    // normal_distribution
-    auto nd = std::normal_distribution<>{5.0, 2.0};
-    for_each(v_rand_d.begin(), v_rand_d.end(),
-             [&nd, &mtgen](auto &x) { x = nd(mtgen); });
-    for_each(v_rand_d.begin(), v_rand_d.end(),
-             [](const auto &x) { cout << x << ", "; });
-    cout << endl;
+  cout << "=== Seed Values ===\n";
+  seed.param(std::ostream_iterator<size_t>(std::cout, " "));
+  cout << '\n';
 
-    std::shuffle(v_rand_d.begin(), v_rand_d.end(), mtgen);
-    for_each(v_rand_d.begin(), v_rand_d.end(),
-             [](const auto &x) { cout << x << ", "; });
-    cout << endl;
-  }
+  // save status of the generator to oss / restore from iss
+  // alternatively, we can save to a file with ofstream/ifstream
+  ostringstream oss;
+  oss << mtgen;
 
-  {
-    uniform_real_distribution<> uid(0, 10);
-    cout << "seed: ";
-    seed.param(std::ostream_iterator<int>(std::cout, " "));
-    cout << '\n';
+  cout << "Sequence:\n";
+  cout << uid(mtgen) << '\n';
+  cout << uid(mtgen) << '\n';
 
-    // save status of the generator to oss / restore from iss
-    // alternatively, we can save to a file with ofstream/ifstream
-    ostringstream oss;
-    oss << mtgen;
+  // restore the status of the generator
+  istringstream iss{oss.str()};
+  iss >> mtgen;
 
-    cout << uid(mtgen) << '\n';
-    cout << uid(mtgen) << '\n';
+  cout << "Same sequence after restore the sequence\n";
+  cout << uid(mtgen) << '\n';
+  cout << uid(mtgen) << '\n' << '\n';
+}
 
-    // restore the status of the generator
-    istringstream iss{oss.str()};
-    iss >> mtgen;
-
-    cout << "same sequence after restore the sequence\n";
-    cout << uid(mtgen) << '\n';
-    cout << uid(mtgen) << '\n' << '\n';
-  }
-
+void test_more_distribution(mt19937_64 &mtgen) {
   uniform_int_distribution<unsigned int> uniInt(0, 1000); // [a, b]
   uniform_real_distribution<double> uniDist(0.0, 1.0);    // [a, b)
   normal_distribution<> stdNorm(0.0, 1.0);                // Default is double
@@ -73,8 +73,7 @@ int main() {
 
   cout << uniInt.min() << ", " << uniInt.max() << "\n";
 
-  cout << "Single Examples:\n"
-       << "\n";
+  cout << "Single Examples:\n\n";
   cout << "From Uniform int Distribution:     " << uniInt(mtgen) << "\n";
   cout << "From Uniform Distribution:     " << uniDist(mtgen) << "\n";
   cout << "From Normal Distribution:      " << stdNorm(mtgen) << "\n";
@@ -120,6 +119,20 @@ int main() {
   cout << "Sample Variance Uniform     : " << Vu << '\n';
   cout << "Sample Variance Normal      : " << Vn << '\n';
   cout << "Sample Variance Exponential : " << Ve << '\n';
+}
+
+int main() {
+
+  test_produce();
+
+  seed_seq seed{90128, 43021, 89427};
+  mt19937_64 mtgen{seed};
+
+  test_distribution(mtgen);
+
+  test_save_and_load(mtgen, seed);
+
+  test_more_distribution(mtgen);
 
   return 0;
 }
