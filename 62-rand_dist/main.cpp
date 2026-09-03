@@ -40,6 +40,28 @@ void test_distribution(mt19937_64 &mtgen) {
   cout << '\n';
 }
 
+void test_copy_mtgen(mt19937_64 mtgen) {
+  auto urd = std::uniform_real_distribution<>{2.0, 5.0};
+  std::vector<double> v_rand_d(20, 0);
+  cout << "=== Uniform Real Distribution ===\n";
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [&urd, &mtgen](auto &x) { x = urd(mtgen); });
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [](const auto &x) { cout << x << ", "; });
+  cout << endl;
+}
+
+void test_ref_mtgen(mt19937_64 &mtgen) {
+  auto urd = std::uniform_real_distribution<>{2.0, 5.0};
+  std::vector<double> v_rand_d(20, 0);
+  cout << "=== Uniform Real Distribution ===\n";
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [&urd, &mtgen](auto &x) { x = urd(mtgen); });
+  for_each(v_rand_d.begin(), v_rand_d.end(),
+           [](const auto &x) { cout << x << ", "; });
+  cout << endl;
+}
+
 void test_save_and_load(mt19937_64 &mtgen, seed_seq &seed) {
   uniform_real_distribution<> uid(0, 10);
 
@@ -129,6 +151,16 @@ int main() {
   mt19937_64 mtgen{seed};
 
   test_distribution(mtgen);
+
+  cout << "=== Same sequence with copy ===\n";
+  test_copy_mtgen(mtgen);
+  test_copy_mtgen(mtgen);
+  cout << '\n';
+
+  cout << "=== Different sequence with reference ===\n";
+  test_ref_mtgen(mtgen);
+  test_ref_mtgen(mtgen);
+  cout << '\n';
 
   test_save_and_load(mtgen, seed);
 
