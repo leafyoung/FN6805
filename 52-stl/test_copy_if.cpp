@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <iostream>
+#include <iterator>
 #include <vector>
 // using namespace placeholders;
 using namespace std;
