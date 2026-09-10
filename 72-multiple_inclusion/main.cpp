@@ -45,8 +45,8 @@ compiler and work pleasantly.
 */
 
 int main() {
-  std::cout << add(1, 1) << std::'\n';
-  std::cout << add_n(1, 1, 10) << std::'\n';
+  std::cout << add(1, 1) << '\n';
+  std::cout << add_n(1, 1, 10) << '\n';
 
   std::cout << "Hello World!\n";
 }

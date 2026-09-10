@@ -63,8 +63,81 @@ Details worth knowing before changing the script:
 - The intentionally-broken projects are listed in `EXPECTED_BUILD_FAILURES` and
   reported as `XFAIL`. If one of them ever compiles, the script fails with
   `XPASS` — a signal that the lesson has been accidentally fixed away.
+- Each expected failure also declares, in `expected_failure_pattern`, the
+  diagnostic it must produce (`redefinition|multiple definition|duplicate
+  symbol` — GNU ld and wasm-ld word it differently). A build that fails for some
+  *other* reason is reported as `XFAIL_WRONG_REASON` and fails the run: without
+  this, an unrelated typo satisfies the XFAIL while the lesson it teaches is
+  masked. That is not hypothetical — a stray `std::'\n'` in
+  `72-multiple_inclusion/main.cpp` did exactly that.
 - Exit status is 0 only when every project passes and both expected failures
   still fail.
+
+### Targeting wasm (CPPBox classroom)
+
+```bash
+./smoke_test.sh --wasm                # build + run every project on wasm32-wasip1
+./smoke_test.sh --wasm --build-only   # compile only
+./smoke_test.sh --wasm 52 73          # filters work the same
+```
+
+Students run this code in **CPPBox** (`~/devv/fin/classroom`), a teaching IDE
+that compiles to `wasm32-wasip1` with a bundled wasi-sdk and runs the module
+under an embedded wasmtime, falling back to podman only when it cannot. `--wasm`
+reproduces that path, so a green host run plus a green wasm run means the
+examples work in the environment students actually use.
+
+- Compile flags are copied verbatim from `cppbox-core/src/wasi_exec.rs::compile`
+  — `-fwasm-exceptions` with the two `-mllvm` EH flags, the memory limits,
+  `-lunwind`, and `-lc-printscan-long-double`. Change them only to track that
+  file.
+- The toolchain is found automatically: newest `wasi-sdk-*` under
+  `$CPPBOX_ROOT/wasi-toolchain` (`CPPBOX_ROOT` defaults to
+  `~/devv/fin/classroom`). Override with `WASI_SDK=`.
+- The runner is `wasmtime` if it is on `PATH`, otherwise `node` (which ships a
+  WASI preview1 host) via a small generated shim; `WASM_RUNNER=` forces one. The
+  sandbox is preopened as `.`, mirroring CPPBox's
+  `WasiCtxBuilder::preopened_dir(job_dir, ".")`. Verified here with node 24;
+  wasmtime is the closer match to CPPBox when available.
+- Results land in `$SMOKE_DIR/results-wasm.jsonl` (host runs write
+  `results-host.jsonl`), and every record carries a `target` field.
+- Two skip lists decide what wasm is not asked to run:
+  - `WASM_THREAD_MARKERS` is CPPBox's own `uses_threading` header list
+    (`<thread> <future> <mutex> <condition_variable> <atomic> <shared_mutex>`).
+    No project in this repo matches it.
+  - `WASM_UNSUPPORTED_MARKERS` adds `<execution>`: the parallel algorithms need
+    threads and are absent from the wasm sysroot, so `52-stl` is skipped for
+    that reason. CPPBox's own list does **not** include `<execution>`, so such
+    code currently reaches wasm there and fails to compile instead of being
+    routed to podman — worth adding upstream.
+- `WASM_STACK_SIZE` (default 8 MiB) is the one flag added beyond CPPBox's set.
+  wasi-sdk defaults the wasm stack to 64 KiB, so `73-cache_locality`'s
+  `array<array<double,512>,512>` (2 MiB) trapped with "memory access out of
+  bounds"; with the flag it passes in ~2.3 s, *faster* than the host build
+  because the wasm profile uses `-O2`. CPPBox should pass the same flag.
+- `wasm_expected_failure_reason` (for `XFAIL-WASM`) is empty today; a project in
+  it that starts working is reported as `XPASS-WASM` and fails the run, so the
+  table cannot rot silently.
+- Threads do **not** work on wasm and that is not going to change: wasi-threads
+  compiles and links (wasi-sdk 34 ships a `wasm32-wasip1-threads` sysroot, and
+  the module gets the right ABI — a `wasi.thread-spawn` import and a
+  `wasi_thread_start` export), but under wasmtime 46.0.3 — the version CPPBox
+  pins — `std::thread` still fails with `thread constructor failed: Resource
+  temporarily unavailable`, and wasmtime warns that `-Sthreads` becomes a hard
+  error in 47.0.0. Bytecode Alliance RFC 47 (merged May 2026) removes
+  wasi-threads outright, pointing to WASIp3 cooperative threads near term and
+  the shared-everything-threads proposal long term. Keep threaded code on
+  podman.
+
+### Cleaning build artifacts
+
+Use `git clean -Xnd` to preview and `git clean -Xfd` to delete. It removes only
+gitignored files (`*.o`, `main`, `a.out`, …) and never touches `.git`.
+
+Do **not** clean with `find -delete`. `-delete` implies `-depth`, which disables
+`-prune`, so a guard like `find . -path ./.git -prune -o -name main -delete`
+still descends into `.git` and deletes `refs/heads/main` — silently detaching the
+branch. If you must use `find`, use `-exec rm -f {} +` instead of `-delete`.
 
 ## Repository Structure
 
