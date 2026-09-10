@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/50-binaryinoutfile?v=1
+// https://github.com/leafyoung/FN6805/tree/main/50-binaryinoutfile
 
 #include <algorithm>
 #include <fstream>

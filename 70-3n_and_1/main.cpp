@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/70-3nand1?v=1
+// https://github.com/leafyoung/FN6805/tree/main/70-3n_and_1
 
 #include <iostream>
 #include <vector>

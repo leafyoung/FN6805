@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/10-hello-world
+// https://github.com/leafyoung/FN6805/tree/main/10-hello-world
 
 #include <iostream> // <1>
 #include <string>

@@ -20,10 +20,10 @@ void test_copy_if() {
 
   vector<StandardOption> opts{{93.5, 20}, {94.5, 9}};
 
-  cout << opt.daysToExpiration << endl;
+  cout << opt.daysToExpiration << '\n';
 
   for (const auto v : opts) {
-    cout << v.strike << "@" << v.daysToExpiration << endl;
+    cout << v.strike << "@" << v.daysToExpiration << '\n';
   }
 
   vector<StandardOption> result;
@@ -32,8 +32,8 @@ void test_copy_if() {
   copy_if(opts.begin(), opts.end(), back_inserter(result),
           [](auto opt) { return opt.daysToExpiration < 10; });
 
-  cout << "Expiring:" << endl;
+  cout << "Expiring:" << '\n';
   for (const auto v : result) {
-    cout << v.strike << "@" << v.daysToExpiration << endl;
+    cout << v.strike << "@" << v.daysToExpiration << '\n';
   }
 }

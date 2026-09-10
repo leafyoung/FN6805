@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/62-randdist?v=1
+// https://github.com/leafyoung/FN6805/tree/main/62-rand_dist
 
 #include <algorithm>
 #include <functional>
@@ -22,7 +22,7 @@ void test_distribution(mt19937_64 &mtgen) {
            [&urd, &mtgen](auto &x) { x = urd(mtgen); });
   for_each(v_rand_d.begin(), v_rand_d.end(),
            [](const auto &x) { cout << x << ", "; });
-  cout << endl;
+  cout << '\n';
 
   cout << "=== Normal Distribution ===\n";
   auto nd = std::normal_distribution<>{5.0, 2.0};
@@ -30,13 +30,13 @@ void test_distribution(mt19937_64 &mtgen) {
            [&nd, &mtgen](auto &x) { x = nd(mtgen); });
   for_each(v_rand_d.begin(), v_rand_d.end(),
            [](const auto &x) { cout << x << ", "; });
-  cout << endl;
+  cout << '\n';
 
   cout << "=== Shuffle ===\n";
   std::shuffle(v_rand_d.begin(), v_rand_d.end(), mtgen);
   for_each(v_rand_d.begin(), v_rand_d.end(),
            [](const auto &x) { cout << x << ", "; });
-  cout << endl;
+  cout << '\n';
   cout << '\n';
 }
 
@@ -48,7 +48,7 @@ void test_copy_mtgen(mt19937_64 mtgen) {
            [&urd, &mtgen](auto &x) { x = urd(mtgen); });
   for_each(v_rand_d.begin(), v_rand_d.end(),
            [](const auto &x) { cout << x << ", "; });
-  cout << endl;
+  cout << '\n';
 }
 
 void test_ref_mtgen(mt19937_64 &mtgen) {
@@ -59,7 +59,7 @@ void test_ref_mtgen(mt19937_64 &mtgen) {
            [&urd, &mtgen](auto &x) { x = urd(mtgen); });
   for_each(v_rand_d.begin(), v_rand_d.end(),
            [](const auto &x) { cout << x << ", "; });
-  cout << endl;
+  cout << '\n';
 }
 
 void test_save_and_load(mt19937_64 &mtgen, seed_seq &seed) {

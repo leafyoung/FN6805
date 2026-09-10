@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/36-linenumber?v=1
+// https://github.com/leafyoung/FN6805/tree/main/36-line_number
 
 #include "line_number.h"
 #include <algorithm>

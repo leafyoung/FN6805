@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/73-cachelocality
+// https://github.com/leafyoung/FN6805/tree/main/73-cache_locality
 
 // Cache locality demo: memory access order matters because the CPU loads data
 // in 64-byte cache lines (8 doubles or 16 ints per line). Sequential (row-
@@ -162,7 +162,7 @@ int main() {
     auto avg =
         static_cast<double>(duration_cast<nanoseconds>(stop - start).count()) /
         SUM_ITERATION;
-    cout << "Row-major    (stride 1,  cache-friendly):   " << avg / 1e3
+    cout << "Row-major    (stride 1,  cache-fri'\n'y):   " << avg / 1e3
          << " us\n";
   }
   {
@@ -174,7 +174,7 @@ int main() {
         static_cast<double>(duration_cast<nanoseconds>(stop - start).count()) /
         SUM_ITERATION;
     cout << "Column-major (stride " << SUM_SIZE
-         << ", cache-unfriendly): " << avg / 1e3 << " us  << slower\n";
+         << ", cache-unfri'\n'y): " << avg / 1e3 << " us  << slower\n";
   }
   (void)sink;
 }

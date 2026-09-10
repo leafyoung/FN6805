@@ -1,20 +1,21 @@
 #include <iostream>
 #include <string>
 #include <tuple>
+
 using namespace std;
 
-tuple<int, double, std::string> f() { return std::make_tuple(1, 2.3, "456"); }
+tuple<int, double, string> f() { return make_tuple(1, 2.3, "456"); }
 
 // use auto
-auto f2() { return std::make_tuple(1, 2.3, std::string("456")); }
+auto f2() { return make_tuple(1, 2.3, string("456")); }
 
 // int
-// std::string
+// string
 // bool
 
 int main() {
   auto [x, y, z] = f(); // from C++17
-  std::cout << x << ", " << y << ", " << z << std::endl;
+  cout << x << ", " << y << ", " << z << '\n';
 
   // above was a shortcut from tie
   {
@@ -22,15 +23,15 @@ int main() {
     double y;
     string z;
     tie(x, y, z) = f();
-    std::cout << x << ", " << y << ", " << z << std::endl;
+    cout << x << ", " << y << ", " << z << '\n';
   }
 
-  auto t = std::make_tuple(42, std::string{"hi"}, true);
-  auto a = std::get<0>(t);
-  auto b = std::get<1>(t);
-  auto c = std::get<2>(t);
+  auto t = make_tuple(42, string{"hi"}, true);
+  auto a = get<0>(t);
+  auto b = get<1>(t);
+  auto c = get<2>(t);
 
-  std::cout << a << ", " << b << ", " << c << std::endl;
+  cout << a << ", " << b << ", " << c << '\n';
 
   return 0;
 }

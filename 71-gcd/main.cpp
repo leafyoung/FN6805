@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/71-gcd?v=1
+// https://github.com/leafyoung/FN6805/tree/main/71-gcd
 
 #include <iostream>
 #include <memory>

@@ -1,12 +1,12 @@
-// https://replit.com/@YeKunlun/40-fibrecursion?v=1
+// https://github.com/leafyoung/FN6805/tree/main/40-fib_recursion
 
 #include <chrono>
 #include <functional>
 #include <iostream>
-#include <list>
 #include <vector>
-using namespace std::chrono;
+
 using namespace std;
+using namespace std::chrono;
 using namespace std::placeholders;
 
 constexpr long long factorial(int n) {
@@ -39,7 +39,8 @@ ull fib_recur_mem(int n) {
   vector<ull> temp(n + 1, NOT_COMPUTED);
 
   // need a type, cannot use auto
-  function<ull(int)> fib_internal = [&temp, &fib_internal, NOT_COMPUTED](int n) {
+  // NOT_COMPUTED is a constant, no need to capture it
+  function<ull(int)> fib_internal = [&temp, &fib_internal](int n) {
     if (n <= 1)
       return 1ull;
     if (temp[n] != NOT_COMPUTED)

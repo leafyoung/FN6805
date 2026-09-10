@@ -25,35 +25,38 @@ double bond_price_zero(FixedRateBond frb, const int today, const RateCurve IC,
     df[i] = get_df(today, coupon_day, IC, today, ic_spread);
     dcf = df[i] * cf[i];
     pv += dcf;
-    DEBUG &&cout << i << ": " << coupon_day << ", " << df[i] << ", " << cf[i]
-                 << ", " << dcf << ", " << pv << "," << ic_spread << endl;
+    if (DEBUG)
+      cout << i << ": " << coupon_day << ", " << df[i] << ", " << cf[i] << ", "
+           << dcf << ", " << pv << "," << ic_spread << '\n';
   }
   return pv;
 }
 
 void test_bond_price_zero() {
-  cout << "test_bond_price_zero: " << endl;
+  cout << "test_bond_price_zero: " << '\n';
 
-  {} {
+  {
+  }
+  {
     // flat rate - result are close to 100.
     auto v00f = bond_price_zero({100, 0.03, 2, "A", 0.03}, 41082,
                                 {{41082, 0}, {41083, 3.0}}, 0.0);
-    cout << "v00f1:" << v00f << endl;
+    cout << "v00f1:" << v00f << '\n';
 
     auto v00f2 = bond_price_zero({100, 0.04, 10, "M", 0.04}, 41082,
                                  {{41082, 0}, {41083, 4.0}}, 0.0);
-    cout << "v00f2:" << v00f2 << endl;
+    cout << "v00f2:" << v00f2 << '\n';
   }
 
   {
     auto v00 = bond_price_zero({100, 0.02, 4, "Q", 0.02}, 41082, IC, 0.0);
-    cout << "v00:" << v00 << endl; // v00:100.579
+    cout << "v00:" << v00 << '\n'; // v00:100.579
 
     auto v01 = bond_price_zero({100, 0.03, 2, "S", 0.03}, 41082, IC, 0.0);
-    cout << "v01:" << v01 << endl; // v01:103.281
+    cout << "v01:" << v01 << '\n'; // v01:103.281
 
     auto v02 = bond_price_zero({100, 0.04, 3, "A", 0.04}, 41082, IC, 0.0);
-    cout << "v02:" << v02 << endl; // v02:106.992
+    cout << "v02:" << v02 << '\n'; // v02:106.992
   }
 
   // PV01: Price value of a basis point
@@ -66,17 +69,17 @@ void test_bond_price_zero() {
   {
     double pv01 = (v1 - v2); // / 0.0001 / 100 = per 1 bp change in %
     cout << "v1: " << v1 << ", "
-         << "v2: " << v2 << " pv01: " << pv01 << endl;
+         << "v2: " << v2 << " pv01: " << pv01 << '\n';
   }
   {
     double pv01 = (v0 - v1);
     cout << "v0: " << v0 << ", "
-         << "v1: " << v1 << " pv01: " << pv01 << endl;
+         << "v1: " << v1 << " pv01: " << pv01 << '\n';
   }
   {
     double pv01 = (v0 - v2) / 2;
     cout << "v0: " << v0 << ", "
-         << "v2: " << v2 << " pv01: " << pv01 << endl;
+         << "v2: " << v2 << " pv01: " << pv01 << '\n';
   }
-  cout << "====" << endl;
+  cout << "====" << '\n';
 }

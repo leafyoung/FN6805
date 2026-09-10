@@ -10,30 +10,30 @@ int main() {
   vector<int> v{1, 2, 3};
   auto it = v.begin();
 
-  cout << *(it + 2) << endl;
+  cout << *(it + 2) << '\n';
 
   list<int> l{1, 2, 3};
   auto it2 = l.begin();
-  // cout << *(it + 2) << endl; // compiler error
+  // cout << *(it + 2) << '\n'; // compiler error
   // 2nd element in the list
-  cout << *(++it2) << endl;
+  cout << *(++it2) << '\n';
 
   advance(it2, 2); // equivalent to it2 + 2
-  cout << (it2 == l.end()) << endl;
+  cout << (it2 == l.end()) << '\n';
 
-  cout << *it2 << endl; // invalid access the 4th element. we shall avoid
+  cout << *it2 << '\n'; // invalid access the 4th element. we shall avoid
 
   // the 3rd element
-  cout << *(prev(it2, 1)) << endl;
+  cout << *(prev(it2, 1)) << '\n';
   // the 2nd element
-  cout << *(prev(it2, 2)) << endl;
+  cout << *(prev(it2, 2)) << '\n';
   // the 3rd element
-  cout << *(next(prev(it2, 2), 1)) << endl;
+  cout << *(next(prev(it2, 2), 1)) << '\n';
 
   // the non-existed 5th element, invalid access.
-  cout << *(next(it2, 1)) << endl;
+  cout << *(next(it2, 1)) << '\n';
 
-  cout << "insertion" << endl;
+  cout << "insertion" << '\n';
 
   {
     list<int> vec{1, 2, 3};
@@ -46,14 +46,14 @@ int main() {
     for (auto v : vec) {
       cout << v << ", ";
     }
-    cout << endl;
+    cout << '\n';
   }
 
   {
     vector<int> vec{1, 2, 3};
 
     for (int i = 0; i < 3; ++i) {
-      cout << vec[i] << endl;
+      cout << vec[i] << '\n';
     }
   }
   {
@@ -61,39 +61,39 @@ int main() {
 
     int i = 0;
     for (auto it = lst.begin(); it != lst.end(); ++it) {
-      cout << i << ", " << *it << endl;
+      cout << i << ", " << *it << '\n';
       i++;
     }
 
     for (auto it = lst.begin(); it != lst.end(); ++it) {
-      cout << distance(lst.begin(), it) << ", " << *it << endl;
+      cout << distance(lst.begin(), it) << ", " << *it << '\n';
     }
   }
 
   {
-    cout << "vector" << endl;
+    cout << "vector" << '\n';
     vector<int> vec{1, 2, 3};
     for (auto it = vec.begin(); it < vec.end(); advance(it, 2)) {
-      cout << *it << endl;
+      cout << *it << '\n';
     }
 
-    cout << "list" << endl;
+    cout << "list" << '\n';
     list<int> lst{1, 2, 3};
 
     // next for list is O(n) operation, a performance trap.
     for (auto it = lst.begin(); it != lst.end(); advance(it, 2)) {
-      cout << *it << endl;
+      cout << *it << '\n';
       if (next(it, 1) == lst.end() || next(it, 2) == lst.end()) {
         break;
       }
     }
 
-    cout << "list2:" << endl;
+    cout << "list2:" << '\n';
     // use of external tracking variable i is better
     int i = 0;
     auto const n_elem = static_cast<int>(ceil(lst.size() / 2.0));
     for (auto it = lst.begin(); i < n_elem; advance(it, 2), ++i) {
-      cout << *it << endl;
+      cout << *it << '\n';
     }
   }
 }

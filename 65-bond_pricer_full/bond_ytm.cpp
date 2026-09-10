@@ -26,8 +26,9 @@ auto bond_price_ytm(FixedRateBond frb) {
     pv += dcf;
     mac_duration += dcf * (i + 1) / payment_count;
     convexity += dcf * (i + 2) * (i + 1);
-    DEBUG &&cout << i << ": " << df[i] << ", " << cf[i] << ", " << dcf << ", "
-                 << pv << "," << endl;
+    if (DEBUG)
+      cout << i << ": " << df[i] << ", " << cf[i] << ", " << dcf << ", " << pv
+           << "," << '\n';
   }
   mac_duration /= pv;
   convexity /= pv * unit_rate * unit_rate * payment_count * payment_count;
@@ -40,87 +41,87 @@ auto test_print_bond_price_ytm(FixedRateBond frb) {
   auto [pv, mac_duration, mod_duration, dv01, convexity] = bond_price_ytm(frb);
   cout << "bond: " << frb.face_value << ", coupon: " << frb.coupon_rate
        << ", maturity: " << frb.maturity << ", ps: " << frb.ps
-       << ", ytm: " << frb.ytm << endl;
+       << ", ytm: " << frb.ytm << '\n';
   cout << "pv: " << pv << ", "
        << "mac: " << mac_duration << ", "
        << "mod: " << mod_duration << ", "
        << "dv01: " << dv01 << ", "
-       << "convexity: " << convexity << endl;
+       << "convexity: " << convexity << '\n';
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
 
 void test_bond_price_ytm() {
-  cout << "test_bond_price_ytm: " << endl;
+  cout << "test_bond_price_ytm: " << '\n';
   cout << setprecision(10);
 
   {
-    cout << "Test PV" << endl;
+    cout << "Test PV" << '\n';
     auto [pv, mac_duration, mod_duration, dv01, convexity] =
         test_print_bond_price_ytm({100, 0.06, 30, "A", 0.06});
-    isclose(pv, 100) ? (cout << "Test PV: PASS" << endl
-                             << "----" << endl)
+    isclose(pv, 100) ? (cout << "Test PV: PASS" << '\n'
+                             << "----" << '\n')
                      : throw logic_error("Sampole bond test error");
   }
 
   {
     // https://www.wallstreetmojo.com/convexity-of-a-bond-formula-duration/
-    cout << "Test convexity" << endl;
+    cout << "Test convexity" << '\n';
     auto [pv, mac_duration, mod_duration, dv01, convexity] =
         test_print_bond_price_ytm({1000, 0.08, 6, "S", 0.10});
     (isclose(pv, 911.3674836) && isclose(mac_duration, 4.817782802) &&
      isclose(mod_duration, 4.588364574) && isclose(dv01, 0.4181686275) &&
      isclose(convexity, 26.26239568))
-        ? (cout << "Test convexity: PASS" << endl
-                << "----" << endl)
+        ? (cout << "Test convexity: PASS" << '\n'
+                << "----" << '\n')
         : throw logic_error("Sample bond test failure");
   }
 
   {
     //  https://en.wikipedia.org/wiki/Bond_duration#Example_2
-    cout << "Test mac_duration" << endl;
+    cout << "Test mac_duration" << '\n';
     auto [pv, mac_duration, mod_duration, dv01, convexity] =
         test_print_bond_price_ytm({1000, 0.05, 5, "A", 0.065});
     isclose(mac_duration, 4.528943201)
-        ? (cout << "Test mac_duration: PASS" << endl
-                << "----" << endl)
+        ? (cout << "Test mac_duration: PASS" << '\n'
+                << "----" << '\n')
         : throw logic_error("Sample bond test failure");
   }
 
   {
-    cout << "Test modified duration/effective_duration/dv01" << endl;
+    cout << "Test modified duration/effective_duration/dv01" << '\n';
     auto [pv, mac_duration, mod_duration, dv01, convexity] =
         bond_price_ytm({100, 0.03, 30, "M", 0.05});
     cout << pv << ", " << mac_duration << ", " << mod_duration << "," << dv01
-         << ", " << convexity << endl;
+         << ", " << convexity << '\n';
 
-    cout << "test duration: " << endl;
-    cout << "macaulay duration: " << mac_duration << endl;
-    cout << "modified duration: " << mod_duration << endl;
+    cout << "test duration: " << '\n';
+    cout << "macaulay duration: " << mac_duration << '\n';
+    cout << "modified duration: " << mod_duration << '\n';
 
     double effecitve_duration =
         (get<0>(bond_price_ytm({100, 0.03, 30, "M", 0.05 - 0.0001 / 2.0})) -
          get<0>(bond_price_ytm({100, 0.03, 30, "M", 0.05 + 0.0001 / 2.0}))) /
         pv;
-    cout << "effective_duration: " << effecitve_duration << endl;
+    cout << "effective_duration: " << effecitve_duration << '\n';
     double mod_duration_dv01 = dv01 / pv;
-    cout << "dv01: " << dv01 << ", " << effecitve_duration * pv << endl;
+    cout << "dv01: " << dv01 << ", " << effecitve_duration * pv << '\n';
     isclose(dv01, effecitve_duration * pv, -4)
-        ? (cout << "Test effective_duration/dv01: PASS" << endl
-                << "----" << endl)
+        ? (cout << "Test effective_duration/dv01: PASS" << '\n'
+                << "----" << '\n')
         : throw logic_error("Sample bond effective_duration/dv01 failure");
 
     // mod_duration in %, so / 100.
     // mod_duration_alt is on change of 1 bp, scale to 1%
     cout << "mod: " << mod_duration / 100 << ", " << mod_duration_dv01 * 100
-         << ", " << effecitve_duration * 100 << endl;
+         << ", " << effecitve_duration * 100 << '\n';
     isclose(mod_duration / 100, mod_duration_dv01 * 100)
-        ? (cout << "Test mod_duration/dv01: PASS" << endl
-                << "----" << endl)
+        ? (cout << "Test mod_duration/dv01: PASS" << '\n'
+                << "----" << '\n')
         : throw logic_error("Sample bond mod_duration/dv01 failure");
   }
 
   {
-    cout << "test for modified duration and convexity" << endl;
+    cout << "test for modified duration and convexity" << '\n';
     FixedRateBond frb{100, 0.03, 30, "A", 0.03};
     auto [pv, mac_duration, mod_duration, dv01, convexity] =
         bond_price_ytm(frb);
@@ -130,19 +131,19 @@ void test_bond_price_ytm() {
       frb.ytm += chg;
       return frb;
     }(frb));
-    cout << "pv: " << pv1 << "-" << pv << "=" << (pv1 - pv) << endl;
+    cout << "pv: " << pv1 << "-" << pv << "=" << (pv1 - pv) << '\n';
     auto approx_mod = -mod_duration * chg;
     auto approx_mod_convexity =
         -mod_duration * chg + 0.5 * convexity * chg * chg;
     auto approx_pv = approx_mod_convexity * pv;
     auto diff_percent = (approx_pv - (pv1 - pv)) / pv;
     cout << approx_mod << ", " << approx_mod_convexity << ", " << approx_pv
-         << ", " << diff_percent * 100 << "%" << endl;
+         << ", " << diff_percent * 100 << "%" << '\n';
     isclose(approx_pv, (pv1 - pv), -3)
-        ? (cout << "Test for modified duration and convexity: PASS" << endl
-                << "----" << endl)
+        ? (cout << "Test for modified duration and convexity: PASS" << '\n'
+                << "----" << '\n')
         : throw logic_error("Sample bond duration/convexity failure");
   }
 
-  cout << "====" << endl;
+  cout << "====" << '\n';
 }

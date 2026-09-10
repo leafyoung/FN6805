@@ -17,7 +17,7 @@ void test_reverse() {
   for (auto const val : v) {
     cout << val << ", ";
   }
-  cout << endl;
+  cout << '\n';
 }
 
 void test_count() {
@@ -29,7 +29,7 @@ void test_count() {
   auto three = 3;
   auto count_equal_3 = count(v.begin(), v.end(), three);
   // count_equal_3 is 1
-  cout << count_equal_3 << endl;
+  cout << count_equal_3 << '\n';
 
   // Look for numbers which is larger than three, 3 ways
   auto is_above_3 = [](int v) { return v > 3; };
@@ -39,7 +39,7 @@ void test_count() {
   auto count_above_3_3 =
       count_if(v.begin(), v.end(), bind(greater<int>(), _1, 3));
 
-  cout << count_above_3_1 << endl;
-  cout << count_above_3_2 << endl;
-  cout << count_above_3_3 << endl;
+  cout << count_above_3_1 << '\n';
+  cout << count_above_3_2 << '\n';
+  cout << count_above_3_3 << '\n';
 }

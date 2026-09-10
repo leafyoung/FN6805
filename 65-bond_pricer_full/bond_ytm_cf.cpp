@@ -28,13 +28,13 @@ cout << "df: ";
 for (auto v : df) {
   cout << v << ", ";
 }
-cout << endl;
+cout << '\n';
 
 cout << "cf: ";
 for (auto v : cf) {
   cout << v << ", ";
 }
-cout << endl;
+cout << '\n';
 */
   // dcf
   transform(df.begin(), df.end(), cf.begin(), dcf.begin(),
@@ -44,7 +44,7 @@ cout << endl;
   for (auto v : dcf) {
     cout << v << ", ";
   }
-  cout << endl;
+  cout << '\n';
   */
 
   // pv
@@ -58,7 +58,7 @@ cout << endl;
       pv;
   // convexity
   transform(dcf.begin(), dcf.end(), serial.begin(), convexity_items.begin(),
-            [payment_count](auto dcf, auto i) { return dcf * (i + 1) * i; });
+            [](auto dcf, auto i) { return dcf * (i + 1) * i; });
   auto convexity =
       accumulate(convexity_items.begin(), convexity_items.end(), 0.0) / pv /
       unit_rate / unit_rate / payment_count / payment_count;
@@ -82,9 +82,8 @@ auto bond_price_ytm_cf(FloatingRateBond frb) {
   vector<double> cf(n, 0.0);
   vector<int> serial(n);
   iota(serial.begin(), serial.end(), 1);
-  auto unit_rate = (1.0 + frb.ytm / payment_count);
   transform(serial.begin(), serial.end(), cf.begin(),
-            [&unit_rate, &frb, &payment_count](const auto i) {
+            [&frb, &payment_count](const auto i) {
               return (frb.ytm / payment_count + frb.spread) * frb.face_value;
             });
   if (!frb.is_loan) {
@@ -104,34 +103,34 @@ auto bond_price_ytm_cf(AmortizationBond ab) {
 }
 
 auto test_bond_price_ytm_cf(FixedRateBond frb) {
-  cout << "FixedRatedBond:" << endl;
+  cout << "FixedRatedBond:" << '\n';
   auto [pv, mac_duration, mod_duration, dv01, convexity] =
       bond_price_ytm_cf(frb);
   cout << "bond: " << frb.face_value << ", coupon: " << frb.coupon_rate
        << ", maturity: " << frb.maturity << ", ps: " << frb.ps
-       << ", ytm: " << frb.ytm << endl;
+       << ", ytm: " << frb.ytm << '\n';
   cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
        << "mod: " << mod_duration << ", " << "dv01: " << dv01 << ", "
-       << "convexity: " << convexity << endl;
+       << "convexity: " << convexity << '\n';
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
 
 auto test_bond_price_ytm_cf(FloatingRateBond frb) {
-  cout << "FloatingRatedBond:" << endl;
+  cout << "FloatingRatedBond:" << '\n';
   auto [pv, mac_duration, mod_duration, dv01, convexity] =
       bond_price_ytm_cf(frb);
   cout << boolalpha;
   cout << "bond: " << frb.face_value << ", maturity: " << frb.maturity
        << ", ps: " << frb.ps << ", ytm: " << frb.ytm
-       << ", is_loan: " << frb.is_loan << ", spread: " << frb.spread << endl;
+       << ", is_loan: " << frb.is_loan << ", spread: " << frb.spread << '\n';
   cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
        << "mod: " << mod_duration << ", " << "dv01: " << dv01 << ", "
-       << "convexity: " << convexity << endl;
+       << "convexity: " << convexity << '\n';
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
 
 auto test_bond_price_ytm_cf(AmortizationBond ab) {
-  cout << "AmortizationBond:" << endl;
+  cout << "AmortizationBond:" << '\n';
   auto [pv, mac_duration, mod_duration, dv01, convexity] =
       bond_price_ytm_cf(ab);
   auto payment_count = get_payment_count(ab.ps);
@@ -140,15 +139,15 @@ auto test_bond_price_ytm_cf(AmortizationBond ab) {
                                                 -payment_count * ab.maturity)));
   cout << "bond: " << ab.principal << ", installment: " << installment
        << ", maturity: " << ab.maturity << ", ps: " << ab.ps
-       << ", yield: " << ab.yield << endl;
+       << ", yield: " << ab.yield << '\n';
   cout << "pv: " << pv << ", " << "mac: " << mac_duration << ", "
        << "mod: " << mod_duration << ", " << "dv01: " << dv01 << ", "
-       << "convexity: " << convexity << endl;
+       << "convexity: " << convexity << '\n';
   return make_tuple(pv, mac_duration, mod_duration, dv01, convexity);
 }
 
 void test_bond_price_ytm_cf() {
-  cout << "test_bond_price_ytm_cf" << endl;
+  cout << "test_bond_price_ytm_cf" << '\n';
   test_bond_price_ytm_cf(FloatingRateBond{.face_value = 100,
                                           .maturity = 10,
                                           .ps = "S",
@@ -182,5 +181,5 @@ void test_bond_price_ytm_cf() {
                                           .spread = 0.0,
                                           .is_loan = true});
 
-  cout << "====" << endl;
+  cout << "====" << '\n';
 }

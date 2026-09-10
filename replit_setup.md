@@ -1,4 +1,4 @@
-# github - replit setup
+# github - setup
 
 ```bash
 mkdir 54-fstream_demo

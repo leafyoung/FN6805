@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/60-constexpr?v=1
+// https://github.com/leafyoung/FN6805/tree/main/60-constexpr
 
 #include <cmath>
 #include <iostream>

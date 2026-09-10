@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/32-measuretime?v=1
+// https://github.com/leafyoung/FN6805/tree/main/32-measure_time
 
 #include <chrono>
 #include <iostream>

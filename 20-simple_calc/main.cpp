@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/20-simplecalc?v=1
+// https://github.com/leafyoung/FN6805/tree/main/20-simple_calc
 
 #include <iostream>
 #include <string>

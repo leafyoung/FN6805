@@ -60,7 +60,8 @@ double get_df(const int start, const int end, const RateCurve &ic,
 
   double r0 = interpolate(xs, ys, start, ic_spread);
   double r1 = interpolate(xs, ys, end, ic_spread);
-  DEBUG &&cout << start << ", " << end << ", " << r0 << ", " << r1 << endl;
+  if (DEBUG)
+    cout << start << ", " << end << ", " << r0 << ", " << r1 << '\n';
   double d0 = exp(-(start - today) / 365.0 * r0 / 100.0);
   double d1 = exp(-(end - today) / 365.0 * r1 / 100.0);
 
@@ -68,23 +69,23 @@ double get_df(const int start, const int end, const RateCurve &ic,
 }
 
 void test_get_df() {
-  cout << "test_get_df: " << endl;
+  cout << "test_get_df: " << '\n';
 
   auto today = 41082;
-  cout << get_df(41082, 41083, IC, today, 0.0) << endl;
-  cout << get_df(41082, 41461, IC, today, 0.0) << endl;
-  cout << get_df(41082, 52043, IC, today, 0.0) << endl;
-  cout << get_df(41082, 52143, IC, today, 0.0) << endl;
+  cout << get_df(41082, 41083, IC, today, 0.0) << '\n';
+  cout << get_df(41082, 41461, IC, today, 0.0) << '\n';
+  cout << get_df(41082, 52043, IC, today, 0.0) << '\n';
+  cout << get_df(41082, 52143, IC, today, 0.0) << '\n';
 
   auto result = get_df(41082, 44000, IC, today, 0.0);
-  cout << result << endl;
+  cout << result << '\n';
   tuple<int, double> v1{43643, 2.53599931753348}, v2{44007, 2.70067752825491};
 
   double r_interp = (get<1>(v2) - get<1>(v1)) / (get<0>(v2) - get<0>(v1)) *
                         (44000 - get<0>(v1)) +
                     get<1>(v1);
   double d_interp = exp(-(44000 - get<0>(IC[0])) / 365.0 * r_interp / 100.0);
-  cout << d_interp << ", " << r_interp << endl;
+  cout << d_interp << ", " << r_interp << '\n';
   isclose(d_interp, result)
       ? 0
       : throw logic_error("d_interp, result shall be close");

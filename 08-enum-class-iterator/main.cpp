@@ -1,4 +1,5 @@
 #include <iostream>
+
 using namespace std;
 
 enum class Colors { Red, Green, Blue, Colors_End };
@@ -10,12 +11,14 @@ Colors &operator++(Colors &c, int) {
   case Colors::Green:
     return c = Colors::Blue;
   case Colors::Blue:
+    return c = Colors::Colors_End;
+  case Colors::Colors_End:
     return c = Colors::Colors_End; // managing overflow
   }
 }
 
 int main() {
   for (auto v = Colors::Red; v != Colors::Colors_End; v++) {
-    cout << static_cast<int>(v) << endl;
+    cout << static_cast<int>(v) << '\n';
   }
 }

@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/30-header-file?v=1
+// https://github.com/leafyoung/FN6805/tree/main/30-header-file
 
 // This example is intentional to be un-compilable because we have included
 // function definitions in a_func.h and b_func.h. It causes compiler error of

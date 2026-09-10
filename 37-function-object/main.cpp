@@ -28,9 +28,9 @@ int main() {
     v.push_back(rand());
 
   // check directly if condition is satisfied:
-  cout << "Is there an entry divisible by 1000?: " << Condition(v) << endl;
+  cout << "Is there an entry divisible by 1000?: " << Condition(v) << '\n';
 
   // check through member function of Test if condition is satisfied:
   Test T(v);
-  cout << "Is there an entry divisible by 1000?: " << T.test(Condition) << endl;
+  cout << "Is there an entry divisible by 1000?: " << T.test(Condition) << '\n';
 }

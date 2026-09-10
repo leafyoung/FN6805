@@ -1,4 +1,4 @@
-// https://replit.com/@YeKunlun/72-multipleinclusion
+// https://github.com/leafyoung/FN6805/tree/main/72-multiple_inclusion
 
 #include "add.h"
 #include "use_add.h"
@@ -9,7 +9,7 @@
 I created a demo to show if we do not split the implementation of the
 class/function into a cpp file.
 
-https://replit.com/@YeKunlun/72-multipleinclusion?v=1
+https://github.com/leafyoung/FN6805/tree/main/72-multiple_inclusion
 
 ## Files
 
@@ -45,8 +45,8 @@ compiler and work pleasantly.
 */
 
 int main() {
-  std::cout << add(1, 1) << std::endl;
-  std::cout << add_n(1, 1, 10) << std::endl;
+  std::cout << add(1, 1) << std::'\n';
+  std::cout << add_n(1, 1, 10) << std::'\n';
 
   std::cout << "Hello World!\n";
 }
