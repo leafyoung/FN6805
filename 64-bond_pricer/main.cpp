@@ -41,7 +41,7 @@ struct FixedRateBond {
   double ytm;
 };
 
-auto bond_price_ytm(const FixedRateBond frb) {
+auto bond_price_ytm(const FixedRateBond &frb) {
   // mac_duration: weighted sum of
   // modified duration: % change in pv to yield change in 1%, based on
   // mac_duration yield.
@@ -66,7 +66,7 @@ auto bond_price_ytm(const FixedRateBond frb) {
   return make_tuple(pv, mac_duration, mod_duration, convexity);
 }
 
-auto test_print_bond_price_ytm(const FixedRateBond frb) {
+auto test_print_bond_price_ytm(const FixedRateBond &frb) {
   auto [pv, mac_duration, mod_duration, convexity] = bond_price_ytm(frb);
   cout << "bond: " << frb.face_value << ", coupon: " << frb.coupon_rate
        << ", maturity: " << frb.maturity << ", ps: " << frb.ps
