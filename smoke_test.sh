@@ -121,11 +121,13 @@ readonly WASM_TARGET_FLAGS="--target=wasm32-wasip1 -O2 -Wall -Wextra \
 -Wl,-z,stack-size=$WASM_STACK_SIZE \
 -lunwind -lc-printscan-long-double"
 
-# CPPBox routes any project textually mentioning one of these headers to podman,
-# because wasm32-wasip1-threads is non-functional upstream (see
-# wasi_exec.rs::uses_threading). Matching that list exactly keeps this test
-# honest: a module skipped here is a module CPPBox would not run on wasm either.
-readonly WASM_THREAD_MARKERS='<thread>|<future>|<mutex>|<condition_variable>|<atomic>|<shared_mutex>'
+# Headers that imply *spawning* a thread - the one thing wasm32-wasip1 cannot
+# do. This is evidence for classifying a run failure, NOT a pre-emptive skip:
+# `<atomic>`, `<mutex>` and `<shared_mutex>` are excluded because they work
+# single-threaded, and merely including `<thread>` costs nothing (60-exception
+# needs it for std::this_thread::sleep_for and runs fine on wasm; 70-chrono
+# inherits it from vendored tz.h). Mirrors CPPBox's THREAD_SPAWN_MARKERS.
+readonly WASM_THREAD_SPAWN_MARKERS='<thread>|<future>|<condition_variable>'
 
 # Headers wasi-sdk's libc++ cannot serve at all, beyond CPPBox's own list.
 # <execution> brings in the parallel algorithms (std::execution::par), which
@@ -201,16 +203,26 @@ SHIM
   fi
 }
 
-# Echoes the reason this project cannot run on wasm, or "" if it can.
+# Echoes the reason this project cannot even *build* for wasm, or "" if it can.
+# Threads are deliberately absent: the run decides that (see
+# wasm_run_skip_reason), because header presence is the wrong signal.
 wasm_skip_reason() { # wasm_skip_reason <project>
-  local project="$1"
-  if _matches_markers "$project" "$WASM_THREAD_MARKERS"; then
-    echo "uses threads; CPPBox routes these to podman"
-  elif _matches_markers "$project" "$WASM_UNSUPPORTED_MARKERS"; then
+  if _matches_markers "$1" "$WASM_UNSUPPORTED_MARKERS"; then
     echo "uses <execution>; wasi-sdk libc++ has no parallel algorithms"
   else
     echo ""
   fi
+}
+
+# A wasm run that died: was it a thread that could not start? An uncaught C++
+# exception reaches the host as nothing more specific than "thrown Wasm
+# exception" (wasmtime) or "WebAssembly.Exception" (node) - the same text a
+# std::bad_alloc produces - so this needs the sources to corroborate before
+# blaming threads, exactly as CPPBox's thread_failure_hint does.
+wasm_run_skip_reason() { # wasm_run_skip_reason <project> <run-log>
+  grep -qE 'thrown Wasm exception|WebAssembly\.Exception|uncaught exception|thread constructor failed' "$2" 2>/dev/null || return 1
+  _matches_markers "$1" "$WASM_THREAD_SPAWN_MARKERS" || return 1
+  echo "spawns threads; wasm32-wasip1 cannot - run this on CPPBox's Native backend"
 }
 
 _matches_markers() { # _matches_markers <project> <regex>
@@ -510,6 +522,15 @@ smoke_one_project() {
   if [[ -n "$wasm_known" && "$PROJECT_STATUS" != pass && "$PROJECT_STATUS" != xpass_wasm ]]; then
     PROJECT_STATUS="xfail_wasm"
     PROJECT_DETAIL="$wasm_known"
+  fi
+
+  # Not a failure of the code: wasm simply cannot start threads.
+  if [[ "$TARGET" == wasm && "$PROJECT_STATUS" != pass ]]; then
+    local thread_reason
+    if thread_reason="$(wasm_run_skip_reason "$project" "$run_log")"; then
+      PROJECT_STATUS="skip_wasm"
+      PROJECT_DETAIL="$thread_reason"
+    fi
   fi
 }
 

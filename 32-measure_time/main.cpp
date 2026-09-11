@@ -13,11 +13,11 @@ void test_value_copy(vector<int> x) { (void)x.size(); }
 int main() {
   cout << "start\n";
   vector<int> xx(1'000'000ull, 1);
-  auto start = high_resolution_clock::now();
+  auto start = steady_clock::now();
   for (int i = 0; i < 1'000ull; ++i) {
     test_value_copy(xx);
   }
-  auto end = high_resolution_clock::now();
+  auto end = steady_clock::now();
   cout << "end\n";
   double time_taken = duration_cast<nanoseconds>(end - start).count() /
                       static_cast<double>(1e9);

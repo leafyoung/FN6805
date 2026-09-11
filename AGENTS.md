@@ -83,7 +83,7 @@ Details worth knowing before changing the script:
 
 Students run this code in **CPPBox** (`~/devv/fin/classroom`), a teaching IDE
 that compiles to `wasm32-wasip1` with a bundled wasi-sdk and runs the module
-under an embedded wasmtime, falling back to podman only when it cannot. `--wasm`
+under an embedded wasmtime, with **Native** (host clang++) as the other explicitly selectable backend and no fallback between them. `--wasm`
 reproduces that path, so a green host run plus a green wasm run means the
 examples work in the environment students actually use.
 
@@ -101,15 +101,18 @@ examples work in the environment students actually use.
   wasmtime is the closer match to CPPBox when available.
 - Results land in `$SMOKE_DIR/results-wasm.jsonl` (host runs write
   `results-host.jsonl`), and every record carries a `target` field.
-- Two skip lists decide what wasm is not asked to run:
-  - `WASM_THREAD_MARKERS` is CPPBox's own `uses_threading` header list
-    (`<thread> <future> <mutex> <condition_variable> <atomic> <shared_mutex>`).
-    No project in this repo matches it.
-  - `WASM_UNSUPPORTED_MARKERS` adds `<execution>`: the parallel algorithms need
-    threads and are absent from the wasm sysroot, so `52-stl` is skipped for
-    that reason. CPPBox's own list does **not** include `<execution>`, so such
-    code currently reaches wasm there and fails to compile instead of being
-    routed to podman — worth adding upstream.
+- Only `<execution>` is pre-skipped (`WASM_UNSUPPORTED_MARKERS`): the parallel
+  algorithms genuinely cannot compile against wasi-sdk's libc++, and the
+  compiler error says nothing useful. Everything else is allowed to run and
+  judged on what happens - see the thread note below.
+- Threads are decided by the run, not by a grep. No project here spawns
+  threads, but the machinery is shared with FN6806: a wasm run that dies with an
+  uncaught exception *and* mentions `<thread>`/`<future>`/`<condition_variable>`
+  is reported as `SKIP spawns threads` rather than a failure, because wasm32-wasip1
+  cannot start one. Those belong on CPPBox's **Native** backend. Header presence
+  alone proves nothing - `<atomic>` and `<mutex>` work single-threaded, and
+  `<thread>` is harmless unless something actually spawns.
+
 - `WASM_STACK_SIZE` (default 8 MiB) is the one flag added beyond CPPBox's set.
   wasi-sdk defaults the wasm stack to 64 KiB, so `73-cache_locality`'s
   `array<array<double,512>,512>` (2 MiB) trapped with "memory access out of
