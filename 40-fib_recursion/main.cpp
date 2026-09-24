@@ -94,7 +94,7 @@ int main() {
     test_fib(fib_recursive, 45);
     test_fib(fib_recur_mem, 45);
 
-    // overflow
+    // slow for naive recursion (fib(50) still fits in ull; overflow starts at n=93)
     // test_fib(fib_linear, 50);
     // test_fib(fib_recursive, 50);
     // test_fib(fib_recur_mem, 50);

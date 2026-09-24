@@ -19,8 +19,8 @@ void test_find() {
     it = find_if(it, v.end(), bind(greater_equal<int>(), _1, 3));
     // this becomes 3>=
     // it = find_if(it, v.end(), bind(greater_equal<int>(), 3, _1));
-    cout << *it << '\n';
     if (it != v.end()) {
+      cout << *it << '\n';
       idx.push_back(it - v.begin());
       it++;
     }

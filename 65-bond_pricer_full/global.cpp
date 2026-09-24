@@ -1,5 +1,6 @@
 #include <cmath>
 #include <limits>
+#include <stdexcept>
 #include <string>
 using namespace std;
 
@@ -19,5 +20,5 @@ int get_payment_count(string ps) {
   } else if (ps == "M") {
     return 12;
   }
-  return nan("1");
+  throw std::invalid_argument("unknown payment schedule: " + ps);
 }

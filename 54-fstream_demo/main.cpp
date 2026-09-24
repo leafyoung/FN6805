@@ -68,8 +68,8 @@ void write_with_convention() {
   out.close();
 }
 
-void read_with_convension() {
-  cout << "read_with_convension()\n";
+void read_with_convention() {
+  cout << "read_with_convention()\n";
   ifstream in("./test2.txt");
   string sin, dummy;
   int iin;
@@ -97,6 +97,6 @@ int main() {
 
   {
     write_with_convention();
-    read_with_convension();
+    read_with_convention();
   }
 }

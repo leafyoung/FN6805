@@ -9,13 +9,13 @@ using namespace std;
 // NRVO antipattern: writing `return std::move(vec)` DISABLES NRVO.
 // The compiler no longer sees a plain named-variable return, so it must
 // call the move constructor instead of constructing in-place.
-// Always write `return vec;` — let the compiler apply NRVO for free.
+// Always write `return vec;` - let the compiler apply NRVO for free.
 vector<int> return_vector(int n) {
   vector<int> vec(n, 5);
   cout << "\nin return_vector()" << '\n';
-  cout << &vec[3] << ", " << vec[3] << '\n';
+  cout << &vec << ", " << vec[3] << '\n';
   // BAD: forces a move, defeats NRVO
-  // The compiler will warn: -Wpessimizing-move — that's the point!
+  // The compiler will warn: -Wpessimizing-move - that's the point!
   // return std::move(vec); // NRVO suppressed; move ctor called instead
   return vec;
 }
@@ -52,10 +52,10 @@ PointComplex return_point_complex() {
 }
 
 int main() {
-  // NRVO: compiler constructs directly in caller's space — no copy, no move
+  // NRVO: compiler constructs directly in caller's space - no copy, no move
   auto x = return_vector(10);
   cout << "\nin main(): NRVO applied\n";
-  cout << &x[3] << ", " << x[3] << '\n'; // same address as in function
+  cout << &x << ", " << x[3] << '\n'; // same object address as in function
 
   auto t = return_tuple();
   cout << "\nin main(): NRVO applied (same address)\n";

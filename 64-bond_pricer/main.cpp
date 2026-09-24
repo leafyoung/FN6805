@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iomanip>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -30,7 +31,7 @@ size_t get_payment_count(string ps) {
   if (ps == "M") {
     return 12;
   }
-  return nan("1");
+  throw std::invalid_argument("unknown payment schedule: " + ps);
 }
 
 struct FixedRateBond {
@@ -47,7 +48,7 @@ auto bond_price_ytm(const FixedRateBond &frb) {
   // mac_duration yield.
 
   const size_t payment_count = get_payment_count(frb.ps);
-  const size_t n = frb.maturity * payment_count;
+  const auto n = static_cast<size_t>(std::lround(frb.maturity * payment_count));
   vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value);
   vector<double> df(n, 0);
   cf.back() += frb.face_value;

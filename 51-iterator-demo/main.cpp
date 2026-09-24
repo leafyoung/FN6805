@@ -73,8 +73,9 @@ int main() {
   {
     cout << "vector" << '\n';
     vector<int> vec{1, 2, 3};
-    for (auto it = vec.begin(); it < vec.end(); advance(it, 2)) {
-      cout << *it << '\n';
+    // advance(it, 2) past end() is UB for vector: step by index instead
+    for (size_t i = 0; i < vec.size(); i += 2) {
+      cout << vec[i] << '\n';
     }
 
     cout << "list" << '\n';

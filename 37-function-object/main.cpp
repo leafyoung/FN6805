@@ -5,8 +5,8 @@
 using namespace std;
 
 bool Condition(vector<int> v) {
-  for (int i = 0; i < v.size(); i++)
-    if (v[i] % 3 == 0)
+  for (size_t i = 0; i < v.size(); i++)
+    if (v[i] % 1000 == 0)
       return true;
   return false;
 }

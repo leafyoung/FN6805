@@ -25,7 +25,7 @@ void test_iota() {
   cout << *it << '\n';
 
   int cc = 0;
-  generate(seq.begin(), next(seq.begin(), 10), [&cc]() {
+  generate(seq.begin(), seq.end(), [&cc]() {
     ++cc;
     return cc * cc;
   });

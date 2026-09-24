@@ -84,7 +84,7 @@ auto bond_price_ytm_cf(FloatingRateBond frb) {
   iota(serial.begin(), serial.end(), 1);
   transform(serial.begin(), serial.end(), cf.begin(),
             [&frb, &payment_count](const auto i) {
-              return (frb.ytm / payment_count + frb.spread) * frb.face_value;
+              return (frb.ytm + frb.spread) / payment_count * frb.face_value; // annual spread, per period
             });
   if (!frb.is_loan) {
     cf.back() += frb.face_value;

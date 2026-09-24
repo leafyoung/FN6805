@@ -98,22 +98,23 @@ void test_bond_price_ytm() {
     cout << "macaulay duration: " << mac_duration << '\n';
     cout << "modified duration: " << mod_duration << '\n';
 
-    double effecitve_duration =
+    // effective duration x 1e-4: fractional price change for a 1bp move
+    double effective_duration_1bp =
         (get<0>(bond_price_ytm({100, 0.03, 30, "M", 0.05 - 0.0001 / 2.0})) -
          get<0>(bond_price_ytm({100, 0.03, 30, "M", 0.05 + 0.0001 / 2.0}))) /
         pv;
-    cout << "effective_duration: " << effecitve_duration << '\n';
+    cout << "effective_duration: " << effective_duration_1bp << '\n';
     double mod_duration_dv01 = dv01 / pv;
-    cout << "dv01: " << dv01 << ", " << effecitve_duration * pv << '\n';
-    isclose(dv01, effecitve_duration * pv, -4)
+    cout << "dv01: " << dv01 << ", " << effective_duration_1bp * pv << '\n';
+    isclose(dv01, effective_duration_1bp * pv, -4)
         ? (cout << "Test effective_duration/dv01: PASS" << '\n'
                 << "----" << '\n')
         : throw logic_error("Sample bond effective_duration/dv01 failure");
 
-    // mod_duration in %, so / 100.
-    // mod_duration_alt is on change of 1 bp, scale to 1%
+    // mod_duration is in years (per unit change in yield); / 100 gives per 1%.
+    // mod_duration_dv01 and effective_duration_1bp are per 1bp, x 100 gives per 1%
     cout << "mod: " << mod_duration / 100 << ", " << mod_duration_dv01 * 100
-         << ", " << effecitve_duration * 100 << '\n';
+         << ", " << effective_duration_1bp * 100 << '\n';
     isclose(mod_duration / 100, mod_duration_dv01 * 100)
         ? (cout << "Test mod_duration/dv01: PASS" << '\n'
                 << "----" << '\n')

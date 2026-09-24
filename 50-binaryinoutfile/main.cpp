@@ -58,7 +58,7 @@ void test_binary() {
     cout << str << '\n';
 
     rf.read(reinterpret_cast<char *>(&size), sizeof(size_t)); // 10
-    vector<size_t> vec(size); // 10 element long vector
+    vector<int> vec(size); // 10 element long vector
     for (auto &v : vec) {     // auto with reference type
       rf.read(reinterpret_cast<char *>(&v),
               sizeof(int)); // read each element into it

@@ -162,7 +162,7 @@ int main() {
     auto avg =
         static_cast<double>(duration_cast<nanoseconds>(stop - start).count()) /
         SUM_ITERATION;
-    cout << "Row-major    (stride 1,  cache-fri'\n'y):   " << avg / 1e3
+    cout << "Row-major    (stride 1,  cache-friendly):   " << avg / 1e3
          << " us\n";
   }
   {
@@ -174,7 +174,7 @@ int main() {
         static_cast<double>(duration_cast<nanoseconds>(stop - start).count()) /
         SUM_ITERATION;
     cout << "Column-major (stride " << SUM_SIZE
-         << ", cache-unfri'\n'y): " << avg / 1e3 << " us  << slower\n";
+         << ", cache-unfriendly): " << avg / 1e3 << " us  << slower\n";
   }
   (void)sink;
 }

@@ -7,7 +7,8 @@ using namespace std;
 using namespace std::chrono;
 
 // Change below without the use of reference
-void test_value_copy(vector<int> x) { (void)x.size(); }
+// volatile read: stops the optimizer from removing the copy
+void test_value_copy(vector<int> x) { [[maybe_unused]] volatile int v{x[0]}; }
 
 int main() {
   cout << "start\n";

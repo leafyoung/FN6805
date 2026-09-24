@@ -47,6 +47,10 @@ int main() {
     done = true;
     break;
   case '/':
+    if (y == 0) {
+      cout << "division by zero\n";
+      break;
+    }
     result = x / y;
     done = true;
     break;

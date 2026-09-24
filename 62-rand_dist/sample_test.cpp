@@ -18,6 +18,6 @@ Result produce(Param p) { return {0}; }
 
 // test
 void test_produce() {
-  produce({.a = 0, .b = 3.0}).r == 0 ? true : throw logic_error("wrong result");
+  produce({0, 3.0}).r == 0 ? true : throw logic_error("wrong result");
   // Or any problem-specific test
 }

@@ -1,8 +1,6 @@
 // https://github.com/leafyoung/FN6805/tree/main/71-gcd
 
 #include <iostream>
-#include <memory>
-#include <vector>
 using namespace std;
 
 int gcd(int u, int v) {
@@ -20,6 +18,8 @@ int gcd(int u, int v) {
 }
 
 int gcd2(int n1, int n2) {
+  if (n1 == 0 || n2 == 0) // gcd(0,a) = a; subtraction would loop forever
+    return n1 + n2;
   while (n1 != n2) {
     if (n1 > n2)
       n1 -= n2;
