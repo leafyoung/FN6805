@@ -1,10 +1,11 @@
 # AGENTS.md
 
-This file provides guidance to harness when working with code in this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with
+code in this repository. `CLAUDE.md` simply imports it via `@AGENTS.md`.
 
 ## Project Overview
 
-This is a C++ example repository for FN6805: OOP I - C++ Programming. Each numbered directory contains a standalone example demonstrating specific C++ concepts.
+This is a C++ example repository for FN6805: OOP I - C++ Programming. Each numbered directory contains a standalone example demonstrating specific C++ concepts. The sibling directory `../notes/` holds the Quarto lecture source that links to these examples (see its own AGENTS.md); each example here also carries its own GitHub source-header link (see Source Header Links below).
 
 ## Build Commands
 
@@ -33,14 +34,14 @@ Warnings are treated as errors. The Makefile compiles **all** `.cpp` files found
 `smoke_test.sh` compiles **each directory in isolation** with the same flags as
 the Makefile, so every project can be tested in one pass despite each having its
 own `main()`. A project passes if it compiles without warnings and then runs to
-completion without crashing — output is never checked for correctness.
+completion without crashing - output is never checked for correctness.
 
 Details worth knowing before changing the script:
 
 - Binaries, build logs, and run sandboxes go to `$TMPDIR/fn6805-smoke`
   (override with `SMOKE_DIR`), so a run never dirties `git status`.
 - Every project also produces a machine-readable record in
-  `$SMOKE_DIR/results.jsonl` — one JSON object per project with `status`,
+  `$SMOKE_DIR/results.jsonl` - one JSON object per project with `status`,
   `detail`, `duration_ms`, and log paths, plus a final `run_summary` line. Parse
   that rather than scraping the human-readable table.
 - `status` is one of `pass`, `xfail`, `xpass`, `build_fail`, `crash`, `timeout`,
@@ -62,13 +63,13 @@ Details worth knowing before changing the script:
   EOF and exit instead of blocking.
 - The intentionally-broken projects are listed in `EXPECTED_BUILD_FAILURES` and
   reported as `XFAIL`. If one of them ever compiles, the script fails with
-  `XPASS` — a signal that the lesson has been accidentally fixed away.
+  `XPASS` - a signal that the lesson has been accidentally fixed away.
 - Each expected failure also declares, in `expected_failure_pattern`, the
   diagnostic it must produce (`redefinition|multiple definition|duplicate
-  symbol` — GNU ld and wasm-ld word it differently). A build that fails for some
+  symbol` - GNU ld and wasm-ld word it differently). A build that fails for some
   *other* reason is reported as `XFAIL_WRONG_REASON` and fails the run: without
   this, an unrelated typo satisfies the XFAIL while the lesson it teaches is
-  masked. That is not hypothetical — a stray `std::'\n'` in
+  masked. That is not hypothetical - a stray `std::'\n'` in
   `72-multiple_inclusion/main.cpp` did exactly that.
 - Exit status is 0 only when every project passes and both expected failures
   still fail.
@@ -87,8 +88,8 @@ under an embedded wasmtime, with **Native** (host clang++) as the other explicit
 reproduces that path, so a green host run plus a green wasm run means the
 examples work in the environment students actually use.
 
-- Compile flags are copied verbatim from `cppbox-core/src/wasi_exec.rs::compile`
-  — `-fwasm-exceptions` with the two `-mllvm` EH flags, the memory limits,
+- Compile flags are copied verbatim from `cppbox-core/src/wasi_exec.rs::compile`:
+  `-fwasm-exceptions` with the two `-mllvm` EH flags, the memory limits,
   `-lunwind`, and `-lc-printscan-long-double`. Change them only to track that
   file.
 - The toolchain is found automatically: newest `wasi-sdk-*` under
@@ -123,9 +124,9 @@ examples work in the environment students actually use.
   table cannot rot silently.
 - Threads do **not** work on wasm and that is not going to change: wasi-threads
   compiles and links (wasi-sdk 34 ships a `wasm32-wasip1-threads` sysroot, and
-  the module gets the right ABI — a `wasi.thread-spawn` import and a
-  `wasi_thread_start` export), but under wasmtime 46.0.3 — the version CPPBox
-  pins — `std::thread` still fails with `thread constructor failed: Resource
+  the module gets the right ABI - a `wasi.thread-spawn` import and a
+  `wasi_thread_start` export), but under wasmtime 46.0.3 - the version CPPBox
+  pins - `std::thread` still fails with `thread constructor failed: Resource
   temporarily unavailable`, and wasmtime warns that `-Sthreads` becomes a hard
   error in 47.0.0. Bytecode Alliance RFC 47 (merged May 2026) removes
   wasi-threads outright, pointing to WASIp3 cooperative threads near term and
@@ -139,7 +140,7 @@ gitignored files (`*.o`, `main`, `a.out`, …) and never touches `.git`.
 
 Do **not** clean with `find -delete`. `-delete` implies `-depth`, which disables
 `-prune`, so a guard like `find . -path ./.git -prune -o -name main -delete`
-still descends into `.git` and deletes `refs/heads/main` — silently detaching the
+still descends into `.git` and deletes `refs/heads/main` - silently detaching the
 branch. If you must use `find`, use `-exec rm -f {} +` instead of `-delete`.
 
 ## Repository Structure
@@ -147,30 +148,30 @@ branch. If you must use `find`, use `-exec rm -f {} +` instead of `-delete`.
 Each example is a self-contained numbered directory. Every directory holds
 exactly one `main()`, and its `.cpp` files are never nested in subdirectories.
 
-- `08-enum-class-iterator/` — `enum class`, iterating over enumerators
-- `09-memory_lego/` — `sizeof`, object addresses, memory layout
-- `10-hello-world/` — Basic I/O
-- `11-voucher/` — Classes, constructors, copy semantics
-- `20-simple_calc/` — User input, switch statements
-- `30-header-file/` — Header guards, function organization (intentionally broken)
-- `32-measure_time/` — `<chrono>` performance measurement
-- `34-return_with_move/` — Move semantics
-- `35-return_tuple/` — Returning multiple values with `std::tuple`
-- `36-line_number/` — `__LINE__`/`__FILE__` macros, STL exploration
-- `37-function-object/` — Functors and `operator()`
-- `40-fib_recursion/` — Recursion, memoization, lambdas
-- `50-binaryinoutfile/` — Binary file I/O, `reinterpret_cast`
-- `51-iterator-demo/` — Iterator categories and traversal
-- `52-stl/` — STL containers (`vector`, `set`, `map`) and algorithms
-- `54-fstream_demo/` — File stream operations
-- `60-constexpr/` — Compile-time computation
-- `62-rand_dist/` — Random number distributions
-- `64-bond_pricer/` — Structured bindings, tuples, financial math
-- `65-bond_pricer_full/` — Multi-file bond pricer (YTM, zero curve, rate curve)
-- `70-3n_and_1/` — Mathematical algorithms
-- `71-gcd/` — GCD algorithm
-- `72-multiple_inclusion/` — Preventing multiple inclusion with `#pragma once` (intentionally broken)
-- `73-cache_locality/` — Memory access patterns and cache efficiency
+- `08-enum-class-iterator/` - `enum class`, iterating over enumerators
+- `09-memory_lego/` - `sizeof`, object addresses, memory layout
+- `10-hello-world/` - Basic I/O
+- `11-voucher/` - Classes, constructors, copy semantics
+- `20-simple_calc/` - User input, switch statements
+- `30-header-file/` - Header guards, function organization (intentionally broken)
+- `32-measure_time/` - `<chrono>` performance measurement
+- `34-return_with_move/` - Move semantics
+- `35-return_tuple/` - Returning multiple values with `std::tuple`
+- `36-line_number/` - `__LINE__`/`__FILE__` macros, STL exploration
+- `37-function-object/` - Functors and `operator()`
+- `40-fib_recursion/` - Recursion, memoization, lambdas
+- `50-binaryinoutfile/` - Binary file I/O, `reinterpret_cast`
+- `51-iterator-demo/` - Iterator categories and traversal
+- `52-stl/` - STL containers (`vector`, `set`, `map`) and algorithms
+- `54-fstream_demo/` - File stream operations
+- `60-constexpr/` - Compile-time computation
+- `62-rand_dist/` - Random number distributions
+- `64-bond_pricer/` - Structured bindings, tuples, financial math
+- `65-bond_pricer_full/` - Multi-file bond pricer (YTM, zero curve, rate curve)
+- `70-3n_and_1/` - Mathematical algorithms
+- `71-gcd/` - GCD algorithm
+- `72-multiple_inclusion/` - Preventing multiple inclusion with `#pragma once` (intentionally broken)
+- `73-cache_locality/` - Memory access patterns and cache efficiency
 
 ## Working on an Example
 
@@ -180,7 +181,7 @@ Since all `.cpp` files are compiled together, to work on a specific example:
 2. Build and run with `make && ./main`.
 
 To build and run a single example without touching the rest of the repo, use the
-smoke test instead — it compiles one directory at a time and needs no
+smoke test instead - it compiles one directory at a time and needs no
 commenting-out: `./smoke_test.sh 52 --verbose`.
 
 Header files use `#pragma once` for include guards (see `30-header-file/` and `72-multiple_inclusion/` for examples).
@@ -215,3 +216,15 @@ C++17 features actively used throughout:
 - STL algorithms (`sort`, `find`, `iota`, `binary_search`, `for_each`)
 - String literals with `s` suffix (`using namespace std::string_literals`)
 - `<chrono>` for timing
+
+## Adding a New Example
+
+1. Create a numbered directory following the naming convention (hex-like prefix
+   plus descriptive name).
+2. Add `main.cpp` as the entry point, with the GitHub link for the directory as
+   its first line (see Source Header Links above).
+3. Keep it to one `main()` for the whole repo - rename or comment out any other
+   before building with `make`.
+4. Keep includes relative; no install-time paths.
+5. Run `./smoke_test.sh <new-dir>` - it is picked up automatically, with no
+   registration step, as long as it holds at least one `.cpp`.
