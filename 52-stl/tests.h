@@ -1,3 +1,5 @@
+#pragma once
+
 void test_vector();
 void test_set1();
 void test_set2();

@@ -1,6 +1,7 @@
 #include "bond_zero.h"
 #include "global.h"
 
+#include <cmath>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -13,7 +14,7 @@ double bond_price_zero(FixedRateBond frb, const int today, const RateCurve IC,
     throw logic_error("today > 0");
 
   int payment_count = get_payment_count(frb.ps);
-  int n = frb.maturity * payment_count;
+  int n = static_cast<int>(lround(frb.maturity * payment_count));
   vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value),
       df(n, 0);
   cf[n - 1] += frb.face_value;

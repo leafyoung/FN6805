@@ -11,7 +11,7 @@ using namespace std;
 
 auto bond_price_ytm(FixedRateBond frb) {
   int payment_count = get_payment_count(frb.ps);
-  int n = frb.maturity * payment_count;
+  int n = static_cast<int>(lround(frb.maturity * payment_count));
   vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value),
       df(n, 0);
   cf.back() += frb.face_value;
@@ -60,7 +60,7 @@ void test_bond_price_ytm() {
         test_print_bond_price_ytm({100, 0.06, 30, "A", 0.06});
     isclose(pv, 100) ? (cout << "Test PV: PASS" << '\n'
                              << "----" << '\n')
-                     : throw logic_error("Sampole bond test error");
+                     : throw logic_error("Sample bond test error");
   }
 
   {
@@ -103,7 +103,7 @@ void test_bond_price_ytm() {
         (get<0>(bond_price_ytm({100, 0.03, 30, "M", 0.05 - 0.0001 / 2.0})) -
          get<0>(bond_price_ytm({100, 0.03, 30, "M", 0.05 + 0.0001 / 2.0}))) /
         pv;
-    cout << "effective_duration: " << effective_duration_1bp << '\n';
+    cout << "effective_duration x 1bp: " << effective_duration_1bp << '\n';
     double mod_duration_dv01 = dv01 / pv;
     cout << "dv01: " << dv01 << ", " << effective_duration_1bp * pv << '\n';
     isclose(dv01, effective_duration_1bp * pv, -4)

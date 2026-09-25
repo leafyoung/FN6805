@@ -25,7 +25,8 @@ double _interpolate_inc(const vector<int> &xs, const vector<double> &ys,
   }
 
   // use find_if
-  auto it = find_if(xs.begin(), xs.end(), [x0](auto x) { return x0 <= x; });
+  // start at xs.begin() + 1 so i >= 0 even when x0 == xs[0]
+  auto it = find_if(xs.begin() + 1, xs.end(), [x0](auto x) { return x0 <= x; });
   int i = it - xs.begin() - 1;
   return ys[i] + ic_spread +
          (ys[i + 1] - ys[i]) / (xs[i + 1] - xs[i]) * (x0 - xs[i]);
@@ -46,8 +47,10 @@ double get_df(const int start, const int end, const RateCurve &ic,
               const int today, const double ic_spread) {
   start <= end ? 0 : throw logic_error("start must be less than end");
 
-  vector<int> xs(ic.size());
-  vector<double> ys(ic.size());
+  vector<int> xs;
+  vector<double> ys;
+  xs.reserve(ic.size());
+  ys.reserve(ic.size());
   // transform(ic.begin(), ic.end(), xs.begin(), [](auto p) { return get<0>(p);
   // }); transform(ic.begin(), ic.end(), ys.begin(), [](auto p) { return
   // get<1>(p); });

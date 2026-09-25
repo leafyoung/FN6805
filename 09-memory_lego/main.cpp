@@ -1,30 +1,30 @@
 #include <iostream>
 using namespace std;
 
-int main(int argc, const char *argv[]) {
-  int anInt = 0;
-  float aFloat = 0.0;
-  double aDouble = 0.0;
+int main() {
+  int an_int = 0;
+  float a_float = 0.0;
+  double a_double = 0.0;
 
   cout << '\n'
-       << "Memory lego bricks, int:    " << sizeof(anInt) << '\n'
-       << "Memory lego bricks, float:  " << sizeof(aFloat) << '\n'
-       << "Memory lego bricks, double: " << sizeof(aDouble) << '\n';
+       << "Memory lego bricks, int:    " << sizeof(an_int) << '\n'
+       << "Memory lego bricks, float:  " << sizeof(a_float) << '\n'
+       << "Memory lego bricks, double: " << sizeof(a_double) << '\n';
 
   cout.setf(ios::hex);
   cout.unsetf(ios::dec);
 
-  aFloat = 3.3;
-  aDouble = 3.4;
+  a_float = 3.3;
+  a_double = 3.4;
 
   cout << '\n'
-       << "&anInt:   " << &anInt << '\n'
-       << "&aFloat:  " << &aFloat << '\n'
-       << "&aDouble: " << &aDouble << '\n'
-       << (reinterpret_cast<size_t>(&anInt) - reinterpret_cast<size_t>(&aFloat))
+       << "&an_int:   " << &an_int << '\n'
+       << "&a_float:  " << &a_float << '\n'
+       << "&a_double: " << &a_double << '\n'
+       << (reinterpret_cast<size_t>(&an_int) - reinterpret_cast<size_t>(&a_float))
        << '\n'
-       << (reinterpret_cast<size_t>(&aFloat) -
-           reinterpret_cast<size_t>(&aDouble))
+       << (reinterpret_cast<size_t>(&a_float) -
+           reinterpret_cast<size_t>(&a_double))
        << '\n'
        << '\n';
 

@@ -1,11 +1,13 @@
 // https://github.com/leafyoung/FN6805/tree/main/62-rand_dist
 
 #include <algorithm>
+#include <cmath>
 #include <functional>
 #include <iostream>
 #include <iterator>
 #include <random>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
@@ -88,18 +90,18 @@ void test_save_and_load(mt19937_64 &mtgen, seed_seq &seed) {
 }
 
 void test_more_distribution(mt19937_64 &mtgen) {
-  uniform_int_distribution<unsigned int> uniInt(0, 1000); // [a, b]
-  uniform_real_distribution<double> uniDist(0.0, 1.0);    // [a, b)
-  normal_distribution<> stdNorm(0.0, 1.0);                // Default is double
-  exponential_distribution<> expDist(1.0);
+  uniform_int_distribution<unsigned int> uni_int(0, 1000); // [a, b]
+  uniform_real_distribution<double> uni_dist(0.0, 1.0);    // [a, b)
+  normal_distribution<> std_norm(0.0, 1.0);                // Default is double
+  exponential_distribution<> exp_dist(1.0);
 
-  cout << uniInt.min() << ", " << uniInt.max() << "\n";
+  cout << uni_int.min() << ", " << uni_int.max() << "\n";
 
   cout << "Single Examples:\n\n";
-  cout << "From Uniform int Distribution:     " << uniInt(mtgen) << "\n";
-  cout << "From Uniform Distribution:     " << uniDist(mtgen) << "\n";
-  cout << "From Normal Distribution:      " << stdNorm(mtgen) << "\n";
-  cout << "From Exponential Distribution: " << expDist(mtgen) << "\n";
+  cout << "From Uniform int Distribution:     " << uni_int(mtgen) << "\n";
+  cout << "From Uniform Distribution:     " << uni_dist(mtgen) << "\n";
+  cout << "From Normal Distribution:      " << std_norm(mtgen) << "\n";
+  cout << "From Exponential Distribution: " << exp_dist(mtgen) << "\n";
 
   cout << "\n\n";
 
@@ -108,13 +110,13 @@ void test_more_distribution(mt19937_64 &mtgen) {
   vector<double> Uni(N, 0.0), Norm(N, 0.0), Expo(N, 0.0);
   double uni = 0, norm = 0, expo = 0;
   for (size_t i = 0; i < N; ++i) {
-    Uni[i] = uniDist(mtgen);
+    Uni[i] = uni_dist(mtgen);
     uni += Uni[i];
 
-    Norm[i] = stdNorm(mtgen);
+    Norm[i] = std_norm(mtgen);
     norm += Norm[i];
 
-    Expo[i] = expDist(mtgen);
+    Expo[i] = exp_dist(mtgen);
     expo += Expo[i];
   }
 
@@ -138,9 +140,9 @@ void test_more_distribution(mt19937_64 &mtgen) {
   Vn /= static_cast<double>(N);
   Ve /= static_cast<double>(N);
 
-  cout << "Sample Variance Uniform     : " << Vu << '\n';
-  cout << "Sample Variance Normal      : " << Vn << '\n';
-  cout << "Sample Variance Exponential : " << Ve << '\n';
+  cout << "Variance (/N) Uniform       : " << Vu << '\n';
+  cout << "Variance (/N) Normal        : " << Vn << '\n';
+  cout << "Variance (/N) Exponential   : " << Ve << '\n';
 }
 
 int main() {

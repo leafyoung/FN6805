@@ -4,7 +4,8 @@ using namespace std;
 
 enum class Colors { Red, Green, Blue, Colors_End };
 
-Colors &operator++(Colors &c, int) {
+// Prefix ++: advance c and return the new value
+Colors &operator++(Colors &c) {
   switch (c) {
   case Colors::Red:
     return c = Colors::Green;
@@ -18,7 +19,7 @@ Colors &operator++(Colors &c, int) {
 }
 
 int main() {
-  for (auto v = Colors::Red; v != Colors::Colors_End; v++) {
+  for (auto v = Colors::Red; v != Colors::Colors_End; ++v) {
     cout << static_cast<int>(v) << '\n';
   }
 }

@@ -13,8 +13,8 @@ void line_number_static(size_t /*current*/, vector<size_t> &line_numbers) {
   }
   return;
 
-  // Below code are currently not used, but I want to keep them here to ask why
-  // below could be wrong to use?
+  // The code below is not used; I keep it here to ask:
+  // why could it be wrong to use?
   {
     line_numbers[0] = 0;
     for (size_t i = 1, j = 0; i < line_numbers.size(); ++i, ++j) {
@@ -45,13 +45,13 @@ void line_number_dynamic_opt(size_t current, vector<size_t> &line_numbers) {
   //
   // Performance advantages over line_number_dynamic:
   //
-  // 1. NO BRANCH MISREDICTIONS:
+  // 1. NO BRANCH MISPREDICTIONS:
   //    - Each loop has no conditional branches inside
   //    - CPU can predict perfectly → no pipeline flushes
   //
   // 2. VECTORIZATION:
   //    - Compiler can SIMD-vectorize these simple loops
-  //    - Processes multiple elements per CPU cycle
+  //    - Processes multiple elements per instruction
   //
   // 3. CLEAR STRUCTURE:
   //    - Three regions are explicit: left of current, current, right of current

@@ -9,7 +9,7 @@ using namespace std::placeholders;
 void test_return() {
   cout << "\n\n====" << __FUNCTION__ << "====\n";
 
-  // get return = p / p_{prev}
+  // get return = p / p_{prev} - 1
   vector<double> v1{1.0978, 1.0959, 1.1003, 1.0952, 1.1008};
   vector<double> v2(v1.size() - 1);
   transform(next(v1.begin(), 1), v1.end(), v1.begin(), v2.begin(),

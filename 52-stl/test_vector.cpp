@@ -30,6 +30,8 @@ void copy_to_itself() {
     cout << '\n';
   }
   {
+    // DELIBERATE UB DEMO: back_inserter(v) may reallocate v while copy()
+    // is still reading from v's old storage. Output varies; ASan reports it.
     cout << "Wrong (copy while resizing) \n";
     vector<int> v{1, 2, 3, 4, 5};
     copy(v.begin(), next(v.begin(), 3), back_inserter(v));

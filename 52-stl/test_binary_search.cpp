@@ -12,7 +12,8 @@ void test_binary_search() {
 
   vector<int> v{1, 3, 2, 5, 4};
 
-  // Cannot find
+  // DELIBERATE UB DEMO: unsorted input breaks binary_search's precondition
+  // (undefined behaviour) - output is meaningless.
   cout << "unsorted\n";
   for (auto val : array<int, 5>{1, 2, 3, 4, 5}) {
     cout << val << ": " << binary_search(v.begin(), v.end(), val) << '\n';

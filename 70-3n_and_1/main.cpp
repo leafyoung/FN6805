@@ -4,8 +4,11 @@
 #include <vector>
 using std::vector;
 
-// Show me can
-int three_n_plus_1_problem(unsigned int n) {
+// Does n reach 1?
+bool three_n_plus_1_problem(unsigned int n) {
+  if (n == 0) { // 0 stays 0 forever: never reaches 1
+    return false;
+  }
   if (n == 1) {
     return true;
   }
@@ -19,6 +22,9 @@ int three_n_plus_1_problem(unsigned int n) {
 
 // Show me how many times
 int three_n_plus_1_problem(unsigned int n, unsigned int num) {
+  if (n == 0) { // 0 never reaches 1
+    return -1;
+  }
   if (n == 1) {
     return num + 1;
   }
@@ -31,8 +37,11 @@ int three_n_plus_1_problem(unsigned int n, unsigned int num) {
 }
 
 // Show me what's the sequence
-int three_n_plus_1_problem(unsigned int n, vector<int> &seq) {
+bool three_n_plus_1_problem(unsigned int n, vector<int> &seq) {
   seq.push_back(n);
+  if (n == 0) { // 0 never reaches 1
+    return false;
+  }
   if (n == 1) {
     return true;
   }

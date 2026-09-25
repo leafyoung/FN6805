@@ -7,11 +7,11 @@ using namespace std;
 
 struct StandardOption {
   double strike;
-  int daysToExpiration;
+  int days_to_expiration;
 };
 
 bool is_expiring(const StandardOption &opt) {
-  return opt.daysToExpiration < 10;
+  return opt.days_to_expiration < 10;
 }
 
 void test_copy_if() {
@@ -20,20 +20,21 @@ void test_copy_if() {
 
   vector<StandardOption> opts{{93.5, 20}, {94.5, 9}};
 
-  cout << opt.daysToExpiration << '\n';
+  cout << opt.days_to_expiration << '\n';
 
   for (const auto v : opts) {
-    cout << v.strike << "@" << v.daysToExpiration << '\n';
+    cout << v.strike << "@" << v.days_to_expiration << '\n';
   }
 
   vector<StandardOption> result;
   copy_if(opts.begin(), opts.end(), back_inserter(result), is_expiring);
 
+  result.clear(); // same filter again, written as a lambda
   copy_if(opts.begin(), opts.end(), back_inserter(result),
-          [](auto opt) { return opt.daysToExpiration < 10; });
+          [](auto opt) { return opt.days_to_expiration < 10; });
 
   cout << "Expiring:" << '\n';
   for (const auto v : result) {
-    cout << v.strike << "@" << v.daysToExpiration << '\n';
+    cout << v.strike << "@" << v.days_to_expiration << '\n';
   }
 }

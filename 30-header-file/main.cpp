@@ -1,7 +1,7 @@
 // https://github.com/leafyoung/FN6805/tree/main/30-header-file
 
-// This example is intentional to be un-compilable because we have included
-// function definitions in a_func.h and b_func.h. It causes compiler error of
+// This example is intentionally uncompilable because we have included
+// function definitions in a_func.h and b_func.h. It causes compiler errors of
 // re-definition.
 
 #include <iostream>
@@ -11,7 +11,7 @@ using namespace std;
 #include "a_func.h"
 #include "b_func.h"
 
-// Even we didn't include test_overload.h and c_func.h (if they exist), linker
+// Even if we didn't include test_overload.h and c_func.h (if they exist), linker
 // would find us the definition to build the program.
 
 // Because we include the declaration of the functions.

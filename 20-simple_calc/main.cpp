@@ -16,7 +16,7 @@ int main() {
   getline(cin, dummy);
   if (cin.fail()) {
     cout << "Unknown input for x\n";
-    return 0;
+    return 1; // non-zero: the program failed
   }
 
   cout << "value y> ";
@@ -24,7 +24,7 @@ int main() {
   getline(cin, dummy);
   if (cin.fail()) {
     cout << "Unknown input for y\n";
-    return 0;
+    return 1; // non-zero: the program failed
   }
 
   cout << "operator (+, -, *, /)> ";

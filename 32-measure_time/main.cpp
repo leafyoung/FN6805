@@ -14,7 +14,7 @@ int main() {
   cout << "start\n";
   vector<int> xx(1'000'000ull, 1);
   auto start = steady_clock::now();
-  for (int i = 0; i < 1'000ull; ++i) {
+  for (int i = 0; i < 1'000; ++i) {
     test_value_copy(xx);
   }
   auto end = steady_clock::now();

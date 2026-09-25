@@ -19,10 +19,10 @@ includes `add.h`.
 - `main.cpp` uses both add() function and add_n() function, so it includes both
 `add.h` and `use_add.h`.
 
-## Explaination
+## Explanation
 
 With the implementation of add() in add.h file, we have a linking error of
-multiple defintions (definition = implementation here) of add() function. That's
+multiple definitions (definition = implementation here) of add() function. That's
 because
 
 - during compilation of main.cpp, it includes `add.h` and the definition of

@@ -70,7 +70,7 @@ cout << '\n';
 
 auto bond_price_ytm_cf(FixedRateBond frb) {
   int payment_count = get_payment_count(frb.ps);
-  int n = frb.maturity * payment_count;
+  int n = static_cast<int>(lround(frb.maturity * payment_count));
   vector<double> cf(n, frb.coupon_rate / payment_count * frb.face_value);
   cf.back() += frb.face_value;
   return cashflow_duration(cf, frb.ytm, payment_count);
@@ -78,7 +78,7 @@ auto bond_price_ytm_cf(FixedRateBond frb) {
 
 auto bond_price_ytm_cf(FloatingRateBond frb) {
   int payment_count = get_payment_count(frb.ps);
-  int n = frb.maturity * payment_count;
+  int n = static_cast<int>(lround(frb.maturity * payment_count));
   vector<double> cf(n, 0.0);
   vector<int> serial(n);
   iota(serial.begin(), serial.end(), 1);
@@ -94,7 +94,7 @@ auto bond_price_ytm_cf(FloatingRateBond frb) {
 
 auto bond_price_ytm_cf(AmortizationBond ab) {
   int payment_count = get_payment_count(ab.ps);
-  int n = ab.maturity * payment_count;
+  int n = static_cast<int>(lround(ab.maturity * payment_count));
   auto installment = ab.principal * (ab.yield / payment_count /
                                      (1.0 - pow(1.0 + ab.yield / payment_count,
                                                 -payment_count * ab.maturity)));

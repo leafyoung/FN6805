@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -38,7 +39,7 @@ int main() {
 
   Household h{1234, "Jurong East"};
 
-  HouseholdVouchers hv{1234, {{3}, {4}}, 3};
+  HouseholdVouchers hv{1234, {{2}, {5}}, 7};
   std::cout << hv.vouchers.back().value << '\n';
 
   Voucher v3(v1);
@@ -47,9 +48,9 @@ int main() {
 
   vector<int> a{1, 2, 3}, b{4, 5, 6};
 
-  vector<vector<int>> aInt5 = {
+  vector<vector<int>> a_int5 = {
       {11, 12, 13, 14}, {21, 22, 23, 24}, {31, 32, 33, 34},
       {41, 42, 43, 44}, {51, 52, 53, 54},
   };
-  cout << aInt5[3][3] << '\n';
+  cout << a_int5[3][3] << '\n';
 }

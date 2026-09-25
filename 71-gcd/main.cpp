@@ -18,6 +18,10 @@ int gcd(int u, int v) {
 }
 
 int gcd2(int n1, int n2) {
+  if (n1 < 0) // subtraction never meets for negative inputs
+    n1 = -n1;
+  if (n2 < 0)
+    n2 = -n2;
   if (n1 == 0 || n2 == 0) // gcd(0,a) = a; subtraction would loop forever
     return n1 + n2;
   while (n1 != n2) {
@@ -42,4 +46,6 @@ int main() {
   cout << gcd2(10, 2) << '\n';
   cout << gcd2(9, 3) << '\n';
   cout << gcd2(10, 5) << '\n';
+  cout << gcd2(0, 5) << '\n';
+  cout << gcd2(-4, 6) << '\n';
 }

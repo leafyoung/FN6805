@@ -76,7 +76,7 @@ void test_for_each() {
   sort(v.begin(), v.end());
   for_each(v.begin(), v.end(), [](int x) { cout << x << " "; });
   std::cout << '\n';
-  // This results in infinite loop
+  // Invalid range: undefined behaviour (typically a crash)
   // for_each(v.end(), v.begin(), [](int x) { cout << x << " "; });
   // use rbegin()/rend()
   for_each(v.rbegin(), v.rend(), [](int x) { cout << x << " "; });

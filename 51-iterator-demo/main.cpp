@@ -21,7 +21,9 @@ int main() {
   advance(it2, 2); // equivalent to it2 + 2
   cout << (it2 == l.end()) << '\n';
 
-  cout << *it2 << '\n'; // invalid access the 4th element. we shall avoid
+  // DELIBERATE UB DEMO: it2 == l.end(); dereferencing end() is undefined
+  // behaviour (debug builds abort here). Never do this in real code.
+  cout << *it2 << '\n';
 
   // the 3rd element
   cout << *(prev(it2, 1)) << '\n';
@@ -30,18 +32,20 @@ int main() {
   // the 3rd element
   cout << *(next(prev(it2, 2), 1)) << '\n';
 
-  // the non-existed 5th element, invalid access.
+  // DELIBERATE UB DEMO: the non-existent 5th element, past end().
   cout << *(next(it2, 1)) << '\n';
 
   cout << "insertion" << '\n';
 
   {
     list<int> vec{1, 2, 3};
+    // insert from a copy: a source range from vec itself is UB
+    auto copy = vec;
     // only for vector/array
-    // vec.insert(vec.begin() + 2, vec.begin(), vec.end());
+    // vec.insert(vec.begin() + 2, copy.begin(), copy.end());
 
     // working for both list/vector/array
-    vec.insert(next(vec.begin(), 2), vec.begin(), prev(vec.end(), 1));
+    vec.insert(next(vec.begin(), 2), copy.begin(), prev(copy.end(), 1));
 
     for (auto v : vec) {
       cout << v << ", ";
@@ -93,8 +97,10 @@ int main() {
     // use of external tracking variable i is better
     int i = 0;
     auto const n_elem = static_cast<int>(ceil(lst.size() / 2.0));
-    for (auto it = lst.begin(); i < n_elem; advance(it, 2), ++i) {
+    for (auto it = lst.begin(); i < n_elem; ++i) {
       cout << *it << '\n';
+      if (i + 1 < n_elem)
+        advance(it, 2); // never step past end()
     }
   }
 }

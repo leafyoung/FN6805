@@ -83,7 +83,7 @@ void test_map() {
   {
     struct cmp {
       bool operator()(const Student &a, const Student &b) const {
-        return a.score > b.score; // Descending order }
+        return a.score > b.score; // Descending order
       }
     };
 
